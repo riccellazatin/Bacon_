@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function App() {
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isHovering, setIsHovering] = useState(false);
@@ -94,4 +94,4 @@ function App() {
   );
 }
 
-export default App;
+export default LoginPage;
