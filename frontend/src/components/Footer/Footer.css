@@ -1,0 +1,130 @@
+.footer {
+    background-color: #fcd87e;
+    border-top-left-radius: 5vh;
+    border-top-right-radius: 5vh;
+    padding: 5vh;
+    margin-top: 10vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-title {
+    font-family: Libre Baskerville, serif;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 10vh;
+    color: #ce4636;
+    margin: 0 5vh;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6vh;
+    margin: 6vh 1vh;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    line-height: 3vh;
+}
+
+/* Logo Section */
+
+.logo {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    color: #ce4636;
+    width: 30vh;
+    padding: 1vh;
+}
+
+.logo-content {
+    width: 80%;
+    height: auto;
+    margin-top: 2vh;
+}
+
+/* Join Us Section */
+.join {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    color: #ce4636;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vh;
+    height: 26vh;
+    padding: 2vh;
+}
+
+.join-title {
+    font-family: Lato, sans-serif;
+    font-size: 3vh;
+    font-weight: bold;
+    margin: 0;
+}
+
+.join-content {
+    font-family: Lato, sans-serif;
+    font-size: 2vh;
+    text-align: justify;
+    color: #ce4636;
+    max-width: 30vh;
+}
+
+.join-button {
+    padding: 1.5vh 4vh;
+    font-size: 2vh;
+    font-family: Libre Baskerville, serif;
+    font-weight: 300;
+    font-style: italic;
+    color: #ffffff;
+    background-color: #ce4636;
+    border: none;
+    border-radius: 8vh;
+    cursor: pointer;
+    margin: 2vh;
+    width: 30vh;
+}
+
+/* Contact Section */
+
+.contact {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    color: #ce4636;
+    padding: 2vh 0 2vh 10vh;
+    width: 50vh;
+    border-left-style: dashed;
+    border-left-color: #ce4636;
+}
+
+.contact-title {
+    font-family: Lato, sans-serif;
+    font-size: 3vh;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+}
+
+.contact-content {
+    font-family: Lato, sans-serif;
+    font-size: 2vh;
+    text-align: justify;
+    color: #ce4636;
+    max-width: 30vh;
+}
+
+.contact-content-var2 {
+    font-family: Lato, sans-serif;
+    font-size: 2vh;
+    text-align: left;
+    color: #ce4636;
+    max-width: 30vh;
+    line-height: 0.5vh;
+}

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+.header-section {
+    display: flex;
+    flex-direction: row;
+    gap: 2vh;
+    margin: 5vh;
+}
+
+.landing1 {
+  flex: 1;
+  padding: 2vh;
+  border-radius: 2vh;
+  background-color: #feb5c0;
+  height: 85vh;
+}
+
+.bacon-title {
+  padding: 8vh;
+}
+
+.head-title {
+  font-family: Libre Baskerville, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24vh;
+  margin: 0.5vh;
+  color: #ce4636;
+}
+
+.head-desc {
+  font-family: Lato, sans-serif;
+  font-weight: 500;
+  font-size: 3vh;
+  margin: 1vh;
+  color: #333333;
+}
+
+.head-button {
+  padding: 1.5vh 4vh;
+  font-size: 2vh;
+  font-family: Libre Baskerville, serif;
+  font-weight: 300;
+  font-style: italic;
+  color: #ffffff;
+  background-color: #ce4636;
+  border: none;
+  border-radius: 8vh;
+  cursor: pointer;
+  margin: 2vh;
+  width: 30vh;
+}
+
+.landing2 {
+  flex: 1;
+  padding: 2vh;
+  border-radius: 2vh;
+  background-color: #ce4634;
+  height: 85vh;
+}
+
+.desc-tag {
+  font-family: Libre Baskerville, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 4vh;
+  text-align: right;
+  margin: 1vh 2vh;
+  color: #f8f0dd;
+}
+
+.description-section {
+  margin: 2.5vh 1vh 1vh 1vh;
+  padding: 4vh;
+  border-radius: 2vh;
+  background-color: #f8f0dd;
+  height: 68vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desc-text {
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+  font-size: 4vh;
+  color: #333333;
+  text-align: justify;
+  margin: 1vh 0.5vh 1vh 0.5vh;
+}
