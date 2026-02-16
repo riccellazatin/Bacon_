@@ -1,6 +1,7 @@
 import React from 'react'
 import './Landing.css'
 import Header from '../../components/Header/Header'
+import About from '../About/About'
 
 function Landing() {
   return (
@@ -8,7 +9,7 @@ function Landing() {
       <div className="header-section">
         <div className="landing1">
           <Header />
-          <div className="bacon-title">
+          <div className="bacon-title" style={{textAlign: "center"}}>
             <h1 className="head-title">Bacon</h1>
             <p className="head-desc">A plate for your tasty tasks.</p>
 
@@ -26,6 +27,12 @@ function Landing() {
           </div>
         </div>
       </div>
+
+
+      <div id="about" className="about-body">
+        <About />
+      </div>
+
     </>
   )
 }

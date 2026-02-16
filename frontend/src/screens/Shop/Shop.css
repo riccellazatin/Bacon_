@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+.shop-background {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh;
+    background-color: #9b2a1e;
+}
+
+.header {
+    font-family: Libre Baskerville, serif;
+    font-size: 8vh;
+    font-weight: 1000;
+    font-style: italic;
+    text-align: center;
+    color: #f8f0dd;
+    margin: 2vh 0 2vh 0;
+}
+
+.shop-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vh;
+    background-color: #f8f0dd;
+    border-radius: 3vh;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+}
+
