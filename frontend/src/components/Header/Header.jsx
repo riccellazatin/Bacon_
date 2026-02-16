@@ -6,11 +6,15 @@ function Header() {
   return (
     <Navbar className="navbar">
       <Container>
+          {/* Logo stays on the left */}
           <Navbar.Brand href="/Landing" className="logo-nav">Bacon</Navbar.Brand>
 
-          <Nav.Link href="#about" className="nav-link">About</Nav.Link>
-          <Nav.Link href="#shop" className="nav-link">Shop</Nav.Link>
-          <Nav.Link href="#register" className="nav-link">Register</Nav.Link>
+          {/* This Nav wrapper bundles the links together */}
+          <Nav className="ms-auto nav-links-container">
+            <Nav.Link href="#about" className="nav-link">About</Nav.Link>
+            <Nav.Link href="#to-do" className="nav-link">To Do</Nav.Link>
+            <Nav.Link href="survey" className="nav-link">Survey</Nav.Link>
+          </Nav>
       </Container>
     </Navbar>
   )

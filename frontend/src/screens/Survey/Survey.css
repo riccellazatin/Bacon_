@@ -1,0 +1,86 @@
+.availability-container {
+    background-color: #FFB7C5; /* Your pink background */
+}
+
+.availability-card {
+    background-color: #f8f0dd !important; /* The cream color from your header */
+    border-radius: 40px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.availability-title {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-weight: 700;
+    color: #ce4636;
+    font-size: 2.5rem;
+}
+
+.availability-subtitle {
+    font-family: 'Lato', sans-serif;
+    color: #ce4636;
+    opacity: 0.8;
+}
+
+/* The Day Pills */
+.day-pill {
+    background-color: transparent !important;
+    border: 2px solid #ce4636 !important;
+    color: #ce4636 !important;
+    border-radius: 50px !important;
+    padding: 10px 25px !important;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease !important;
+}
+
+.day-pill.active {
+    background-color: #ce4636 !important;
+    color: #f8f0dd !important;
+    transform: scale(1.1);
+}
+
+.day-pill:hover {
+    background-color: rgba(206, 70, 54, 0.1) !important;
+}
+
+/* Submit Button */
+.save-btn {
+    background-color: #ce4636 !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 15px !important;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: opacity 0.2s;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+.back-link-btn {
+    background: none;
+    border: none;
+    color: #ce4636;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.back-link-btn:hover {
+    opacity: 0.7;
+    color: #a33327;
+}
+
+/* Ensure the grid doesn't squash on mobile */
+.days-grid {
+    padding: 10px 0;
+}

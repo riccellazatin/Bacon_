@@ -1,31 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
+/* Main Navbar Wrapper */
 .navbar {
-    display: flex;
-    flex-direction: row;
-    background-color: #f8f0dd;
-    border-radius: 5vh;
+    background-color: #f8f0dd !important; /* The off-white/cream pill color */
+    border-radius: 50px !important;
+    padding: 10px 30px !important; 
+    width: 95% !important;
+    max-width: 1200px;
+    margin: 20px auto !important; /* Centers the pill in your pink section */
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Optional: subtle shadow for depth */
 }
 
+/* Ensure the Bootstrap container doesn't force items to edges */
+.navbar .container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between; /* Pushes Logo left and Bundle right */
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+/* Logo / Brand */
 .logo-nav {
-    text-decoration: none;
-    font-family: Libre Baskerville, serif;
-    font-size: 4vh;
+    text-decoration: none !important;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.2rem !important; 
     font-weight: 700;
     font-style: italic;
-    color: #ce4636;
-    margin-right: 2vh;
-    margin-left: -10vh;
-    float: left;
+    color: #ce4636 !important; /* The Bacon red */
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
 }
 
+/* The bundle of links */
+.nav-links-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 15px !important; /* Controls the tight spacing between links */
+    align-items: center !important;
+}
+
+/* Individual Links */
 .nav-link {
-    text-decoration: none;
-    font-family: Lato, sans-serif;
-    font-size: 2.5vh;
-    font-weight: 500;
-    color: #ce4636;
+    text-decoration: none !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem !important;
+    font-weight: 600;
+    color: #ce4636 !important;
     font-style: italic;
-    margin: 1.3vh 1vh;
-    float: left;
+    
+    /* This makes the clickable area larger without moving the text */
+    padding: 8px 15px !important; 
+    border-radius: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Feedback when hovering or clicking */
+.nav-link:hover {
+    background-color: rgba(206, 70, 54, 0.1); /* Very light red tint on hover */
+    color: #a33327 !important;
+    transform: translateY(-1px);
+}
+
+.nav-link:active {
+    transform: translateY(0);
+    opacity: 0.8;
 }

@@ -31,3 +31,13 @@ code {
     padding: 20px;
   }
 }
+
+:root {
+  --bs-primary: #D14D39; /* That nice bacon red */
+  --bs-body-bg: #FFB7C5; /* The soft pink background */
+}
+
+.btn-primary {
+  border-radius: 50px; /* For those pill-shaped buttons in your screenshot */
+  background-color: var(--bs-primary);
+}
