@@ -5,7 +5,7 @@ import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
 import Items from '../../screens/Shop/Items'
 import ItemPopup from './ItemPopup'
-import './ShopComponents.css'
+import './Shop.css'
 
 function Shop() {
     const [selectedItem, setSelectedItem] = useState(null)

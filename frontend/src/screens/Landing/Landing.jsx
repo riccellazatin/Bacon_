@@ -13,7 +13,7 @@ function Landing() {
             <h1 className="head-title">Bacon</h1>
             <p className="head-desc">A plate for your tasty tasks.</p>
 
-            <a href="/login"><button href="/login" className="head-button">Log In</button></a>
+            <a href="/register"><button href="/register" className="head-button">Sign Up</button></a>
           </div>
         </div>
         

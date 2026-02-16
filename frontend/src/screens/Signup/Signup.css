@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+.header-container {
+    background-color: #ce4636;
+    padding: 2vh;
+    margin-bottom: 5vh;
+}
+
+.signup-body {
+    display: 'flex';
+    flex-direction: 'column';
+    height: '100vh';
+    background-color: '#f8f0dd';
+    margin: 0;
+    padding: 0;
+}
+
+.signup-main {
+    flex: 1;
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center';
+    padding: '2rem';
+}
+
+.form-main {
+    max-width: '550px';
+    width: '100%';
+    background-color: 'white';
+    border: '1px solid #e0e0e0';
+    border-radius: '8px';
+    box-shadow: '0 2px 4px rgba(0, 0, 0, 0.1)';
+    padding: '4rem';
+}
+
+.form-title {
+    text-align: 'center';
+    margin-bottom: '2rem';
+    color: '#1f2937';
+    font-size: '1.8rem';
+}
+
+.form-secondary {
+    display: 'flex';
+    flex-direction: 'column';
+    gap: '1.5rem';
+}
+
+.form-control {
+    padding: '0.75rem 1.5rem';
+    border: '2px solid #d1d5db';
+    border-radius: '50px';
+    box-shadow: '0 2px 4px rgba(0, 0, 0, 0.1)';
+    width: '100%';
+    box-sizing: 'border-box';
+}

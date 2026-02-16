@@ -10,7 +10,7 @@ function Header() {
 
           <Nav.Link href="/about" className="nav-link">About</Nav.Link>
           <Nav.Link href="/shop" className="nav-link">Shop</Nav.Link>
-          <Nav.Link href="#register" className="nav-link">Register</Nav.Link>
+          <Nav.Link href="/login" className="nav-link">Log In</Nav.Link>
       </Container>
     </Navbar>
   )
