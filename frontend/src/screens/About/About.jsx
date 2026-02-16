@@ -1,10 +1,14 @@
 import React from 'react'
 import './About.css'
 import Footer from '../../components/Footer/Footer'
+import Header from '../../components/Header/Header'
 
 function About() {
   return (
     <>
+    <div className="header-container">
+        <Header />
+    </div>
     <div className="about-section">
         <div className="about1">
             <img src="./images/study.jpg" alt="Guy Studying" />

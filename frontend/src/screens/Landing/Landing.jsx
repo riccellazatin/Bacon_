@@ -1,6 +1,7 @@
 import React from 'react'
 import './Landing.css'
 import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
 
 function Landing() {
   return (
@@ -12,10 +13,10 @@ function Landing() {
             <h1 className="head-title">Bacon</h1>
             <p className="head-desc">A plate for your tasty tasks.</p>
 
-            <button className="head-button">Log In</button>
+            <a href="/login"><button href="/login" className="head-button">Log In</button></a>
           </div>
         </div>
-
+        
         <div className="landing2">
           <h3 className="desc-tag">Let 'em cook</h3>
 
@@ -26,6 +27,8 @@ function Landing() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   )
 }

@@ -2,19 +2,23 @@ import logo from './logo.svg';
 import './App.css';
 import Landing from './screens/Landing/Landing';
 import About from './screens/About/About';
+import Shop from './screens/Shop/Shop';
+import Login from './screens/Login/Login';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <section className="App">
-      <div id="home" className="landing-body">
-        <Landing />
-      </div>
-
-      <div id="about" className="about-body">
-        <About />
-      </div>
-    </section>
+    <Router>
+      <main className="py-3">
+          <Routes>
+            <Route path='/' element={<Landing />} exact />
+            <Route path='/about' element={<About />} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+      </main>
+    </Router>
   );
 }
 

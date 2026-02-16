@@ -17,6 +17,10 @@
 
 .bacon-title {
   padding: 8vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .head-title {
@@ -34,6 +38,9 @@
   font-size: 3vh;
   margin: 1vh;
   color: #333333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .head-button {
@@ -47,7 +54,7 @@
   border: none;
   border-radius: 8vh;
   cursor: pointer;
-  margin: 2vh;
+  margin: 2vh 0 0 0;
   width: 30vh;
 }
 
