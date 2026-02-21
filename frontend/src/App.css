@@ -1,3 +1,8 @@
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed */
+
 .App {
   text-align: center;
   scroll-behavior: smooth;
@@ -36,19 +41,5 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.landing-body {
-  background-color: #f8f0dd;
-  height: auto;
-  margin-bottom: 40vh;
-}
-
-.about-body {
-  background-color: #f8f0dd;
-  height: auto;
-  margin-top: 10vh;
-  margin-bottom: 0;
-  padding-top: 0.5vh;
 }
 

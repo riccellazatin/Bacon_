@@ -1,31 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed */
 
 .navbar {
     display: flex;
-    flex-direction: row;
-    background-color: #f8f0dd;
-    border-radius: 5vh;
+    flex-flow: row wrap;
+    background-color: #e3d5c8;
+    border-bottom: 2px solid #0e0f0d;
+    justify-items: space-around;
 }
 
 .logo-nav {
-    text-decoration: none;
-    font-family: Libre Baskerville, serif;
+    font-family: Changa One, sans-serif;
     font-size: 4vh;
     font-weight: 700;
     font-style: italic;
-    color: #ce4636;
-    margin-right: 2vh;
-    margin-left: -10vh;
-    float: left;
+    color: #0e0f0d;
+    text-decoration: none;
+    margin: 0 2vh;
+    align-self: flex-start;
 }
 
 .nav-link {
-    text-decoration: none;
-    font-family: Lato, sans-serif;
-    font-size: 2.5vh;
+    font-family: Cormorant Garamond, serif;
     font-weight: 500;
-    color: #ce4636;
-    font-style: italic;
-    margin: 1.3vh 1vh;
-    float: left;
+    font-size: 2.5vh;
+    color: #0e0f0d;
+    text-decoration: none;
+    margin: 0 1vh 0 1vh;
 }

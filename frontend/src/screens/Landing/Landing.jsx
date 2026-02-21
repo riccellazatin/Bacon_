@@ -6,25 +6,20 @@ import Footer from '../../components/Footer/Footer'
 function Landing() {
   return (
     <>
+    <Header />
+
       <div className="header-section">
-        <div className="landing1">
-          <Header />
-          <div className="bacon-title">
-            <h1 className="head-title">Bacon</h1>
-            <p className="head-desc">A plate for your tasty tasks.</p>
+        <div className="slogan-container">
+          <h1 className="slogan">A PLATE FOR YOUR TASTY TASKS.</h1>
 
-            <a href="/register"><button href="/register" className="head-button">Sign Up</button></a>
-          </div>
+          <button className="register-button">Join Us</button>
         </div>
-        
-        <div className="landing2">
-          <h3 className="desc-tag">Let 'em cook</h3>
+      </div>
 
-          <div className="description-section">
-            <p className="desc-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+      <div className="item-section">
+        <div className="item-container">
+          <h1 className="featured">Our Featured Items</h1>
+          <p>Items go here</p>
         </div>
       </div>
 

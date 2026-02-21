@@ -1,97 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed */
+
+body {
+  background: #e3d5c8;
+}
+
 .header-section {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 2vh;
-    margin: 5vh;
+    margin: 10vh;
 }
 
-.landing1 {
+.slogan-container {
+  margin: 20px auto;
+  width: 100%;
+  text-align: center;
   flex: 1;
-  padding: 2vh;
-  border-radius: 2vh;
-  background-color: #feb5c0;
-  height: 85vh;
 }
 
-.bacon-title {
-  padding: 8vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.slogan {
+  font-family: Changa One, sans-serif;
+  color:#0e0f0d;
+  font-size: 120px;
+  margin: 0 auto;
+  max-width: 90%;
+  line-height: 0.95;
+  text-align: center;
 }
 
-.head-title {
-  font-family: Libre Baskerville, serif;
-  font-style: italic;
-  font-weight: 700;
-  font-size: 24vh;
-  margin: 0.5vh;
-  color: #ce4636;
-}
-
-.head-desc {
-  font-family: Lato, sans-serif;
-  font-weight: 500;
+.register-button {
+  background-color: #0e0f0d;
+  color: #f0f0ed;
+  font-family: Cormorant Garamond, serif;
   font-size: 3vh;
-  margin: 1vh;
-  color: #333333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.head-button {
-  padding: 1.5vh 4vh;
-  font-size: 2vh;
-  font-family: Libre Baskerville, serif;
-  font-weight: 300;
-  font-style: italic;
-  color: #ffffff;
-  background-color: #ce4636;
+  padding: 1vh 3vh;
   border: none;
-  border-radius: 8vh;
+  border-radius: 5vh;
   cursor: pointer;
-  margin: 2vh 0 0 0;
-  width: 30vh;
+  margin: 4vh;
 }
 
-.landing2 {
-  flex: 1;
-  padding: 2vh;
-  border-radius: 2vh;
-  background-color: #ce4634;
-  height: 85vh;
-}
-
-.desc-tag {
-  font-family: Libre Baskerville, serif;
-  font-style: italic;
-  font-weight: 700;
-  font-size: 4vh;
-  text-align: right;
-  margin: 1vh 2vh;
-  color: #f8f0dd;
-}
-
-.description-section {
-  margin: 2.5vh 1vh 1vh 1vh;
-  padding: 4vh;
-  border-radius: 2vh;
-  background-color: #f8f0dd;
-  height: 68vh;
+.item-section {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 10vh;
 }
 
-.desc-text {
-  font-family: Lato, sans-serif;
-  font-weight: 400;
-  font-size: 4vh;
-  color: #333333;
-  text-align: justify;
-  margin: 1vh 0.5vh 1vh 0.5vh;
+.item-container {
+  margin: 20px auto;
+  width: 100%;
+  flex: 1;
 }
