@@ -41,8 +41,14 @@ white: #f0f0ed */
     margin-top: -30px;
 }
 
+.footer-two {
+    width: 60%;
+    display: flex;
+}
+
 .footer-description {
     font-family: Cormorant Garamond, serif;
-    font-size: 2vh;
+    font-size: 1.4rem;
     color: #0e0f0d;
+    word-break: break-word;
 }

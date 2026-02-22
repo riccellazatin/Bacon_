@@ -5,9 +5,15 @@ import Footer from '../../components/Footer/Footer'
 import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
+import { useNavigate } from 'react-router-dom'
 
 function Landing() {
-  
+  const navigate = useNavigate();
+
+  const handleCardClick = (item) => {
+    navigate(`/shop`)
+  }
+
   return (
     <>
     <Header />
