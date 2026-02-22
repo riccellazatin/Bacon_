@@ -12,6 +12,9 @@ white: #f0f0ed */
     max-width: 300px;
     text-align: center;
     overflow: hidden;
+    justify-self: center;
+    font-family: Libre Baskerville, serif;
+    color: #e3d5c8;
 }
 
 .card-container:hover {
@@ -38,6 +41,11 @@ white: #f0f0ed */
 .header-container {
     background-color: none;
     margin: 5vh;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
 }
 
 .column1 {
@@ -87,6 +95,7 @@ white: #f0f0ed */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin-bottom: 10vh;
 }
 
 .recommendation-row {
@@ -96,9 +105,9 @@ white: #f0f0ed */
 
 @media screen and (max-width: 900px) {
     .column {
-        width: 100%;
+        width: 50%;
     }
-}
+
     .column1 {
         width: 100%;
     }
@@ -118,6 +127,7 @@ white: #f0f0ed */
     .popup-row .text-column {
         width: 100%;
     }
+}
 
 @media screen and (max-width: 600px) {
     .column {

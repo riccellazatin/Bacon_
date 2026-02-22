@@ -6,6 +6,7 @@ import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
 import { useNavigate } from 'react-router-dom'
+import About from '../About/About'
 
 function Landing() {
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ function Landing() {
           </div>
         </div>
       </div>
+
+      <About />
 
       <Footer />
     </>

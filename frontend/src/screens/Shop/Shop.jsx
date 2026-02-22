@@ -1,4 +1,4 @@
-import react, {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import {Row, Col} from 'react-bootstrap'
@@ -6,6 +6,7 @@ import ShopItems from '../../ShopItems'
 import Items from '../../screens/Shop/Items'
 import ItemPopup from './ItemPopup'
 import './Shop.css'
+import './ShopComponents.css'
 
 function Shop() {
     const [selectedItem, setSelectedItem] = useState(null)
@@ -27,10 +28,10 @@ function Shop() {
                 <Header />
             </div>
             <h1 className='header'>Available Deals</h1>
-            <div className="shop-body">
-                <Row className="g-1">
+            <div className='shop-container'>
+                <Row>
                     {ShopItems.map(item => (
-                        <Col key={item._id} className='column' md={4}>
+                        <Col key={item._id} className='column'>
                             <Items item={item} onClick={() => handleCardClick(item)} />
                         </Col>
                     ))}

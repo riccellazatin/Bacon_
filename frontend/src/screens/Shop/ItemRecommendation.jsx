@@ -13,7 +13,7 @@ function ItemRecommendation({excludeItemId, onRecommendationClick}) {
     return (
         <div>
             <Row>
-                {ShopItems ?.filter(item => item._id !== excludeItemId).slice(0, 4).map(item => (
+                {ShopItems?.filter(item => item._id !== excludeItemId).slice(0, 4).map(item => (
                     <Col key={item._id} className='column2'>
                         <Items item={item} onClick={() => handleCardClick(item)} />
                     </Col>

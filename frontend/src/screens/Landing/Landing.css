@@ -15,6 +15,8 @@ body {
     align-items: center;
     gap: 2vh;
     margin: 10rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .slogan-container {
@@ -22,6 +24,7 @@ body {
   width: 100%;
   text-align: center;
   flex: 1;
+  padding: 0 0 0 0;
 }
 
 .slogan {
@@ -53,6 +56,7 @@ body {
 .item-section {
   margin: 2rem 1rem;
   border-top: 2px dotted #0e0f0d;
+  border-bottom: 2px dotted #0e0f0d;
 }
 
 .item-container {
@@ -116,4 +120,10 @@ body {
   color:#0e0f0d;
   font-size: 25px;
   font-weight: 500;
+}
+
+@media screen and (max-width: 400px) {
+  .slogan {
+    font-size: 4rem;
+  }
 }

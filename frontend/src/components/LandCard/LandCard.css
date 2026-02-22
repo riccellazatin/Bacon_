@@ -18,6 +18,7 @@ white: #f0f0ed */
     font-size: 20px;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
+    background-color: #e3d5c8;
 }
 
 .land-card img {

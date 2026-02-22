@@ -52,3 +52,27 @@ white: #f0f0ed */
     color: #0e0f0d;
     word-break: break-word;
 }
+
+@media screen and (max-width: 450px) {
+    .footer-container {
+    margin: 5vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    }
+
+    .footer-email {
+        font-size: 2.5vh;
+    }
+
+    .footer-number {
+        font-size: 2.5vh;
+    }
+
+    .footer-sub {
+        font-size: 2.5vh;
+    }
+
+    .footer-description {
+        font-size: 1rem;
+    }
+}

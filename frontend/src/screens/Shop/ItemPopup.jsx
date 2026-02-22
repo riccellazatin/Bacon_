@@ -1,4 +1,3 @@
-import React from 'react'
 import './ShopComponents.css'
 import {Row, Col, Card, Container} from 'react-bootstrap'
 import ItemRecommendation from './ItemRecommendation'
@@ -28,7 +27,7 @@ function ItemPopup(props) {
 
                                 <div className='text-bottom'>
                                     <p>{props.item.points}</p>
-                                    <button className='shop-button'>Log In to Purchase</button>
+                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Log In to Purchase</a></button>
                                 </div>
                             </div>
                         </Col>
