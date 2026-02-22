@@ -27,8 +27,8 @@ body {
 .slogan {
   font-family: Changa One, sans-serif;
   color:#0e0f0d;
-  font-size: 120px;
-  margin: 0 auto;
+  font-size: 7rem;
+  margin: 1rem auto;
   max-width: 90%;
   line-height: 0.95;
   text-align: center;
@@ -37,12 +37,12 @@ body {
 .register-button {
   background-color: #0e0f0d;
   font-family: Cormorant Garamond, serif;
-  font-size: 3vh;
-  padding: 1vh 3vh;
+  font-size: 1.5rem;
+  padding: 10px 30px;
   border: none;
-  border-radius: 5vh;
+  border-radius: 2rem;
   cursor: pointer;
-  margin: 4vh;
+  margin: 1rem auto;
 }
 
 .register-button a{
@@ -86,4 +86,34 @@ body {
 .shop a{
   text-decoration: none;
   color: #0e0f0d;
+}
+
+.item-description {
+  font-family: Cormorant Garamond, serif;
+  color:#0e0f0d;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 1rem auto;
+  max-width: 90%;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.feature-preview {
+  display: inline-block;
+  margin: 3rem 3rem 0.5rem 3rem;
+}
+
+.row-desc-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-description {
+  font-family: Cormorant Garamond, serif;
+  color:#0e0f0d;
+  font-size: 25px;
+  font-weight: 500;
 }

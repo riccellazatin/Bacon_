@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed */
+
+.land-card {
+    border: 2px solid #0e0f0d;
+    padding: 10px;
+    margin: 15px;
+    max-width: 300px;
+    text-align: center;
+    overflow: hidden;
+    gap: 10px;
+    font-family: Cormorant Garamond, serif;
+    font-weight: 700;
+    font-size: 20px;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+}
+
+.land-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.land-card:hover {
+    transform: scale(1.05);
+}
