@@ -3,7 +3,8 @@
 /* Colors
 beige: #e3d5c8
 black: #0e0f0d 
-white: #f0f0ed */
+white: #f0f0ed 
+red: #cf403f */
 
 body {
   background-color: #e3d5c8;
@@ -26,7 +27,7 @@ body {
 
 .slogan {
   font-family: Changa One, sans-serif;
-  color:#0e0f0d;
+  color:#cf403f;
   font-size: 7rem;
   margin: 1rem auto;
   max-width: 90%;
