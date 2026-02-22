@@ -1,20 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed */
+
 .card-container {
     display: flex;
-    flex-direction: column;
-    border-radius: 2vh;
-    padding: 25px;
+    flex-flow: column wrap;
+    margin: 2rem;
+    min-height: 320px;
     cursor: pointer;
+    background-color: #e3d5c8;
+    text-align: center;
+    font-style: italic;
+    font-family: Cormorant Garamond, serif;
+    font-weight: 500;
+    font-size: 3vh;
+    color: #0e0f0d;
+    border: 2px solid #0e0f0d;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
-    margin: 2vh;
-    background-color: #f8f0dd;
-    font-family: Libre Baskerville, serif;
-    font-size: 3vh;
-    color: #ce4636;
-    font-style: italic;
-    text-align: center;
 }
 
 .card-container:hover {

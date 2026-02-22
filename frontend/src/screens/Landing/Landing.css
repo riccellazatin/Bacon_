@@ -36,7 +36,6 @@ body {
 
 .register-button {
   background-color: #0e0f0d;
-  color: #f0f0ed;
   font-family: Cormorant Garamond, serif;
   font-size: 3vh;
   padding: 1vh 3vh;
@@ -46,13 +45,50 @@ body {
   margin: 4vh;
 }
 
+.register-button a{
+  text-decoration: none;
+  color: #f0f0ed;
+}
+
 .item-section {
-  display: flex;
-  margin: 10vh;
+  margin: 2rem 1rem;
 }
 
 .item-container {
   margin: 20px auto;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featured {
+  font-family: Changa One, sans-serif;
+  color:#0e0f0d;
+  font-size: 60px;
+  margin: 0 auto;
+  max-width: 90%;
+  line-height: 0.95;
   flex: 1;
+}
+
+.shop {
+  background-color: transparent;
+  border: 2px solid #0e0f0d;
+  font-family: Cormorant Garamond, serif;
+  font-size: 2vh;
+  padding: 1vh 3vh;
+  border-radius: 5vh;
+  cursor: pointer;
+  align-self: flex-end;
+  height: 6vh;
+}
+
+.shop a{
+  text-decoration: none;
+  color: #0e0f0d;
+}
+
+.shop-preview {
+  margin-top: 1rem;
 }

@@ -1,4 +1,4 @@
-const items = [
+const item = [
     {
         '_id': '1',
         'name': 'Item 1',
@@ -48,4 +48,4 @@ const items = [
     },
 ]
 
-export default items
+export default item
