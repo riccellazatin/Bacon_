@@ -2,7 +2,7 @@ const item = [
     {
         '_id': '1',
         'name': 'Item 1',
-        'image': './images/logo512.png',
+        'image': './images/1.png',
         'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         'points': '--- points',
     },
@@ -10,7 +10,7 @@ const item = [
     {
         '_id': '2',
         'name': 'Item 2',
-        'image': './images/logo512.png',
+        'image': './images/2.png',
         'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         'points': '--- points',
     },
@@ -18,7 +18,7 @@ const item = [
     {
         '_id': '3',
         'name': 'Item 3',
-        'image': './images/logo512.png',
+        'image': './images/3.png',
         'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         'points': '--- points',
     },

@@ -2,17 +2,8 @@ import React from 'react'
 import './Landing.css'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-import {Row, Col} from 'react-bootstrap'
-import ShopItems from '../../ShopItems'
-import Items from '../../screens/Shop/Items'
 
 function Landing({onClick, item, excludeItemId, onRecommendationClick}) {
-    const handleCardClick = (item) => {
-        if (onRecommendationClick) {
-            onRecommendationClick(item)
-        }
-    }
-
   return (
     <>
     <Header />
@@ -27,21 +18,8 @@ function Landing({onClick, item, excludeItemId, onRecommendationClick}) {
 
       <div className="item-section">
         <div className="item-container">
-          <h1 className="featured">Our Featured Items</h1>
-          <button className="shop"><a href="/shop">View All Items</a></button>
+          <h1 className="featured">You make the task. We'll make sure it gets done.</h1>
         </div>
-      </div>
-
-      <div className="shop-preview">
-        <Row>
-          {ShopItems
-          .slice(0, 3)
-          .map(item => (
-            <Col key={item._id} className='column'>
-              <Items item={item} onClick={() => handleCardClick(item)} />
-            </Col>
-          ))}
-        </Row>
       </div>
 
       <Footer />

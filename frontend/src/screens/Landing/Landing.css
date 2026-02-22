@@ -6,7 +6,7 @@ black: #0e0f0d
 white: #f0f0ed */
 
 body {
-  background: #e3d5c8;
+  background-color: #e3d5c8;
 }
 
 .header-section {
@@ -14,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 2vh;
-    margin: 10vh;
+    margin: 10rem;
 }
 
 .slogan-container {
@@ -52,14 +52,13 @@ body {
 
 .item-section {
   margin: 2rem 1rem;
+  border-top: 2px dotted #0e0f0d;
 }
 
 .item-container {
-  margin: 20px auto;
+  margin: 10rem auto;
   width: 100%;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .featured {
@@ -69,7 +68,7 @@ body {
   margin: 0 auto;
   max-width: 90%;
   line-height: 0.95;
-  flex: 1;
+  text-align: center;
 }
 
 .shop {
@@ -87,8 +86,4 @@ body {
 .shop a{
   text-decoration: none;
   color: #0e0f0d;
-}
-
-.shop-preview {
-  margin-top: 1rem;
 }

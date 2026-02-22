@@ -12,6 +12,13 @@ white: #f0f0ed */
     flex-flow: row wrap;
 }
 
+/* Ensure footer spans full width and can be pushed to the bottom in a column layout */
+.footer {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: auto;
+}
+
 .footer-container {
     margin: 5vh;
 }

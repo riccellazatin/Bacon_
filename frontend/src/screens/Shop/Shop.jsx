@@ -28,9 +28,9 @@ function Shop() {
             </div>
             <h1 className='header'>Available Deals</h1>
             <div className="shop-body">
-                <Row>
+                <Row className="g-1">
                     {ShopItems.map(item => (
-                        <Col key={item._id} className='column'>
+                        <Col key={item._id} className='column' md={4}>
                             <Items item={item} onClick={() => handleCardClick(item)} />
                         </Col>
                     ))}
