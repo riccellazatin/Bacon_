@@ -1,76 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
-.header-container {
-    background-color: #ce4636;
-    padding: 2vh;
-    margin-bottom: 5vh;
-}
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed 
+red: #cf403f
+blue: #375bc6
+orange: #eb9656 */
 
-.about-section {
-    display: flex;
-    flex-direction: row;
-    gap: 2vh;
-    align-items: center;
-    justify-content: center;
-    margin: 5vh;
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-around;
+    margin: 1rem;
 }
 
 .about1 {
-    flex: 1;
-    padding: 0;
-    border-radius: 2vh;
-    height: 85vh;
-}
-
-.about1 img {
-    width: 100%;
-    height: 100%;
-    border-radius: 2vh;
+    background-color: #0e0f0d;
 }
 
 .about2 {
-    flex: 1;
-    padding: 2vh;
-    border-radius: 2vh;
-    height: 85vh;  
+    border: 2px solid #0e0f0d;
 }
 
-.clutter-title {
-    font-family: Libre Baskerville, serif;
-    font-size: 8vh;
-    font-weight: 1000;
-    font-style: italic;
-    text-align: left;
-    color: #ce4636;
-    margin: 0 0 1vh;
-}
-
-.clutter-text {
-    font-family: Lato, sans-serif;
-    font-size: 2.5vh;
-    font-weight: 400;
-    line-height: 4vh;
-    word-spacing: -0.2vh;
-    text-align: justify;
-    color: #ce4636;
-    margin: 2vh 0 2vh 0;
-}
-
-.clutter-box {
-    background-color: #abcbd6;
-    border-radius: 2vh;
-    padding: 2vh;
-    height: 41.5vh;
-    align-items: center;
-    margin: 4vh 0 0 0;
-}
-
-.clutter-slogan {
-    font-family: Libre Baskerville, serif;
-    font-size: 15vh;
-    font-weight: 800;
-    font-style: italic;
-    color: #f8f0dd;
-    margin-top: 2vh;
+.about-title {
+    color: #e3d5c8;
     text-align: center;
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+.about-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
