@@ -1,23 +1,46 @@
 import './App.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCurrentUser } from './redux/actions/authActions';
 import Landing from './screens/Landing/Landing';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import About from './screens/About/About';
 import Shop from './screens/Shop/Shop';
 import Login from './screens/Login/Login';
 import Signup from './screens/Signup/Signup';
+import Preferences from './screens/Preferences/Preferences';
+import Dashboard from './screens/Dashboard/Dashboard';
+import AddTask from './screens/AddTask/AddTask';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (auth.token && !auth.userInfo && !auth.loading) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [auth.token, auth.userInfo, auth.loading, dispatch]);
+
   return (
     <Router>
-      <main className="py-3">
+      <Header />
+      <main className="py-3" style={{ minHeight: '70vh' }}>
           <Routes>
             <Route path='/' element={<Landing />} exact />
             <Route path='/about' element={<About />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Signup />} />
+            <Route path='/preferences' element={<PrivateRoute><Preferences /></PrivateRoute>} />
+            <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
           </Routes>
       </main>
+      <Footer />
     </Router>
   );
 }

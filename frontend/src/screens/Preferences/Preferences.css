@@ -1,0 +1,11 @@
+/* Basic styling to match the supplied Survey component */
+.availability-container{ background-color: transparent; }
+.availability-card{ background: #fff3d6; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+.availability-title{ color: #ce4636; font-weight: 700; }
+.days-grid{ margin-top: 1rem; }
+.day-pill{ border: 1px solid #e6a96f; background: #fff0d9; padding: 0.5rem 0.8rem; border-radius: 999px; cursor: pointer; }
+.day-pill.active{ background: #ce4636; color: white; border-color: #b64433; }
+.time-row .time-label{ display:block; font-size:0.9rem; margin-bottom:0.25rem; }
+.time-input{ border:1px solid #e6a96f; padding:0.4rem; border-radius:6px; }
+.save-btn{ background:#ce4636; border:none; }
+.back-link-btn{ background: none; border: none; color: #ce4636; text-decoration: underline; cursor: pointer; }

@@ -1,6 +1,4 @@
 import './Landing.css'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
 import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
@@ -15,7 +13,6 @@ function Landing() {
 
   return (
     <>
-    <Header />
 
       <div className="header-section">
         <div className="slogan-container">
@@ -49,8 +46,6 @@ function Landing() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   )
 }
