@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ export default function Dashboard() {
       <div style={{ marginBottom: '1rem' }}>
         <Button onClick={() => navigate('/tasks/new')}>Add Task</Button>
       </div>
+
+      <MiniCalendar />
 
       {Object.keys(grouped).length === 0 && <p>No tasks yet.</p>}
       {Object.entries(grouped).map(([date, items]) => (

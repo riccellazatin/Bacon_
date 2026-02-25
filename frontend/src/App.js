@@ -12,6 +12,7 @@ import Signup from './screens/Signup/Signup';
 import Preferences from './screens/Preferences/Preferences';
 import Dashboard from './screens/Dashboard/Dashboard';
 import AddTask from './screens/AddTask/AddTask';
+import SubmissionCalendar from './calendar/calendar';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ function App() {
             <Route path='/preferences' element={<PrivateRoute><Preferences /></PrivateRoute>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
+            <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
           </Routes>
       </main>
       <Footer />

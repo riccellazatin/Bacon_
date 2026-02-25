@@ -24,6 +24,7 @@ function Header() {
           <Nav.Link as={Link} to="/about" className="nav-link">About</Nav.Link>
           <Nav.Link as={Link} to="/shop" className="nav-link">Shop</Nav.Link>
           <Nav.Link as={Link} to="/dashboard" className="nav-link">To-Do</Nav.Link>
+          <Nav.Link as={Link} to="/calendar" className="nav-link">Calendar</Nav.Link>
         </Nav>
 
         <Nav>

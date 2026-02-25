@@ -19,7 +19,7 @@ export default function AddTask() {
     e.preventDefault();
     const payload = {
       title,
-      deadline: deadline ? new Date(deadline).toISOString() : null,
+      deadline: deadline || null,
       scheduled_date: scheduledDate || null,
       duration_minutes: Number(duration) || 0,
     };
