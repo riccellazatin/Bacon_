@@ -16,7 +16,7 @@ function LoginPage() {
 
     return (
         <>
-        <div style={{display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f8f0dd', margin: 0, padding: 0}}>
+        <div style={{display: 'flex', flexDirection: 'column', height: '100vh', margin: 0, padding: 0}}>
                 <Header />
 
             <main style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem'}}>
