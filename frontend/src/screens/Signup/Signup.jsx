@@ -23,9 +23,7 @@ function SignupPage({ onBack }) {
     return (
         <>
         <div className='signup-body'>
-            <div className='header-container'>
                 <Header />
-            </div>
 
             <main style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem'}}>
                 <div style={{maxWidth: '550px', width: '100%', backgroundColor: '#fcd87e', border: '1px solid #e0e0e0', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '4rem'}}>
