@@ -17,9 +17,7 @@ function LoginPage() {
     return (
         <>
         <div style={{display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#f8f0dd', margin: 0, padding: 0}}>
-            <div className='header-container'>
                 <Header />
-            </div>
 
             <main style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem'}}>
                 <div style={{maxWidth: '550px', width: '100%', backgroundColor: '#fcd87e', border: '1px solid #e0e0e0', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', padding: '4rem'}}>
@@ -40,7 +38,7 @@ function LoginPage() {
                                 className="form-control"
                                 placeholder="Enter Password"
                                 value={password}
-                                onchange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                                 style={{padding: '0.75rem 1.5rem', border: '2px solid #d1d5db', borderRadius: '50px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', paddingRight: '3rem', width: '100%', boxSizing: 'border-box', fontFamily: 'Libre Baskerville, serif', fontStyle: 'italic'}} />
                             
