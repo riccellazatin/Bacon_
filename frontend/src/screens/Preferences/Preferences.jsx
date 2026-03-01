@@ -40,6 +40,7 @@ const Preferences = () => {
   };
 
   return (
+    <div className="body">
     <Container fluid className="availability-container d-flex justify-content-center align-items-center vh-100">
       <Row className="w-100 justify-content-center">
         <Col md={8} lg={6}>
@@ -81,6 +82,7 @@ const Preferences = () => {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 };
 

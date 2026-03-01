@@ -8,6 +8,11 @@ white: #f0f0ed */
   scroll-behavior: smooth;
 }
 
+.main-content {
+  margin-left: 20vw;
+  min-height: 100vh;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

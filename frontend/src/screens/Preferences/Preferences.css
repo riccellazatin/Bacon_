@@ -9,3 +9,7 @@
 .time-input{ border:1px solid #e6a96f; padding:0.4rem; border-radius:6px; }
 .save-btn{ background:#ce4636; border:none; }
 .back-link-btn{ background: none; border: none; color: #ce4636; text-decoration: underline; cursor: pointer; }
+.body
+{
+    display: flex;
+}

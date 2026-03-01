@@ -15,8 +15,9 @@ import AddTask from './screens/AddTask/AddTask';
 import SubmissionCalendar from './calendar/calendar';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Sidebar from './components/Sidebar/Sidebar';
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
@@ -26,25 +27,42 @@ function App() {
     }
   }, [auth.token, auth.userInfo, auth.loading, dispatch]);
 
-  return (
-    <Router>
-      <Header />
-      <main className="py-3" style={{ minHeight: '70vh' }}>
+  const isLoggedIn = !!auth.token;
+
+  if (isLoggedIn) {
+    return (
+      <Router>
+        <Sidebar />
+        <div className='main-content'>
+          <Routes>
+            <Route path='/preferences' element={<PrivateRoute><Preferences /></PrivateRoute>} />
+            <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
+            <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Signup />} />
+          </Routes>
+        </div>
+      </Router>
+    );
+  } else {
+    return (
+      <Router>
+        <Header />
+        <main className="py-3" style={{ minHeight: '70vh' }}>
           <Routes>
             <Route path='/' element={<Landing />} exact />
             <Route path='/about' element={<About />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Signup />} />
-            <Route path='/preferences' element={<PrivateRoute><Preferences /></PrivateRoute>} />
-            <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
+            <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           </Routes>
-      </main>
-      <Footer />
-    </Router>
-  );
+        </main>
+        <Footer />
+      </Router>
+    );
+  }
 }
-
-export default App;

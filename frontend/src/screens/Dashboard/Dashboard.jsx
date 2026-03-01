@@ -4,6 +4,7 @@ import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
+import './Dashboard.css';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
