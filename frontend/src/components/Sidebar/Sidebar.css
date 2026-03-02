@@ -2,12 +2,11 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 20vw;
+    width: 15vw;
     height: 100vh;
-    background-color: #e3d5c8;
+    background-color: #47443f;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding-top: 2vh;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     border-right: #0e0f0d solid 2px;
@@ -15,11 +14,44 @@
 
 .logo {
     font-family: Changa One, sans-serif;
-    font-size: 8vh;
+    font-size: 4vw;
     font-weight: 700;
     font-style: italic;
-    color: #0e0f0d;
+    color: #ce4636;
     text-decoration: none;
-    margin: 0 2vh;
+    margin: 10%;
     align-self: center;
+    padding-bottom: 10px;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    font-family: Changa One, sans-serif;
+    font-size: 2.5vw;
+    background-color: #0e0f0d2d;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar-links a {
+    color: #e3d5c8;
+    text-decoration: none;
+}
+
+.sidebar-links a:hover {
+    color: #ce4636;
+    background-color: #0e0f0d2d;
+}
+
+.logout-button {
+    margin-top: auto;
+    margin-bottom: 2vh;
+    padding: 10px;
+    background-color: #0e0f0dbb;
+    color: #e3d5c8;
+    border: none;
+    cursor: pointer;
+    font-family: Changa One, sans-serif;
+    font-size: 3vw;
 }
