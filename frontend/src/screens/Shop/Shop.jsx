@@ -1,6 +1,5 @@
 import {useState} from 'react'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
+
 import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
 import Items from '../../screens/Shop/Items'
@@ -24,10 +23,7 @@ function Shop() {
 
     return (
         <div className="shop-background">
-            <div className='header-container'>
-                <Header />
-            </div>
-            <h1 className='header'>Available Deals</h1>
+                <h1 className='header'>Available Deals</h1>
             <div className='shop-container'>
                 <Row>
                     {ShopItems.map(item => (
@@ -38,7 +34,6 @@ function Shop() {
                 </Row>
             </div>
             <ItemPopup trigger={showPopup} item={selectedItem} onClose={closePopup} onRecommendationClick={handleCardClick} />
-            <Footer />
         </div>
     )
 }

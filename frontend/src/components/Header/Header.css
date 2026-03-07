@@ -7,10 +7,16 @@ white: #f0f0ed */
 
 .navbar {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    align-items: center;
     background-color: #e3d5c8;
     border-bottom: 2px solid #0e0f0d;
-    justify-items: space-around;
+}
+.navbar .container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-nav {
@@ -21,7 +27,7 @@ white: #f0f0ed */
     color: #0e0f0d;
     text-decoration: none;
     margin: 0 2vh;
-    align-self: flex-start;
+    align-self: center;
 }
 
 .nav-link {
@@ -31,4 +37,21 @@ white: #f0f0ed */
     color: #0e0f0d;
     text-decoration: none;
     margin: 0 1vh 0 1vh;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav {
+    align-items: center;
+}
+.navbar .me-auto {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.navbar > .container > .nav:last-child {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }

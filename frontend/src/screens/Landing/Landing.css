@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed 
-red: #cf403f */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 body {
-  background-color: #e3d5c8;
+  background-color: #faf4e4;
 }
 
 .header-section {

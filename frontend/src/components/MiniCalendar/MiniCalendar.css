@@ -1,0 +1,56 @@
+.mini-calendar-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.mini-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.mini-calendar-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.view-full-btn {
+  background: #3788d8;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.view-full-btn:hover {
+  background: #2a6cb8;
+}
+
+.mini-calendar-container .fc {
+  font-size: 0.75rem;
+}
+
+.mini-calendar-container .fc-toolbar-title {
+  font-size: 1rem !important;
+}
+
+.mini-calendar-container .fc-button {
+  padding: 0.2rem 0.4rem !important;
+  font-size: 0.75rem !important;
+}
+
+.mini-calendar-container .fc-daygrid-day-number {
+  font-size: 0.75rem;
+}
+
+.mini-calendar-container .fc-event {
+  font-size: 0.65rem;
+  padding: 1px 3px;
+}

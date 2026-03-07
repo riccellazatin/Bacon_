@@ -11,6 +11,18 @@ red: #cf403f */
   scroll-behavior: smooth;
 }
 
+.main-content {
+  margin-left: 15vw;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

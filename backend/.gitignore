@@ -1,0 +1,34 @@
+# Python
+*.pyc
+__pycache__/
+*~$
+*.log
+*.pot
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+bin/
+lib/
+lib64/
+include/
+
+# IDE files
+.vscode/
+.idea/
+
+# Local Database
+db.sqlite3
+
+# Media and Static files (adjust as needed for deployment strategy)
+media/
+static_collected/
+
+# Secrets (use environment variables instead)
+local_settings.py
+
+# OS-specific files
+.DS_Store

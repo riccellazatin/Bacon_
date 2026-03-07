@@ -1,30 +1,44 @@
-import {useState} from 'react';
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../redux/actions/authActions';
+import { useNavigate } from 'react-router-dom';
 
-function SignupPage({ onBack }) {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [isHovering, setIsHovering] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
-        console.log('Signup attempt:', {username, email, password});
-    };
+function SignupPage() {
+        const [username, setUsername] = useState('');
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [confirmPassword, setConfirmPassword] = useState('');
+        const [isHovering, setIsHovering] = useState(false);
+        const [showPassword, setShowPassword] = useState(false);
+        const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+        const dispatch = useDispatch();
+        const navigate = useNavigate();
+        const auth = useSelector((state) => state.auth);
+
+        useEffect(() => {
+            if (auth.token && auth.userInfo) {
+                if (!auth.isOnboarded) {
+                    navigate('/preferences');
+                } else {
+                    navigate('/dashboard');
+                }
+            }
+        }, [auth.token, auth.userInfo, auth.isOnboarded, navigate]);
+
+        const handleSignup = (e) => {
+                e.preventDefault();
+                if (password !== confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                }
+                dispatch(register(username, email, password));
+        };
 
     return (
         <>
         <div className='signup-body'>
-                <Header />
-
             <main style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem'}}>
                 <div style={{maxWidth: '550px', width: '100%', backgroundColor: '#fcd87e', border: '1px solid #e0e0e0', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '4rem'}}>
                     <h2 style={{textAlign: 'center', marginBottom: '2rem', color: '#ce4636', fontSize: '1.8rem', fontFamily: 'Libre Baskerville, serif', fontStyle: 'italic'}}>Create Account</h2>
@@ -151,7 +165,6 @@ function SignupPage({ onBack }) {
                 </div>
             </main>
         </div>
-        <Footer />
         </>
     );
 }
