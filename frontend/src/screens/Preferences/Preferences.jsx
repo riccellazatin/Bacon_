@@ -41,13 +41,13 @@ const Preferences = () => {
 
   return (
     <div className="body">
-    <Container fluid className="availability-container d-flex justify-content-center align-items-center vh-100">
-      <Row className="w-100 justify-content-center">
+    <Container fluid className="availability-container">
+      <Row>
         <Col md={8} lg={6}>
-          <Card className="availability-card p-5 border-0">
-            <h2 className="availability-title text-center mb-4">When are you cooking?</h2>
-
-            <div className="days-grid d-flex flex-wrap justify-content-center gap-3">
+          <Card className="availability-card">
+            <h2 className="availability-title">When are you cooking?</h2>
+            
+            <div className="days-grid">
               {daysOfWeek.map((day) => (
                 <button
                   key={day}
@@ -61,7 +61,8 @@ const Preferences = () => {
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className="time-row d-flex gap-3 justify-content-center mt-4">
+              <Col>
+              <div className="time-row">
                 <div>
                   <label className="time-label">Start</label>
                   <input className="time-input" type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
@@ -71,13 +72,15 @@ const Preferences = () => {
                   <input className="time-input" type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                 </div>
               </div>
-
-              <div className="d-grid mt-5">
-                <Button className="save-btn mb-3" type="submit">Save My Schedule</Button>
+              </Col>
+              
+              <div className="d-grid">
+                <Button className="save-btn" type="submit">Save My Schedule</Button>
 
                 <button type="button" className="back-link-btn" onClick={() => navigate('/')}>Go Back to Home</button>
               </div>
             </form>
+
           </Card>
         </Col>
       </Row>

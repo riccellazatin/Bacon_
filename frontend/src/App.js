@@ -35,8 +35,8 @@ export default function App() {
         <Sidebar />
         <div className='main-content'>
           <Routes>
-            <Route path='/preferences' element={<PrivateRoute><Preferences /></PrivateRoute>} />
-            <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='/preferences' element={<Preferences />} />
+            <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
             <Route path='/shop' element={<Shop />} />
