@@ -61,7 +61,6 @@ export default function App() {
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           </Routes>
         </main>
-        <Footer />
       </Router>
     );
   }

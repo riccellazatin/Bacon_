@@ -109,9 +109,9 @@ body {
 }
 
 .item-description {
-  font-family: Cormorant Garamond, serif;
+  font-family: Quicksand, sans-serif;
   color:#0e0f0d;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
   margin: 1rem auto;
   max-width: 90%;
@@ -132,9 +132,9 @@ body {
 }
 
 .row-description {
-  font-family: Cormorant Garamond, serif;
+  font-family: Quicksand, sans-serif;
   color:#0e0f0d;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
 }
 

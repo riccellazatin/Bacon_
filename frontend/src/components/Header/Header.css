@@ -65,4 +65,15 @@ Orange: #fd5732
     border: 2px solid #121212;
     padding: 8px 20px;
     border-radius: 80px;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.log-link:hover {
+    font-family: Quicksand, sans-serif;
+    background-color: #fd5732;
+    color: #121212;
+    border: 2px solid #fd5732;
+    padding: 8px 20px;
+    border-radius: 80px;
+    transition: background-color 0.5s ease, transform 0.5s ease;   
 }
