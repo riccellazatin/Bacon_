@@ -30,11 +30,10 @@ function Header() {
         <Nav>
           {!auth.token ? (
             <>
-              <Nav.Link as={Link} to="/login" className="nav-link">Log In</Nav.Link>
-              <Nav.Link as={Link} to="/register" className="nav-link">Sign Up</Nav.Link>
+              <Nav.Link as={Link} to="/login" className="log-link">Log In</Nav.Link>
             </>
           ) : (
-            <Nav.Link onClick={handleLogout} className="nav-link">Logout</Nav.Link>
+            <Nav.Link onClick={handleLogout} className="log-link">Logout</Nav.Link>
           )}
         </Nav>
       </Container>

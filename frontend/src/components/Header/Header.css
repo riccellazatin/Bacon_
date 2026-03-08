@@ -1,16 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 .navbar {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    background-color: #e3d5c8;
-    border-bottom: 2px solid #0e0f0d;
+    background-color: #faf4e4;
 }
 .navbar .container {
     display: flex;
@@ -31,9 +35,9 @@ white: #f0f0ed */
 }
 
 .nav-link {
-    font-family: Cormorant Garamond, serif;
+    font-family: Quicksand, sans-serif;
     font-weight: 500;
-    font-size: 2.5vh;
+    font-size: 2vh;
     color: #0e0f0d;
     text-decoration: none;
     margin: 0 1vh 0 1vh;
@@ -54,4 +58,11 @@ white: #f0f0ed */
     display: flex;
     gap: 1rem;
     align-items: center;
+}
+
+.log-link {
+    font-family: Quicksand, sans-serif;
+    border: 2px solid #121212;
+    padding: 8px 20px;
+    border-radius: 80px;
 }

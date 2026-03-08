@@ -32,9 +32,9 @@ export default function App() {
   if (isLoggedIn) {
     return (
       <Router>
-        <Sidebar />
         <div className='main-content'>
           <Routes>
+            <Route path='/' element={<Landing />} exact />
             <Route path='/preferences' element={<Preferences />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />

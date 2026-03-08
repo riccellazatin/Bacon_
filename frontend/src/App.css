@@ -9,7 +9,6 @@ white: #f0f0ed */
 }
 
 .main-content {
-  margin-left: 15vw;
   min-height: 100vh;
   transition: margin-left 0.3s ease;
 }
