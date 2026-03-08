@@ -87,7 +87,7 @@ Accent-Orange: #F76E4F
     justify-content: center;
 }
 
-.login {
+.login-div {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -100,7 +100,7 @@ Accent-Orange: #F76E4F
     font-size: 1rem;
 }
 
-.login-button {
+.log-button {
     background-color: transparent;
     border: none;
     margin-left: 10px;

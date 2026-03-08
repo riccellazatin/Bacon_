@@ -110,10 +110,10 @@ function SignupPage() {
                             </button>
                         </div>
 
-                        <div className="login">
+                        <div className="login-div">
                             <p className="already">Already have an account?</p>
                             
-                            <a href="/login" className="login-button"><p>Log In</p></a>
+                            <a href="/login" className="log-button"><p>Log In</p></a>
                         </div>
                     </form>
                 </div>

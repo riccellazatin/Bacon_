@@ -28,11 +28,14 @@ function LoginPage() {
     };
 
     return (
-        <main style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem' }}>
-                    <div style={{ maxWidth: '550px', width: '100%', backgroundColor: '#fcd87e', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '3rem' }}>
-                        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#ce4636' }}>Log In</h2>
+        <main className="login-form">
+            <div className="login-left">
+                <img src="./images/bacon_asset2.png" className="login-asset"/>
+            </div>
+                    <div className="login-right">
+                        <h2 className="welcome">Welcome Back!</h2>
 
-                        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <form onSubmit={handleLogin}>
                             <input
                                 type="email"
                                 placeholder="Email"
@@ -51,9 +54,16 @@ function LoginPage() {
                                 className="form-control"
                             />
 
-                            <button type="submit" className="fw-semibold" style={{ backgroundColor: '#ce4636', color: '#fff', padding: '0.75rem', borderRadius: '8px', border: 'none' }}>
+                            <div className="button-div">
+                            <button type="submit" className="login">
                                 LOG IN
                             </button>
+                            </div>
+
+                            <div className="signup">
+                                <p className="not-yet">Don't have an account yet?</p>
+                                <a href="/register" className="sign-button"><p>Register Now</p></a>
+                            </div>
 
                             {auth.error && <div style={{ color: 'red' }}>{JSON.stringify(auth.error)}</div>}
                         </form>
@@ -62,4 +72,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LoginPage
