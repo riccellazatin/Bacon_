@@ -1,6 +1,4 @@
 import './Landing.css'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
 import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
 import ShopItems from '../../ShopItems'
@@ -15,13 +13,16 @@ function Landing() {
 
   return (
     <>
-    <Header />
-
       <div className="header-section">
-        <div className="slogan-container">
-          <h1 className="slogan">A PLATE FOR YOUR TASTY TASKS.</h1>
+        <div className="header-left">
+          <h1 className="title">BRING HOME THE BACON</h1>
+          <p className="subtitle">Have you joined our community of students yet? Cook up some productivity with us!</p>
 
-          <button className="register-button"><a href="/register">Join Us</a></button>
+          <button className="register-button"><a href="/register">Register</a></button>
+        </div>
+
+        <div className="header-right">
+          <img src="./images/bacon_landing.png" className="bacon-logo"/>
         </div>
       </div>
 
@@ -49,8 +50,6 @@ function Landing() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   )
 }

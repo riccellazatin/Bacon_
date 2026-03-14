@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
+.availability-container {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.availability-card {
+    font-family: Quicksand, sans-serif;
+    padding: 1rem;
+    background: #faf4e4;
+    border-radius: 12px;
+    border: 2px solid #121212;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+.availability-title {
+    color: #302f2b;
+    font-weight: 700;
+    text-align: center;
+}
+
+.days-grid {
+    margin-top: 1rem;
+    display: flex;
+    gap: 5px;
+}
+
+.day-pill {
+    border: 1px solid #121212;
+    background: #faf4e4;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.day-pill:hover {
+    border: 1px solid #cca733;
+    background: #ffda6f;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.day-pill.active {
+    background: #fd5732;
+    color: white;
+    border-color: #fd5732;
+}
+
+.time-row {
+    margin: 1rem;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.time-row .time-label {
+    display: block;
+    font-size:0.9rem;
+    margin-bottom:0.25rem;
+    font-family: Quicksand, sans-serif;
+}
+
+.time-label {
+    text-align: center;
+}
+
+.time-input {
+    border: 1px solid #121212;
+    padding: 0.4rem;
+    border-radius: 6px;
+}
+
+.d-grid {
+    display: flex;
+    justify-content: center;
+}
+
+.save-btn {
+    border: 1px solid #121212;
+    background: #faf4e4;
+    padding: 0.1rem 0.8rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.save-btn:hover {
+    border: 1px solid #cca733;
+    background: #ffda6f;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.save-btn.active {
+    border: 1px solid #fd5732;
+    background: #fd5732;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;  
+}
+
+.back-link-btn {
+    background: none;
+    text-decoration: none;
+    border: none;
+    color: #121212;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.back-link-btn:hover {
+    background: none;
+    text-decoration: underline;
+    border: none;
+    color: #121212;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+.body
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

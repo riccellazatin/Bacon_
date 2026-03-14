@@ -13,12 +13,11 @@ white: #f0f0ed */
     text-align: center;
     overflow: hidden;
     gap: 10px;
-    font-family: Cormorant Garamond, serif;
-    font-weight: 700;
+    font-family: Quicksand, sans-serif;
+    font-weight: 500;
     font-size: 20px;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
-    background-color: #e3d5c8;
 }
 
 .land-card img {

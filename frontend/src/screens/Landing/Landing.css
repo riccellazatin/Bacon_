@@ -1,57 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed 
-red: #cf403f */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 body {
-  background-color: #e3d5c8;
+  background-color: #faf4e4;
 }
 
 .header-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2vh;
-    margin: 10rem;
-    margin-left: auto;
-    margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 2vh;
+  margin: 6rem 4rem;
 }
 
-.slogan-container {
-  margin: 20px auto;
-  width: 100%;
-  text-align: center;
-  flex: 1;
-  padding: 0 0 0 0;
+.header-right {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 0;
+  margin: 0;
 }
 
-.slogan {
+.bacon-logo {
+  height: 65vh;
+}
+
+.title {
   font-family: Changa One, sans-serif;
-  color:#cf403f;
-  font-size: 7rem;
-  margin: 1rem auto;
-  max-width: 90%;
-  line-height: 0.95;
-  text-align: center;
+  font-size: 8.5rem;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.1rem;
+}
+
+.register-button a {
+  text-decoration: none;
+  color: #121212;
+  font-weight: 500;
+  font-family: Quicksand, sans-serif;
+  font-size: 1rem;
 }
 
 .register-button {
-  background-color: #0e0f0d;
-  font-family: Cormorant Garamond, serif;
-  font-size: 1.5rem;
-  padding: 10px 30px;
-  border: none;
-  border-radius: 2rem;
-  cursor: pointer;
-  margin: 1rem auto;
-}
-
-.register-button a{
-  text-decoration: none;
-  color: #f0f0ed;
+  background-color: #fd5732;
+  padding: 10px 20px;
+  border-radius: 80px;
+  margin: 30px;
+  display: flex;
+  justify-self: right;
+  border: 2px solid #121212;
 }
 
 .item-section {
@@ -93,9 +109,9 @@ body {
 }
 
 .item-description {
-  font-family: Cormorant Garamond, serif;
+  font-family: Quicksand, sans-serif;
   color:#0e0f0d;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
   margin: 1rem auto;
   max-width: 90%;
@@ -116,9 +132,9 @@ body {
 }
 
 .row-description {
-  font-family: Cormorant Garamond, serif;
+  font-family: Quicksand, sans-serif;
   color:#0e0f0d;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
 }
 
