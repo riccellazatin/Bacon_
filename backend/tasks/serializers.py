@@ -4,10 +4,43 @@ from accounts.models import UserPreferences
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    description = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True)
+
     class Meta:
         model = Task
-        fields = ('id', 'user', 'title', 'description', 'deadline', 'scheduled_date', 'duration_minutes', 'points_value', 'status', 'created_at', 'updated_at')
-        read_only_fields = ('user', 'created_at', 'updated_at')
+        fields = (
+            'id',
+            'user',
+            'title',
+            'description',
+            'deadline',
+            'scheduled_date',
+            'duration_minutes',
+            'points_value',
+            'priority_score',
+            'priority_reason',
+            'priority_source',
+            'priority_confidence',
+            'prioritized_at',
+            'status',
+            'created_at',
+            'updated_at',
+        )
+        read_only_fields = (
+            'user',
+            'priority_score',
+            'priority_reason',
+            'priority_source',
+            'priority_confidence',
+            'prioritized_at',
+            'created_at',
+            'updated_at',
+        )
+
+    def validate_description(self, value):
+        if not value or not value.strip():
+            raise serializers.ValidationError('Description is required.')
+        return value.strip()
 
     def validate(self, data):
         # validate scheduled_date against user preferences if provided

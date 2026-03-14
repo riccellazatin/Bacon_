@@ -10,6 +10,7 @@ export default function AddTask() {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [deadline, setDeadline] = useState('');
   const [scheduledDate, setScheduledDate] = useState('');
   const [duration, setDuration] = useState(30);
@@ -17,8 +18,15 @@ export default function AddTask() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    const cleanedDescription = description.trim();
+    if (!cleanedDescription) {
+      window.alert('Description is required.');
+      return;
+    }
+
     const payload = {
       title,
+      description: cleanedDescription,
       deadline: deadline || null,
       scheduled_date: scheduledDate || null,
       duration_minutes: Number(duration) || 0,
@@ -56,6 +64,21 @@ export default function AddTask() {
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
           <Form.Control required placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            placeholder="Add context for the future AI prioritizer (scope, urgency, blockers, expected outcome)."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <Form.Text muted>
+            This is saved now so future AI prioritization can use description with deadline.
+          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3">

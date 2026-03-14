@@ -45,6 +45,7 @@ api.interceptors.response.use(
       isRefreshing = true;
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) {
+        localStorage.removeItem('access_token');
         isRefreshing = false;
         return Promise.reject(error);
       }
@@ -57,6 +58,8 @@ api.interceptors.response.use(
         onRefreshed(newToken);
         return axios(originalRequest);
       } catch (err) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         return Promise.reject(err);
       } finally {
         isRefreshing = false;

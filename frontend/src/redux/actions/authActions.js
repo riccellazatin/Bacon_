@@ -67,6 +67,12 @@ export const fetchCurrentUser = () => async (dispatch) => {
     const res = await api.get('/user/');
     dispatch({ type: USER_FETCH_SUCCESS, payload: res.data });
   } catch (err) {
+    if (err.response?.status === 401) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      dispatch(logout());
+      return;
+    }
     dispatch({ type: USER_FETCH_FAIL, payload: err.response?.data || err.message });
   }
 };

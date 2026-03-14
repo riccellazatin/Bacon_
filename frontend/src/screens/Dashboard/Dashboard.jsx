@@ -1,4 +1,4 @@
-import React, { useEffect, } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
 import { Button } from 'react-bootstrap';
@@ -17,8 +17,34 @@ export default function Dashboard() {
     dispatch(fetchTasks());
   }, [dispatch]);
 
+  const getPriorityLabel = (score) => {
+    if (score >= 80) return 'High';
+    if (score >= 50) return 'Medium';
+    return 'Low';
+  };
 
-  const grouped = tasksState.tasks.reduce((acc, t) => {
+  // Sort by backend priority score, with deadline as tie-breaker.
+  const prioritizedTasks = useMemo(() => {
+    return [...tasksState.tasks].sort((a, b) => {
+      const scoreDiff = (b.priority_score || 0) - (a.priority_score || 0);
+      if (scoreDiff !== 0) {
+        return scoreDiff;
+      }
+
+      const aDeadline = a.deadline ? new Date(a.deadline).getTime() : Number.POSITIVE_INFINITY;
+      const bDeadline = b.deadline ? new Date(b.deadline).getTime() : Number.POSITIVE_INFINITY;
+
+      if (aDeadline !== bDeadline) {
+        return aDeadline - bDeadline;
+      }
+
+      const aCreated = a.created_at ? new Date(a.created_at).getTime() : Number.POSITIVE_INFINITY;
+      const bCreated = b.created_at ? new Date(b.created_at).getTime() : Number.POSITIVE_INFINITY;
+      return aCreated - bCreated;
+    });
+  }, [tasksState.tasks]);
+
+  const grouped = prioritizedTasks.reduce((acc, t) => {
     const key = t.scheduled_date || 'unscheduled';
     acc[key] = acc[key] || [];
     acc[key].push(t);
@@ -50,6 +76,22 @@ export default function Dashboard() {
             {items.map((task) => (
               <li key={task.id}>
                 <strong>{task.title}</strong> — {task.status}
+                <p style={{ margin: '0.25rem 0' }}>
+                  Priority: {Math.round(task.priority_score || 0)} ({getPriorityLabel(task.priority_score || 0)})
+                  {task.priority_source ? ` · ${task.priority_source}` : ''}
+                </p>
+                {task.description ? (
+                  <p style={{ margin: '0.25rem 0' }}>{task.description}</p>
+                ) : (
+                  <p style={{ margin: '0.25rem 0', opacity: 0.6 }}>
+                    No description yet.
+                  </p>
+                )}
+                {task.priority_reason ? (
+                  <p style={{ margin: '0.25rem 0', opacity: 0.75 }}>
+                    Why: {task.priority_reason}
+                  </p>
+                ) : null}
                 {task.points_value ? (
                   <span>Points: {task.points_value}</span>
                 ) : null}

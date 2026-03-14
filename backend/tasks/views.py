@@ -1,8 +1,10 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.db import transaction
+from django.db.models import F, Q
 from .models import Task
 from .serializers import TaskSerializer
+from .services.prioritization import prioritize_and_save_task
 import random
 from django.utils import timezone
 
@@ -14,19 +16,34 @@ class TaskListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         # Ensure tasks that passed their deadline and remain ongoing are marked as missing
         now = timezone.now()
-        Task.objects.filter(user=self.request.user, status=Task.STATUS_ONGOING, deadline__lt=now).update(status=Task.STATUS_MISSING)
-        return Task.objects.filter(user=self.request.user).order_by('scheduled_date', 'created_at')
+        Task.objects.filter(
+            user=self.request.user,
+            status=Task.STATUS_ONGOING,
+            deadline__lt=now,
+        ).update(status=Task.STATUS_MISSING, prioritized_at=None)
+
+        # Refresh priority for newly created/updated tasks before listing.
+        stale_tasks = Task.objects.filter(user=self.request.user).filter(
+            Q(prioritized_at__isnull=True) | Q(updated_at__gt=F('prioritized_at'))
+        ).order_by('updated_at')[:10]
+        for task in stale_tasks:
+            prioritize_and_save_task(task)
+
+        return Task.objects.filter(user=self.request.user).order_by('-priority_score', 'deadline', 'scheduled_date', 'created_at')
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        task = serializer.save(user=self.request.user)
+        prioritize_and_save_task(task)
+        return task
 
     def create(self, request, *args, **kwargs):
         with transaction.atomic():
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            data = serializer.data
+            task = self.perform_create(serializer)
+            response_serializer = self.get_serializer(task)
+            data = response_serializer.data
+            headers = self.get_success_headers(data)
             # include warning if serializer attached one
             if getattr(serializer, '_warning', None):
                 data = {**data, 'warning': serializer._warning}
@@ -39,6 +56,10 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
+
+    def perform_update(self, serializer):
+        task = serializer.save()
+        prioritize_and_save_task(task)
 
 
 class TaskCompleteView(generics.UpdateAPIView):
@@ -58,9 +79,22 @@ class TaskCompleteView(generics.UpdateAPIView):
             if not task.points_value:
                 task.points_value = random.randint(5, 20)
             task.save()
+            prioritize_and_save_task(task)
             # add points to user
             user = request.user
             user.total_points = (user.total_points or 0) + (task.points_value or 0)
             user.save()
             serializer = self.get_serializer(task)
             return Response({'task': serializer.data, 'total_points': user.total_points})
+
+
+class TaskReprioritizeView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        tasks = Task.objects.filter(user=request.user).order_by('updated_at')
+        reprioritized = 0
+        for task in tasks:
+            prioritize_and_save_task(task)
+            reprioritized += 1
+        return Response({'reprioritized': reprioritized}, status=status.HTTP_200_OK)

@@ -52,8 +52,30 @@ npm start (if it did not run using npm start use this -> npm install ajv@^8.0.0 
 - Update preferences: `/user/preferences/` (PATCH)
 - Tasks list/create: `/tasks/` (GET, POST)
 - Task complete: `/tasks/{id}/complete/` (PATCH)
+- Reprioritize tasks: `/tasks/reprioritize/` (POST)
 
 Access/refresh tokens are saved by the frontend in localStorage under `access_token` and `refresh_token`.
+
+**Gemini AI task prioritization**
+
+Task prioritization is now implemented server-side. The backend stores a computed `priority_score`, `priority_reason`, `priority_source`, and `priority_confidence` for each task.
+
+Recommended setup (backend virtual env):
+
+1. Copy `backend/.env.example` to `backend/.env`.
+2. Put your key in `GEMINI_API_KEY` inside `backend/.env`.
+3. Start backend as usual with `python manage.py runserver`.
+
+To enable Gemini:
+
+```powershell
+# PowerShell (current terminal)
+$env:GEMINI_API_KEY="your_api_key_here"
+$env:GEMINI_MODEL="gemini-1.5-flash"
+python manage.py runserver
+```
+
+If `GEMINI_API_KEY` is not set (or Gemini fails), the backend automatically falls back to deterministic rule-based prioritization using deadline + description quality.
 
 **Branching / pushing**
 

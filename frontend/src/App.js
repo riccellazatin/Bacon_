@@ -21,10 +21,10 @@ export default function App() {
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (auth.token && !auth.userInfo && !auth.loading) {
+    if (auth.token && !auth.userInfo && !auth.loading && !auth.error) {
       dispatch(fetchCurrentUser());
     }
-  }, [auth.token, auth.userInfo, auth.loading, dispatch]);
+  }, [auth.token, auth.userInfo, auth.loading, auth.error, dispatch]);
 
   const isLoggedIn = !!auth.token;
 
@@ -39,7 +39,7 @@ export default function App() {
             <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
             <Route path='/shop' element={<Shop />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
           </Routes>
         </div>
