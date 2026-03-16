@@ -29,7 +29,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
         for task in stale_tasks:
             prioritize_and_save_task(task)
 
-        return Task.objects.filter(user=self.request.user).order_by('-priority_score', 'deadline', 'scheduled_date', 'created_at')
+        return Task.objects.filter(user=self.request.user).order_by('-priority_score', '-priority_confidence', 'created_at')
 
     def perform_create(self, serializer):
         task = serializer.save(user=self.request.user)

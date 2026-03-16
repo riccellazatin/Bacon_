@@ -2,6 +2,10 @@
 
 Lightweight full-stack task tracker (Django REST + React). This repository contains a Django backend (API + JWT auth) and a React frontend (Redux, Axios) with a one-time onboarding/preferences flow and a simple to-do/task system.
 
+**Documentation**
+
+This root README is the single documentation file for the project.
+
 **Quick Start (development)**
 
 Must do:
@@ -59,6 +63,7 @@ Access/refresh tokens are saved by the frontend in localStorage under `access_to
 **Gemini AI task prioritization**
 
 Task prioritization is now implemented server-side. The backend stores a computed `priority_score`, `priority_reason`, `priority_source`, and `priority_confidence` for each task.
+Task sorting is driven by Gemini's `priority_score` (highest first), balancing difficulty with deadline urgency.
 
 Recommended setup (backend virtual env):
 
@@ -71,11 +76,11 @@ To enable Gemini:
 ```powershell
 # PowerShell (current terminal)
 $env:GEMINI_API_KEY="your_api_key_here"
-$env:GEMINI_MODEL="gemini-1.5-flash"
+$env:GEMINI_MODEL="gemini-2.5-flash"
 python manage.py runserver
 ```
 
-If `GEMINI_API_KEY` is not set (or Gemini fails), the backend automatically falls back to deterministic rule-based prioritization using deadline + description quality.
+If `GEMINI_API_KEY` is not set (or Gemini fails), the backend automatically falls back to deterministic rule-based prioritization using deadline + difficulty + description quality.
 
 **Branching / pushing**
 
@@ -93,5 +98,3 @@ git push -u origin "to-do list"
 - If the frontend redirects to `/preferences` after a refresh, ensure the frontend can fetch `/user/` (check network tab). If the request fails (401), refresh token flow may need inspection.
 - If migrations error due to history, remove `db.sqlite3` in development and re-run migrations (this is destructive — only for dev).
 - The backend uses simple random point assignment when completing a task; points are awarded server-side.
-
-If you'd like, I can extend this README with screenshots, a contribution guide, or a list of available npm/Python scripts. 
