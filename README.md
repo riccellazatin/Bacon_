@@ -98,3 +98,31 @@ git push -u origin "to-do list"
 - If the frontend redirects to `/preferences` after a refresh, ensure the frontend can fetch `/user/` (check network tab). If the request fails (401), refresh token flow may need inspection.
 - If migrations error due to history, remove `db.sqlite3` in development and re-run migrations (this is destructive — only for dev).
 - The backend uses simple random point assignment when completing a task; points are awarded server-side.
+
+**Gemini AI prioritization troubleshooting**
+
+If Gemini AI task prioritization is not working (0% success rate):
+
+1. **Verify `.env` file exists** in `backend/`:
+   - Copy from template: `cp backend/.env.example backend/.env`
+   - File should NOT be committed (it's in .gitignore)
+
+2. **Get a valid API key**:
+   - Visit https://aistudio.google.com/apikey and create a free key
+   - Paste it in `backend/.env`: `GEMINI_API_KEY=your_actual_key_here`
+   - Remove any quotes or extra spaces around the key
+
+3. **Check backend logs**:
+   - Run backend with: `python manage.py runserver`
+   - Look for ERROR or WARNING messages mentioning "Gemini API"
+   - Common issues:
+     - `GEMINI_API_KEY not set` → Check `.env` file exists and has the key
+     - `HTTP Error 401` → API key is invalid or malformed
+     - `HTTP Error 400` → API key doesn't have permission, regenerate from aistudio.google.com
+     - `TimeoutError` → Network connectivity issue or API rate limited
+
+4. **Restart the backend** after adding/changing `.env`
+
+5. **Fallback behavior**:
+   - If Gemini API is temporarily unavailable, tasks are automatically sorted using rule-based prioritization (deadline urgency + difficulty + effort estimate)
+   - Check the `priority_source` field on each task: `gemini:gemini-2.5-flash` means AI was used; `rules` means fallback

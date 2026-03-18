@@ -1,4 +1,5 @@
 import json
+import logging
 import math
 import socket
 from dataclasses import dataclass
@@ -7,6 +8,8 @@ from urllib import error, request
 
 from django.conf import settings
 from django.utils import timezone
+
+logger = logging.getLogger(__name__)
 
 from ..models import Task
 
@@ -214,6 +217,7 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
     timeout_seconds = settings.GEMINI_TIMEOUT_SECONDS
 
     if not api_key:
+        logger.warning('GEMINI_API_KEY not set in environment or .env file. Gemini AI prioritization disabled.')
         return None
 
     if task.status == Task.STATUS_DONE:
@@ -244,6 +248,7 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
     )
 
     endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}'
+    logger.debug(f'Attempting Gemini API request for task "{task.title}" with model {model}')
     payload = {
         'contents': [{'parts': [{'text': prompt}]}],
         'generationConfig': {
@@ -270,6 +275,7 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
             return None
 
         parsed_output = json.loads(json_text)
+        logger.debug(f'Gemini API response parsed successfully for task "{task.title}": score={parsed_output.get("priority_score")}')
         ai_score = _clamp(float(parsed_output.get('priority_score', 50.0)), 0.0, 100.0)
         ai_difficulty = str(parsed_output.get('difficulty', '')).strip().lower()
         if ai_difficulty not in {'easy', 'medium', 'hard'}:
@@ -311,7 +317,12 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
             source=f'gemini:{model}',
             confidence=round(ai_confidence, 3),
         )
-    except (error.HTTPError, error.URLError, TimeoutError, socket.timeout, ValueError, TypeError, json.JSONDecodeError):
+    except (error.HTTPError, error.URLError, TimeoutError, socket.timeout, ValueError, TypeError, json.JSONDecodeError) as e:
+        logger.error(
+            f'Gemini API request failed for task "{task.title}": {type(e).__name__}: {str(e)}. '
+            'Falling back to rule-based prioritization. '
+            'Check: (1) GEMINI_API_KEY is valid, (2) network connectivity, (3) API rate limits.'
+        )
         return None
 
 
