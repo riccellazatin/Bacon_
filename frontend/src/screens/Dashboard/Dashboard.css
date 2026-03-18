@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
+.main-dashboard {
+    margin: 0;
+}
+
+.welcome-div {
+    margin: 3rem 3rem 3rem 0;
+    padding: 1rem;
+}
+
+.welcome-user {
+    font-family: Quicksand, sans-serif;
+    font-size: 3vw;
+    margin: 0;
+}
+
+.welcome-sub {
+    font-family: Quicksand, sans-serif;
+    color: #8b897f;
+    margin: 0;
+}
+
+.add-task-button {
+    background: #121212;
+    color: white;
+    font-family: Quicksand, sans-serif;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
