@@ -15,6 +15,7 @@ import AddTask from './screens/AddTask/AddTask';
 import SubmissionCalendar from './calendar/calendar';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Sidebar from './components/Sidebar/Sidebar';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export default function App() {
   if (isLoggedIn) {
     return (
       <Router>
+        <Sidebar />
         <div className='main-content'>
           <Routes>
             <Route path='/' element={<Landing />} exact />
@@ -60,6 +62,7 @@ export default function App() {
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           </Routes>
         </main>
+        <Footer />
       </Router>
     );
   }

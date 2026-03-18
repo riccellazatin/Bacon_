@@ -221,7 +221,7 @@ white: #f0f0ed */
     background-color: #c93f2f;
 }
 
-.shop-button {
+.shop-button-login {
     padding: 1.5vh 4vh;
     font-size: 2vh;
     font-family: Libre Baskerville, serif;
@@ -233,4 +233,18 @@ white: #f0f0ed */
     border-radius: 8vh;
     cursor: pointer;
     margin: 2vh;
+}
+
+.shop-button {
+    padding: 1.5vh 4vh;
+    font-size: 2vh;
+    font-family: Libre Baskerville, serif;
+    font-weight: 300;
+    font-style: italic;
+    color: #ce4636;
+    background-color: #f8f0dd;
+    border: none;
+    border-radius: 8vh;
+    cursor: pointer;
+    margin: 2vh;    
 }

@@ -1,15 +1,26 @@
 import './Landing.css'
 import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
-import ShopItems from '../../ShopItems'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function Landing() {
+  const [items, setItems] = useState([])
+
   const navigate = useNavigate();
 
   const handleCardClick = (item) => {
     navigate(`/shop`)
   }
+
+     useEffect(() => {
+        async function fetchItems() {
+            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            setItems(data)
+        }
+        fetchItems()
+     }, [])  
 
   return (
     <>
@@ -34,7 +45,7 @@ function Landing() {
           <center>
           <div className="feature-preview">
             <Row className="feature-row">
-              {ShopItems
+              {items
               .slice(0, 3)
               .map(item => (
                 <Col key={item._id} className='column' md={4}>

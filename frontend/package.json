@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +14,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.13.5",
+    "axios": "^1.13.6",
     "bootstrap-icons": "^1.13.1",
     "gsap": "^3.14.2",
     "react": "^19.2.3",

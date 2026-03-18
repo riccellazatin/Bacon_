@@ -1,13 +1,37 @@
 import './ShopComponents.css'
 import {Row, Col, Card, Container} from 'react-bootstrap'
 import ItemRecommendation from './ItemRecommendation'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCurrentUser } from '../../redux/actions/authActions'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function ItemPopup(props) {
+    const [item, setItems] = useState([])
+
     const handleBackgroundClick = (e) => {
         if (e.target === e.currentTarget) {
             props.onClose()
         }
     }
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
+
+     useEffect(() => {
+        if (auth.token && !auth.userInfo && !auth.loading && !auth.error) {
+        dispatch(fetchCurrentUser());
+        }   
+     }, [auth.token, auth.userInfo, auth.loading, auth.error, dispatch]);
+
+     useEffect(() => {
+        async function fetchItems() {
+            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            setItems(data)
+        }
+        fetchItems()
+     }, [])
+
+    const isLoggedIn = !!auth.token;
 
     return (props.trigger && props.item) ? (
         <div className='popup' onClick={handleBackgroundClick}>
@@ -27,7 +51,14 @@ function ItemPopup(props) {
 
                                 <div className='text-bottom'>
                                     <p>{props.item.points}</p>
-                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Log In to Purchase</a></button>
+                                    {!isLoggedIn ? (
+                                    <button className='shop-button-login'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Log In to Purchase</a></button>
+                                    ) : (
+                                    <>
+                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Add to Cart</a></button>
+                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Buy Now</a></button>
+                                    </>
+                                    )}
                                 </div>
                             </div>
                         </Col>

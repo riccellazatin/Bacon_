@@ -1,4 +1,9 @@
-const item = [
+from django.shortcuts import render
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+items = [
 	{
 		'_id': '1',
 		'name': 'ZUS Caramel Macchiato',
@@ -97,4 +102,23 @@ const item = [
 
 ]
 
-export default item;
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        'api/items/',
+        'api/items/<id>/',
+    ]
+    return Response(routes)
+
+@api_view(['GET'])
+def getItems(request):
+    return Response(items)
+
+@api_view(['GET'])
+def getItem(request, pk):
+    item = None
+    for i in items:
+        if i['_id'] == pk:
+            item = i
+            break
+    return Response(item)

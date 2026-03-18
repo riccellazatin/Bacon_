@@ -10,22 +10,8 @@ Accent-Yellow: #cca733
 Orange: #fd5732
 */
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 10vw;
-    height: 100%;
-    background-color: #121212;
-    display: flex;
-    flex-direction: column;
-    padding-top: 2vh;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    border-right: #0e0f0d solid 2px;
-}
-
 .hamburger-menu {
-    display: none;
+    display: flex;
     position: fixed;
     top: 15px;
     left: 15px;
@@ -44,10 +30,17 @@ Orange: #fd5732
     transition: all 0.3s ease;
 }
 
+.hamburger-menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+    background-color: #f1fbf2;
+}
+
+
+
 .logo {
     font-family: Changa One, sans-serif;
     text-align: left;
-    font-size: 3vw;
+    font-size: 7vh;
     font-weight: 500;
     color: #fd5732;
     text-decoration: none;
@@ -56,53 +49,36 @@ Orange: #fd5732
     padding-bottom: 10px;
 }
 
-.logo .logo-icon{
-    display: none;
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: -100%;
+    width: 25vh;
+    height: 100%;
+    background-color: #121212;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding-top: 2vh;
+    border-right: #0e0f0d solid 2px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 1200px) {
-    .logo .logo-full {
-        display: none;
-    }
-
-    .logo .logo-icon {
-        display: inline;
-        font-size: 9vh;
-        margin: 0%;
-    }
+.sidebar.open {
+    left: 0;
 }
 
-@media (max-width: 600px) {
-    .hamburger-menu {
-        display: flex;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 20vw;
-        height: 95vh;
-        background-color: #47443f;
-        transition: left 0.3s ease;
-        z-index: 1000;
-        padding-top: 60px;
-    }
-
-    .sidebar.open {
-        left: 0;
-    }
-
-    .main-content {
-        margin-left: 0 !important;
-    }
+.main-content {
+    margin-left: 0 !important;
+    transition: margin-left 0.3s ease;
 }
 
 .sidebar-links {
     display: flex;
     flex-direction: column;
     font-family: Quicksand, sans-serif;
-    font-size: 1.5vw;
+    font-size: 3.5vh;
     background-color: #0e0f0d2d;
     border: none;
     cursor: pointer;
@@ -130,5 +106,5 @@ Orange: #fd5732
     cursor: pointer;
     text-align: left;
     font-family: Quicksand, sans-serif;
-    font-size: 1.5vw;
+    font-size: 3.5vh;
 }

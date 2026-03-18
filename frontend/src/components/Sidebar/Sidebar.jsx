@@ -30,10 +30,7 @@ function Sidebar() {
         <span></span>
       </button>
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <strong className="logo">
-          <span className="logo-full">BACON</span>
-          <span className="logo-icon">B</span>
-        </strong>
+        <strong className="logo">BACON</strong>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/shop">Shop</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/dashboard">To-Do</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/calendar">Calendar</Link></button>

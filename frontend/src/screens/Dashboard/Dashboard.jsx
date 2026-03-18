@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 import './Dashboard.css';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -150,6 +151,7 @@ export default function Dashboard() {
 
   return (
     <div className="main-dashboard">
+      <Sidebar />
       <div className="welcome-div">
       <h2 className="welcome-user">Hello, {welcomeName}!</h2>
       <p className="welcome-sub">BACON wishes you an amazing and productive day. TASK NUMBER tasks are waiting for you today.</p>
