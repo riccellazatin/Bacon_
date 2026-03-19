@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
+.hamburger-menu {
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: #0e0f0d;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+    background-color: #f1fbf2;
+}
+
+
+
+.logo {
+    font-family: Changa One, sans-serif;
+    text-align: left;
+    font-size: 7vh;
+    font-weight: 500;
+    color: #fd5732;
+    text-decoration: none;
+    margin: 10%;
+    align-self: center;
+    padding-bottom: 10px;
+}
+
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: -100%;
+    width: 25vh;
+    height: 100%;
+    background-color: #121212;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding-top: 2vh;
+    border-right: #0e0f0d solid 2px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.main-content {
+    margin-left: 0 !important;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    font-family: Quicksand, sans-serif;
+    font-size: 3.5vh;
+    background-color: #0e0f0d2d;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    text-align: start;
+}
+
+.sidebar-links a {
+    color: #e3d5c8;
+    text-decoration: none;
+}
+
+.sidebar-links a:hover {
+    color: #ce4636;
+    background-color: #0e0f0d2d;
+}
+
+.logout-button {
+    margin-top: auto;
+    margin-bottom: 2vh;
+    padding: 20px;
+    background-color: #0e0f0dbb;
+    color: #e3d5c8;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: Quicksand, sans-serif;
+    font-size: 3.5vh;
+}

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+Accent-Orange: #F76E4F
+*/
+
+.signup-body {
+    border: 2px solid #121212;
+    border-radius: 25px;
+    padding: 30px 30px;
+    margin: 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70vh;
+    gap: 10px;
+}
+
+.signup-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.signup-title {
+    text-align: center;
+    font-family: Quicksand, sans-serif;
+    font-size: 2rem;
+}
+
+.form-control {
+    width: 90%;
+    padding: 8px 20px;
+    border: 2px solid #121212;
+    margin-top: 10px;
+    border-radius: 65px;
+    font-family: Quicksand, sans-serif;
+}
+
+.reveal {
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.signup-button {
+    margin: 20px;
+    background-color: #121212;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 65px;
+    font-weight: 500;
+    font-family: Quicksand, sans-serif;
+    border: none;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.signup-button:hover {
+    margin: 20px;
+    background-color: #fd5732;
+    color: #121212;
+    padding: 8px 20px;
+    border-radius: 65px;
+    font-weight: 500;
+    font-family: Quicksand, sans-serif; 
+    border: none;
+}
+
+.signup-right {
+    border-left: 2px dashed #121212;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.login-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-family: Quicksand, sans-serif;
+    text-decoration: none;
+}
+
+.already {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.log-button {
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #fd5732;
+    font-weight: 700;
+}

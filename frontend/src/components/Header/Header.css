@@ -1,31 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 .navbar {
     display: flex;
-    flex-direction: row;
-    background-color: #f8f0dd;
-    border-radius: 5vh;
+    flex-flow: row nowrap;
+    align-items: center;
+    background-color: #faf4e4;
+}
+.navbar .container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-nav {
-    text-decoration: none;
-    font-family: Libre Baskerville, serif;
+    font-family: Changa One, sans-serif;
     font-size: 4vh;
     font-weight: 700;
     font-style: italic;
-    color: #ce4636;
-    margin-right: 2vh;
-    margin-left: -10vh;
-    float: left;
+    color: #0e0f0d;
+    text-decoration: none;
+    margin: 0 2vh;
+    align-self: center;
 }
 
 .nav-link {
-    text-decoration: none;
-    font-family: Lato, sans-serif;
-    font-size: 2.5vh;
+    font-family: Quicksand, sans-serif;
     font-weight: 500;
-    color: #ce4636;
-    font-style: italic;
-    margin: 1.3vh 1vh;
-    float: left;
+    font-size: 2vh;
+    color: #0e0f0d;
+    text-decoration: none;
+    margin: 0 1vh 0 1vh;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav {
+    align-items: center;
+}
+.navbar .me-auto {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.navbar > .container > .nav:last-child {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.log-link {
+    font-family: Quicksand, sans-serif;
+    border: 2px solid #121212;
+    padding: 8px 20px;
+    border-radius: 80px;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.log-link:hover {
+    font-family: Quicksand, sans-serif;
+    background-color: #fd5732;
+    color: #121212;
+    border: 2px solid #fd5732;
+    padding: 8px 20px;
+    border-radius: 80px;
+    transition: background-color 0.5s ease, transform 0.5s ease;   
 }

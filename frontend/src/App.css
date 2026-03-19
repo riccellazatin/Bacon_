@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed 
+red: #cf403f */
+
 .App {
   text-align: center;
   scroll-behavior: smooth;
+}
+
+.main-content {
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-left: 0;
+  }
 }
 
 .App-logo {
@@ -36,19 +55,5 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.landing-body {
-  background-color: #f8f0dd;
-  height: auto;
-  margin-bottom: 40vh;
-}
-
-.about-body {
-  background-color: #f8f0dd;
-  height: auto;
-  margin-top: 10vh;
-  margin-bottom: 0;
-  padding-top: 0.5vh;
 }
 

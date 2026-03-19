@@ -1,38 +1,66 @@
-import React from 'react'
 import './Landing.css'
-import Header from '../../components/Header/Header'
-import About from '../About/About'
+import LandCard from '../../components/LandCard/LandCard'
+import {Row, Col} from 'react-bootstrap'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function Landing() {
+  const [items, setItems] = useState([])
+
+  const navigate = useNavigate();
+
+  const handleCardClick = (item) => {
+    navigate(`/shop`)
+  }
+
+     useEffect(() => {
+        async function fetchItems() {
+            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            setItems(data)
+        }
+        fetchItems()
+     }, [])  
+
   return (
     <>
       <div className="header-section">
-        <div className="landing1">
-          <Header />
-          <div className="bacon-title" style={{textAlign: "center"}}>
-            <h1 className="head-title">Bacon</h1>
-            <p className="head-desc">A plate for your tasty tasks.</p>
+        <div className="header-left">
+          <h1 className="title">BRING HOME THE BACON</h1>
+          <p className="subtitle">Have you joined our community of students yet? Cook up some productivity with us!</p>
 
-            <button className="head-button">Log In</button>
-          </div>
+          <button className="register-button"><a href="/register">Register</a></button>
         </div>
 
-        <div className="landing2">
-          <h3 className="desc-tag">Let 'em cook</h3>
-
-          <div className="description-section">
-            <p className="desc-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
+        <div className="header-right">
+          <img src="./images/bacon_landing.png" className="bacon-logo"/>
         </div>
       </div>
 
+      <div className="item-section">
+        <div className="item-container">
+          <h1 className="featured">You make the task. We'll make sure it gets done.</h1>
+          <p class="item-description">Improve task management speed and watch your productivity grow.</p>
 
-      <div id="about" className="about-body">
-        <About />
+          <center>
+          <div className="feature-preview">
+            <Row className="feature-row">
+              {items
+              .slice(0, 3)
+              .map(item => (
+                <Col key={item._id} className='column' md={4}>
+                  <LandCard item={item} onClick={() => handleCardClick(item)} />
+                </Col>
+              ))}
+            </Row>
+          </div>
+          </center>
+          
+          <div className="row-desc-container">
+            <p className="row-description">Finish tasks and earn points for rewards!</p>
+          </div>
+        </div>
       </div>
-
     </>
   )
 }

@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* Colors
+beige: #e3d5c8
+black: #0e0f0d 
+white: #f0f0ed 
+red: #cf403f */
+
 html {
   margin: 0;
   padding: 0;
-  background-color: #f8f0dd;
+  background-color: #faf4e4;
   scroll-behavior: smooth;
 }
 
@@ -12,6 +20,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Make the overall app a column flex layout so footers can sit at the page bottom
+   - Ensure html/body/root fill the viewport
+   - Make the top-level <main> grow to push footer down when content is short */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The <main> element in `App.js` should take remaining space */
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
 }
 
 code {

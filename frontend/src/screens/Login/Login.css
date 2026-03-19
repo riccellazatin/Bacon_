@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+Accent-Orange: #F76E4F
+*/
+
+.login-form {
+    margin: 2rem 4rem;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-content: center;
+}
+
+.login-left {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.login-asset {
+    min-width: 70%;
+}
+
+.login-right {
+    padding: 2rem 4rem;
+    border: 2px solid #121212;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.welcome {
+    font-family: Quicksand, sans-serif;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.login {
+    margin: 20px;
+    background-color: #121212;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 65px;
+    font-weight: 500;
+    font-family: Quicksand, sans-serif;
+    border: none;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.login:hover {
+    margin: 20px;
+    background-color: #fd5732;
+    color: #121212;
+    padding: 8px 20px;
+    border-radius: 65px;
+    font-weight: 500;
+    font-family: Quicksand, sans-serif; 
+    border: none;
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-family: Quicksand, sans-serif;
+    text-decoration: none;
+}
+
+.not-yet {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.sign-button {
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #fd5732;
+    font-weight: 700;
+}
