@@ -1,19 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 .footer {
-    border-top: 2px solid #0e0f0d;
-    background-color: #e3d5c8;
+    background-color: #faf4e4;
     display: flex;
     flex-flow: row wrap;
-}
-
-/* Ensure footer spans full width and can be pushed to the bottom in a column layout */
-.footer {
+    justify-content: center;
     width: 100%;
     box-sizing: border-box;
     margin-top: auto;
@@ -23,34 +25,24 @@ white: #f0f0ed */
     margin: 5vh;
 }
 
+.footer-one {
+    display: flex;
+    flex-wrap: column wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+}
+
 .footer-email {
-    font-family: Changa One, sans-serif;
+    font-family: Quicksand, sans-serif;
+    font-size: 2vh;
+    color: #121212;
 }
 
 .footer-number {
-    font-family: Cormorant Garamond, serif;
-    font-size: 3vh;
-    color: #0e0f0d;
-    margin-top: -20px;
-}
-
-.footer-sub {
-    font-family: Cormorant Garamond, serif;
-    font-size: 3vh;
-    color: #0e0f0d;
-    margin-top: -30px;
-}
-
-.footer-two {
-    width: 60%;
-    display: flex;
-}
-
-.footer-description {
-    font-family: Cormorant Garamond, serif;
-    font-size: 1.4rem;
-    color: #0e0f0d;
-    word-break: break-word;
+    font-family: Quicksand, sans-serif;
+    font-size: 2vh;
+    color: #121212;
 }
 
 @media screen and (max-width: 450px) {
@@ -66,13 +58,5 @@ white: #f0f0ed */
 
     .footer-number {
         font-size: 2.5vh;
-    }
-
-    .footer-sub {
-        font-size: 1vh;
-    }
-
-    .footer-description {
-        font-size: 1rem;
     }
 }

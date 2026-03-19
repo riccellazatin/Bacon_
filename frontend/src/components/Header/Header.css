@@ -16,6 +16,7 @@ Orange: #fd5732
     align-items: center;
     background-color: #faf4e4;
 }
+
 .navbar .container {
     display: flex;
     flex-flow: row nowrap;
