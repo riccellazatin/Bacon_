@@ -9,6 +9,9 @@ import {
   TASK_COMPLETE_SUCCESS,
   TASK_COMPLETE_FAIL,
 } from '../constants/taskConstants';
+import {
+    TASK_SCAN_REQUEST, TASK_SCAN_SUCCESS, TASK_SCAN_FAIL, TASK_SCAN_RESET
+} from '../constants/taskConstants'
 
 const initialState = {
   tasks: [],
@@ -46,4 +49,19 @@ export default function tasksReducer(state = initialState, action) {
     default:
       return state;
   }
+}
+
+export const taskScanReducer = (state = { extractedTasks: [] }, action) => {
+    switch (action.type) {
+        case TASK_SCAN_REQUEST:
+            return { loading: true, extractedTasks: [] }
+        case TASK_SCAN_SUCCESS:
+            return { loading: false, extractedTasks: action.payload }
+        case TASK_SCAN_FAIL:
+            return { loading: false, error: action.payload }
+        case TASK_SCAN_RESET:
+            return { extractedTasks: [] }
+        default:
+            return state
+    }
 }

@@ -2,6 +2,8 @@ import './App.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from './redux/actions/authActions';
+// 1. Import your new schedule list action (we'll define this next)
+import { listScheduleBlocks } from './redux/actions/scheduleActions'; 
 import Landing from './screens/Landing/Landing';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -14,8 +16,11 @@ import Dashboard from './screens/Dashboard/Dashboard';
 import AddTask from './screens/AddTask/AddTask';
 import SubmissionCalendar from './calendar/calendar';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+// 2. Import the Gate
+import ScheduleGate from './components/ScheduleGate/ScheduleGate';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
+import SemesterScan from './components/SemesterScan/SemesterScan';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -27,6 +32,13 @@ export default function App() {
     }
   }, [auth.token, auth.userInfo, auth.loading, auth.error, dispatch]);
 
+  // 3. Fetch schedule status on login
+  useEffect(() => {
+    if (auth.token) {
+      dispatch(listScheduleBlocks());
+    }
+  }, [auth.token, dispatch]);
+
   const isLoggedIn = !!auth.token;
 
   if (isLoggedIn) {
@@ -36,10 +48,34 @@ export default function App() {
         <div className='main-content'>
           <Routes>
             <Route path='/' element={<Landing />} exact />
-            <Route path='/preferences' element={<Preferences />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/tasks/new' element={<PrivateRoute><AddTask /></PrivateRoute>} />
-            <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
+            
+            {/* 4. Wrapped Routes: Locked until Schedule is Scanned */}
+            <Route path='/preferences' element={
+              <ScheduleGate>
+                <Preferences />
+              </ScheduleGate>
+            } />
+            
+            <Route path='/dashboard' element={
+              <ScheduleGate>
+                <Dashboard />
+              </ScheduleGate>
+            } />
+            
+            <Route path='/tasks/new' element={
+              <ScheduleGate>
+                <AddTask />
+              </ScheduleGate>
+            } />
+            
+            <Route path='/calendar' element={
+              <ScheduleGate>
+                <SubmissionCalendar />
+              </ScheduleGate>
+            } />
+
+            {/* 5. Accessible Routes: These stay outside the gate */}
+            <Route path="/scan" element={<SemesterScan />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
@@ -58,6 +94,7 @@ export default function App() {
             <Route path='/shop' element={<Shop />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
+            {/* Keeping these for safety, though PrivateRoute handles them */}
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           </Routes>

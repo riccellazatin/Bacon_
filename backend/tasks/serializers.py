@@ -59,3 +59,13 @@ class TaskSerializer(serializers.ModelSerializer):
                     # attach warning in serializer instance for view to read
                     self._warning = warning
         return data
+
+from .models import ScheduleBlock
+
+class ScheduleBlockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScheduleBlock
+        fields = ['id', 'subject', 'day_of_week', 'start_time', 'end_time']
+
+class ScheduleImageUploadSerializer(serializers.Serializer):
+    image = serializers.ImageField()

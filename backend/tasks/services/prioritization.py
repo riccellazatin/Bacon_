@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import math
 import socket
@@ -8,7 +9,7 @@ from urllib import error, request
 from django.conf import settings
 from django.utils import timezone
 
-from ..models import Task
+from ..models import ClassSchedule, Task
 
 
 @dataclass
@@ -17,6 +18,7 @@ class PriorityResult:
     reason: str
     source: str
     confidence: float
+    suggested_slot: Optional[str] = None
 
 
 def _clamp(value: float, low: float, high: float) -> float:
@@ -208,16 +210,27 @@ def _extract_gemini_text(response_payload: dict) -> Optional[str]:
     return '\n'.join(texts).strip()
 
 
-def _gemini_priority(task: Task) -> Optional[PriorityResult]:
+def _gemini_priority(task: Task, user) -> Optional[PriorityResult]:
+    if task.status == Task.STATUS_DONE:
+        return PriorityResult(score=0.0, reason='Task is completed.', source='rules', confidence=1.0)
+    
     api_key = settings.GEMINI_API_KEY
     model = settings.GEMINI_MODEL
     timeout_seconds = settings.GEMINI_TIMEOUT_SECONDS
 
+    fixed_schedule = ClassSchedule.objects.filter(user=user)
+    schedule_str = ", ".join([
+    f"{c.day_of_week} {c.start_time.strftime('%H:%M')}-{c.end_time.strftime('%H:%M')} ({c.subject})" 
+    for c in fixed_schedule
+])
+
     if not api_key:
         return None
 
-    if task.status == Task.STATUS_DONE:
-        return PriorityResult(score=0.0, reason='Task is completed.', source='rules', confidence=1.0)
+    deadline_str = "null"
+    if task.deadline:
+        # Check if it's a string or datetime object
+        deadline_str = task.deadline.isoformat() if hasattr(task.deadline, 'isoformat') else str(task.deadline)
 
     estimated_difficulty_score = _difficulty_score(task)
     estimated_difficulty_label = _difficulty_label(estimated_difficulty_score)
@@ -241,6 +254,12 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
         f'Estimated difficulty from metadata: {estimated_difficulty_label} ({round(estimated_difficulty_score, 1)}/100)\n'
         f'Baseline effort estimate from metadata (minutes): {int(round(estimated_effort_minutes))}\n'
         f'Current status: {task.status}\n'
+        f"User Schedule (UNAVAILABLE TIMES): {schedule_str}\n"
+        f'DESCRIPTION: {task.description}\n'
+        f'DEADLINE: {deadline_str}\n'
+        f'METADATA DIFFICULTY: {estimated_difficulty_label}\n'
+        "Instructions: Provide a priority score and suggest the best "
+        "time slot that does not overlap with the schedule above."
     )
 
     endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}'
@@ -315,20 +334,41 @@ def _gemini_priority(task: Task) -> Optional[PriorityResult]:
         return None
 
 
-def prioritize_task(task: Task) -> PriorityResult:
-    gemini_result = _gemini_priority(task)
+def prioritize_task(task: Task, user) -> PriorityResult:
+    gemini_result = _gemini_priority(task, user)
     if gemini_result:
         return gemini_result
     return _fallback_priority(task)
 
 
-def prioritize_and_save_task(task: Task) -> PriorityResult:
-    result = prioritize_task(task)
+def prioritize_and_save_task(task: Task, user) -> PriorityResult:
+    result = prioritize_task(task, user)
     task.priority_score = result.score
     task.priority_reason = result.reason
     task.priority_source = result.source
     task.priority_confidence = result.confidence
     task.prioritized_at = timezone.now()
+
+    if hasattr(result, 'suggested_slot') and result.suggested_slot:
+        task.suggested_start_time = result.suggested_slot
+    if result.suggested_slot:
+        try:
+            # Gemini returns "YYYY-MM-DD HH:MM", we convert to aware datetime
+            naive_dt = datetime.strptime(result.suggested_slot, "%Y-%m-%d %H:%M")
+            task.suggested_start_time = timezone.make_aware(naive_dt)
+        except (ValueError, TypeError):
+            # If the date format is weird, we leave it null rather than crashing
+            pass
+        
+    task.save(update_fields=[
+        'priority_score',
+        'priority_reason',
+        'priority_source',
+        'priority_confidence',
+        'prioritized_at',
+        'suggested_start_time',
+    ])
+
     task.save(
         update_fields=[
             'priority_score',
@@ -339,3 +379,34 @@ def prioritize_and_save_task(task: Task) -> PriorityResult:
         ]
     )
     return result
+
+def get_optimal_slot(user, task):
+    # 1. Get all fixed classes for the user
+    fixed_classes = ClassSchedule.objects.filter(user=user)
+    
+    # 2. Get all other 'ongoing' tasks already scheduled
+    existing_tasks = Task.objects.filter(user=user, status='ongoing').exclude(id=task.id)
+
+    # 3. Ask Gemini to find the "Sweet Spot"
+    prompt = f"""
+    I have a new task: "{task.title}"
+    Description: {task.description}
+    Deadline: {task.deadline}
+    Estimated Duration: {task.duration_minutes} minutes
+
+    USER'S FIXED CLASS SCHEDULE:
+    {list(fixed_classes.values())}
+
+    EXISTING PLANNED TASKS:
+    {list(existing_tasks.values('title', 'deadline'))}
+
+    GOAL:
+    Find the most efficient vacant time slot before the deadline. 
+    - Harder tasks (based on description) should be placed in morning gaps if possible.
+    - Never overlap with Class Schedule.
+    - Prioritize by how close the deadline is.
+
+    Return ONLY a JSON with:
+    {{ "suggested_start_time": "YYYY-MM-DD HH:MM", "priority_level": 1-10, "reasoning": "string" }}
+    """
+    # ... call Gemini and save the result to the Task model

@@ -55,8 +55,9 @@ api.interceptors.response.use(
         const newToken = response.data.access;
         localStorage.setItem('access_token', newToken);
         api.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+        originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
         onRefreshed(newToken);
-        return axios(originalRequest);
+        return api(originalRequest);
       } catch (err) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
