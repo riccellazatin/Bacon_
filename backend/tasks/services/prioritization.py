@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import math
 import socket
@@ -8,8 +8,9 @@ from urllib import error, request
 
 from django.conf import settings
 from django.utils import timezone
+from django.apps import apps  # Use apps to avoid circular imports
 
-from ..models import ClassSchedule, Task
+from ..models import ScheduleBlock, Task
 
 
 @dataclass
@@ -113,7 +114,154 @@ def _time_pressure_score(estimated_minutes: float, deadline) -> float:
     return _clamp((required_daily_minutes / 120.0) * 100.0, 0.0, 100.0)
 
 
-def _fallback_priority(task: Task) -> PriorityResult:
+def _find_next_available_slot(user, duration_minutes: float) -> Optional[str]:
+    """Finds next available slot starting from now, respecting user's block schedule."""
+    if not user:
+        return timezone.localtime(timezone.now()).strftime("%Y-%m-%d %H:%M")
+        
+    start_dt = timezone.localtime(timezone.now())
+    # Try finding slot for next 7 days or just simply greedily pick first
+    # This is a simple greedy approach: "Start now. If blocked, jump to end of block. Repeat."
+    
+    blocks = list(ScheduleBlock.objects.filter(user=user))
+    if not blocks:
+        return start_dt.strftime("%Y-%m-%d %H:%M")
+
+    # Limit search to avoid infinite loop
+    current_dt = start_dt
+    for _ in range(10): # Try up to 10 jumps
+        # Check if current_dt overlaps with any block
+        # Blocks are weekly recurring: needs day matching
+        day_name = current_dt.strftime('%A')
+        current_time = current_dt.time()
+        
+        collision = None
+        for b in blocks:
+            if b.day_of_week == day_name:
+                # Check overlap: (StartA <= EndB) and (EndA >= StartB)
+                # Here we check if `current_dt` is INSIDE a block
+                if b.start_time <= current_time < b.end_time:
+                    collision = b
+                    break
+        
+        if collision:
+            # Move current_dt to end of this block
+            # Construct new datetime for today with block's end time
+            # Note: handle midnight crossing if needed (rare for class schedule)
+            new_time = collision.end_time
+            current_dt = datetime.combine(current_dt.date(), new_time)
+            current_dt = timezone.make_aware(current_dt, timezone.get_current_timezone())
+            # Add small buffer? e.g. 5 mins transition
+            current_dt += timedelta(minutes=5)
+            continue
+        
+        # If no collision for start time, check if `duration` fits?
+        # For simplicity, we assume if start is free, we take it.
+        # But ideally check end too.
+        # Let's just return this start time as candidate.
+        return current_dt.strftime("%Y-%m-%d %H:%M")
+    
+    # If all failed, default to original start (user will just have to deal with it)
+    return start_dt.strftime("%Y-%m-%d %H:%M")
+
+
+def _find_next_available_slot(user, task: Optional[Task] = None):
+    # Simple greedy search: Try finding a slot that doesn't start INSIDE a block
+    # Also respects UserPreferences (off_days and working hours), UNLESS deadline is imminent.
+    start_dt = timezone.localtime(timezone.now())
+    schedule_blocks = list(ScheduleBlock.objects.filter(user=user))
+    
+    # Try getting preferences
+    UserPreferences = apps.get_model('accounts', 'UserPreferences')
+    prefs = UserPreferences.objects.filter(user=user).first()
+    
+    off_days = []
+    work_start_time = None
+    work_end_time = None
+    
+    if prefs:
+        if prefs.off_days:
+            # prefs.off_days is JSON list like ["Friday", "Saturday"]
+            off_days = [d.lower() for d in prefs.off_days]
+        if prefs.start_time:
+            work_start_time = prefs.start_time
+        if prefs.end_time:
+            work_end_time = prefs.end_time
+            
+    current_attempt = start_dt
+    
+    # Validate deadline
+    task_deadline = None
+    if task and task.deadline:
+        if timezone.is_naive(task.deadline):
+            task_deadline = timezone.make_aware(task.deadline, timezone.get_current_timezone())
+        else:
+            task_deadline = task.deadline
+
+    # Limit attempts
+    for _ in range(30): # Give more attempts as we might skip days
+        day_name = current_attempt.strftime('%A')
+        attempt_time = current_attempt.time()
+        
+        # Check if deadline forces us to ignore preferences
+        # If current_attempt date is on or after the deadline date, we MUST try to schedule now,
+        # ignoring off-days and working hours.
+        ignore_prefs = False
+        if task_deadline:
+             # If we've passed the deadline completely, just return the best we can (now)
+             if current_attempt > task_deadline:
+                 return start_dt.strftime("%Y-%m-%d %H:%M")
+                 
+             if current_attempt.date() >= task_deadline.date():
+                 ignore_prefs = True
+
+        # 1. Check Off Days
+        if not ignore_prefs and day_name.lower() in off_days:
+            # Skip to next day. If working hours set, start at working start, else 8am default
+            next_day = current_attempt.date() + timedelta(days=1)
+            next_start_hour = work_start_time if work_start_time else datetime.strptime("08:00", "%H:%M").time()
+            next_dt = datetime.combine(next_day, next_start_hour)
+            current_attempt = timezone.make_aware(next_dt, timezone.get_current_timezone())
+            continue
+            
+        # 2. Check Working Hours (if set)
+        if not ignore_prefs and work_start_time and work_end_time:
+            # If before start time -> jump to start time today
+            if attempt_time < work_start_time:
+                next_dt = datetime.combine(current_attempt.date(), work_start_time)
+                current_attempt = timezone.make_aware(next_dt, timezone.get_current_timezone())
+                continue
+            # If after end time -> jump to start time tomorrow
+            if attempt_time >= work_end_time:
+                next_day = current_attempt.date() + timedelta(days=1)
+                next_dt = datetime.combine(next_day, work_start_time)
+                current_attempt = timezone.make_aware(next_dt, timezone.get_current_timezone())
+                continue
+
+        # 3. Check Schedule Blocks (Classes)
+        collision = None
+        for block in schedule_blocks:
+            if block.day_of_week == day_name:
+                if block.start_time <= attempt_time < block.end_time:
+                    collision = block
+                    break
+        
+        if collision:
+            # Combine current date with collision end time
+            end_dt = datetime.combine(current_attempt.date(), collision.end_time)
+            end_dt = timezone.make_aware(end_dt, timezone.get_current_timezone())
+            if end_dt <= current_attempt:
+                 end_dt += timedelta(days=1)
+
+            current_attempt = end_dt + timedelta(minutes=10)
+            continue
+        
+        return current_attempt.strftime("%Y-%m-%d %H:%M")
+
+    return start_dt.strftime("%Y-%m-%d %H:%M")
+
+
+def _fallback_priority(task: Task, user=None) -> PriorityResult:
     if task.status == Task.STATUS_DONE:
         return PriorityResult(score=0.0, reason='Task is completed.', source='rules', confidence=1.0)
 
@@ -162,12 +310,22 @@ def _fallback_priority(task: Task) -> PriorityResult:
         reason_parts.append('Description is short; add context for stronger AI prioritization.')
     else:
         reason_parts.append('Description provides useful context for prioritization.')
+    
+    # Try finding an available slot for suggested start time (fallback)
+    suggested_slot_str = timezone.localtime(timezone.now()).strftime("%Y-%m-%d %H:%M")
+    
+    if user:
+         suggested_slot_str = _find_next_available_slot(user, task)
+    
+    reason_clean = ' '.join(reason_parts)
+    reason_clean += ' (AI unavailable, defaulting to next available slot)'
 
     return PriorityResult(
         score=round(_clamp(score, 0.0, 100.0), 2),
-        reason=' '.join(reason_parts),
+        reason=reason_clean,
         source='rules',
         confidence=0.45,
+        suggested_slot=suggested_slot_str
     )
 
 
@@ -218,46 +376,62 @@ def _gemini_priority(task: Task, user) -> Optional[PriorityResult]:
     model = settings.GEMINI_MODEL
     timeout_seconds = settings.GEMINI_TIMEOUT_SECONDS
 
-    fixed_schedule = ClassSchedule.objects.filter(user=user)
+    fixed_schedule = ScheduleBlock.objects.filter(user=user)
     schedule_str = ", ".join([
-    f"{c.day_of_week} {c.start_time.strftime('%H:%M')}-{c.end_time.strftime('%H:%M')} ({c.subject})" 
-    for c in fixed_schedule
-])
+        f"{c.day_of_week} {c.start_time.strftime('%H:%M')}-{c.end_time.strftime('%H:%M')} ({c.subject})" 
+        for c in fixed_schedule
+    ])
+
+    UserPreferences = apps.get_model('accounts', 'UserPreferences')
+    prefs = UserPreferences.objects.filter(user=user).first()
+    prefs_str = ""
+    if prefs:
+        prefs_str = f"USER PREFERENCES (STRICTLY RESPECT): Off Days: {prefs.off_days} "
+        if prefs.start_time and prefs.end_time:
+            prefs_str += f", Working Hours: {prefs.start_time.strftime('%H:%M')} to {prefs.end_time.strftime('%H:%M')}"
 
     if not api_key:
         return None
 
     deadline_str = "null"
     if task.deadline:
-        # Check if it's a string or datetime object
         deadline_str = task.deadline.isoformat() if hasattr(task.deadline, 'isoformat') else str(task.deadline)
 
     estimated_difficulty_score = _difficulty_score(task)
     estimated_difficulty_label = _difficulty_label(estimated_difficulty_score)
     estimated_effort_minutes = _estimated_effort_minutes(task, estimated_difficulty_score)
+    
+    # Use local time for the prompt so AI understands "today/tomorrow" correctly
+    now_local = timezone.localtime(timezone.now())
+    now_str = now_local.strftime("%Y-%m-%d %H:%M (%A)")
 
     prompt = (
-        'You are a task prioritization assistant. '\
-        'Decide which tasks should be done first by balancing deadline urgency with task difficulty. '\
-        'Think realistically about how much focused time each task needs. '\
-        'More difficult tasks usually require more time and should start earlier when deadlines are similar. '\
-        'For similar deadlines, harder tasks should usually start earlier. '\
-        'For overdue or very near deadlines, urgency can override difficulty. '\
-        'Return ONLY valid JSON with this schema: '\
-        '{"priority_score": number 0-100, "difficulty": "easy|medium|hard", "estimated_minutes": number, "confidence": number 0-1, "reason": string}. '\
-        'priority_score must represent final ranking priority where 100 is highest priority. '\
-        'Reason should be concise and practical in under 180 characters and mention deadline, difficulty, and time needed.\n\n'
+        'You are a task prioritization assistant. '
+        'Decide which tasks should be done first by balancing deadline urgency with task difficulty. '
+        'Think realistically about how much focused time each task needs. '
+        'RULE 1: Tasks with deadlines closest to now are HIGHEST PRIORITY (score near 100). '
+        'RULE 2: For tasks with similar deadlines (or far deadlines), prioritize EASIER tasks first (higher score). '
+        'RULE 3: Harder tasks should have lower scores unless they are urgent. '
+        'IMPORTANT: Suggest a start time ("suggested_start_time") that works best for the user, STRICTLY AVOID scheduling during their '
+        'Unavailable Times (Class Schedule). If no schedule is provided, suggest a time based on urgency. '
+        'Return ONLY valid JSON with this schema: '
+        '{"priority_score": number 0-100, "difficulty": "easy|medium|hard", "estimated_minutes": number, "confidence": number 0-1, "reason": string, "suggested_start_time": "YYYY-MM-DD HH:MM"}. '
+        'priority_score must represent final ranking priority where 100 is highest priority. '
+        'suggested_start_time MUST be a valid future time (YYYY-MM-DD HH:MM) from now. '
+        'STRICTLY FORBIDDEN: Do not suggest a time clearly in the past. '
+        'Suggest a time as soon as possible if the schedule is clear. '
+        'Reason should be concise and practical (under 180 chars). '
+        'It MUST state the deadline relative to now (e.g. "Due in 2 hours" or "Deadline is tomorrow"). '
+        'Do NOT say "Deadline is far" if it is within 24 hours.\n\n'
+        f'Current Time: {now_str}\n'
         f'Task title: {task.title}\n'
         f'Task description: {task.description}\n'
-        f'Deadline (ISO or null): {task.deadline.isoformat() if task.deadline else "null"}\n'
+        f'Deadline (ISO or null): {deadline_str}\n'
         f'User-entered duration minutes (0 means unknown): {task.duration_minutes}\n'
         f'Estimated difficulty from metadata: {estimated_difficulty_label} ({round(estimated_difficulty_score, 1)}/100)\n'
         f'Baseline effort estimate from metadata (minutes): {int(round(estimated_effort_minutes))}\n'
         f'Current status: {task.status}\n'
         f"User Schedule (UNAVAILABLE TIMES): {schedule_str}\n"
-        f'DESCRIPTION: {task.description}\n'
-        f'DEADLINE: {deadline_str}\n'
-        f'METADATA DIFFICULTY: {estimated_difficulty_label}\n'
         "Instructions: Provide a priority score and suggest the best "
         "time slot that does not overlap with the schedule above."
     )
@@ -299,6 +473,35 @@ def _gemini_priority(task: Task, user) -> Optional[PriorityResult]:
             1440.0,
         )
         ai_confidence = _clamp(float(parsed_output.get('confidence', 0.5)), 0.0, 1.0)
+        ai_suggested_slot = parsed_output.get('suggested_start_time')
+        
+        # Validate format of slot if present and ensure it is in the future
+        if ai_suggested_slot:
+            try:
+                naive_dt = datetime.strptime(ai_suggested_slot, "%Y-%m-%d %H:%M")
+                current_tz = timezone.get_current_timezone()
+                aware_dt = timezone.make_aware(naive_dt, current_tz)
+                
+                # Allow a 15-minute grace period for "slightly past" times to avoid discarding useful suggestions
+                # due to minor clock differences or processing time.
+                grace_period = timezone.now() - timedelta(minutes=15)
+                
+                if aware_dt < grace_period:
+                    # Only discard if *significantly* in the past (more than 15 mins ago)
+                    # For slightly past times, we'll keep it as "Due Now"
+                    ai_suggested_slot = None
+                
+                # Also verify against deadline if present
+                if task.deadline and ai_suggested_slot:
+                    deadline_aware = task.deadline
+                    if timezone.is_naive(deadline_aware):
+                        deadline_aware = timezone.make_aware(deadline_aware, current_tz)
+                    
+                    if aware_dt > deadline_aware:
+                        # Suggestion is past the deadline -> Invalid
+                        ai_suggested_slot = None
+            except (ValueError, TypeError):
+                ai_suggested_slot = None
 
         effective_minutes = max(ai_estimated_minutes, float(task.duration_minutes or 0), estimated_effort_minutes)
         difficulty_signal = {'easy': 25.0, 'medium': 55.0, 'hard': 85.0}[ai_difficulty]
@@ -329,16 +532,28 @@ def _gemini_priority(task: Task, user) -> Optional[PriorityResult]:
             reason=reason,
             source=f'gemini:{model}',
             confidence=round(ai_confidence, 3),
+            suggested_slot=ai_suggested_slot,
         )
     except (error.HTTPError, error.URLError, TimeoutError, socket.timeout, ValueError, TypeError, json.JSONDecodeError):
+        # Allow fallback to catch this
         return None
 
 
 def prioritize_task(task: Task, user) -> PriorityResult:
     gemini_result = _gemini_priority(task, user)
-    if gemini_result:
+    if gemini_result and gemini_result.suggested_slot:
+        # Only accept AI result if it successfully generated a slot
         return gemini_result
-    return _fallback_priority(task)
+    elif gemini_result:
+        # If AI worked but failed to give a slot (due to past time filtering), 
+        # we might want to inject a fallback slot but keep AI score?
+        # But simpler to just run fallback logic for slot finding if we want to guarantee a slot.
+        # Let's augment the AI result with a fallback slot if it missed one.
+        fallback_slot = _find_next_available_slot(user, task)
+        gemini_result.suggested_slot = fallback_slot
+        return gemini_result
+
+    return _fallback_priority(task, user)
 
 
 def prioritize_and_save_task(task: Task, user) -> PriorityResult:
@@ -349,13 +564,12 @@ def prioritize_and_save_task(task: Task, user) -> PriorityResult:
     task.priority_confidence = result.confidence
     task.prioritized_at = timezone.now()
 
-    if hasattr(result, 'suggested_slot') and result.suggested_slot:
-        task.suggested_start_time = result.suggested_slot
-    if result.suggested_slot:
+    if getattr(result, 'suggested_slot', None):
         try:
             # Gemini returns "YYYY-MM-DD HH:MM", we convert to aware datetime
             naive_dt = datetime.strptime(result.suggested_slot, "%Y-%m-%d %H:%M")
-            task.suggested_start_time = timezone.make_aware(naive_dt)
+            current_tz = timezone.get_current_timezone()
+            task.suggested_start_time = timezone.make_aware(naive_dt, current_tz)
         except (ValueError, TypeError):
             # If the date format is weird, we leave it null rather than crashing
             pass
@@ -368,16 +582,7 @@ def prioritize_and_save_task(task: Task, user) -> PriorityResult:
         'prioritized_at',
         'suggested_start_time',
     ])
-
-    task.save(
-        update_fields=[
-            'priority_score',
-            'priority_reason',
-            'priority_source',
-            'priority_confidence',
-            'prioritized_at',
-        ]
-    )
+    
     return result
 
 def get_optimal_slot(user, task):

@@ -22,25 +22,26 @@ const initialState = {
 export default function tasksReducer(state = initialState, action) {
   switch (action.type) {
     case TASK_LIST_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case TASK_LIST_SUCCESS:
-      return { ...state, loading: false, tasks: action.payload };
+      return { ...state, loading: false, tasks: action.payload, error: null };
     case TASK_LIST_FAIL:
       return { ...state, loading: false, error: action.payload };
 
     case TASK_CREATE_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case TASK_CREATE_SUCCESS:
-      return { ...state, loading: false, tasks: [ ...state.tasks, action.payload ] };
+      return { ...state, loading: false, tasks: [ ...state.tasks, action.payload ], error: null };
     case TASK_CREATE_FAIL:
       return { ...state, loading: false, error: action.payload };
 
     case TASK_COMPLETE_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case TASK_COMPLETE_SUCCESS:
       return {
         ...state,
         loading: false,
+        error: null,
         tasks: state.tasks.map(t => t.id === action.payload.task.id ? action.payload.task : t)
       };
     case TASK_COMPLETE_FAIL:

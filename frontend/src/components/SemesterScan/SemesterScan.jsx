@@ -13,6 +13,7 @@ const SemesterScan = () => {
   const navigate = useNavigate();
 
   const { loading, error, success, blocks } = useSelector((state) => state.schedule);
+  const { userInfo, isOnboarded } = useSelector((state) => state.auth);
 
   useEffect(() => {
   if (success && blocks && blocks.length > 0) {
@@ -42,8 +43,13 @@ useEffect(() => {
   };
 
   const handleConfirm = () => {
-    // Now that the user has seen it, we move to the schedule overview
-    navigate('/schedule-overview');
+    // Redirect to Preferences if onboarding is not complete
+    // Otherwise, user might be re-scanning, so go to schedule overview
+    if (!isOnboarded) {
+      navigate('/preferences');
+    } else {
+      navigate('/schedule-overview');
+    }
   };
 
   return (

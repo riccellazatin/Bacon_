@@ -67,7 +67,7 @@ export default function App() {
               <ScheduleGate>
                 <ScheduleOverview />
               </ScheduleGate>
-            } />}
+            } />
             
             <Route path='/tasks/new' element={
               <ScheduleGate>

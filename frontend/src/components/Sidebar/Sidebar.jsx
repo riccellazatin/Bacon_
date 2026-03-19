@@ -43,6 +43,7 @@ function Sidebar() {
         <button className='sidebar-links' onClick={closeSidebar} disabled={!hasSchedule}><Link to="/schedule-overview" className={!hasSchedule ? 'disabled-link' : ''}>Schedule</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/shop">Shop</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/scan">Semester Scan</Link></button>
+        <button className='sidebar-links' onClick={closeSidebar}><Link to="/preferences">Preferences</Link></button>
         <button className='logout-button' onClick={handleLogout}>Logout</button>
       </div>
     </>

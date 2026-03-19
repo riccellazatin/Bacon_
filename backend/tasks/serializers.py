@@ -22,6 +22,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'priority_source',
             'priority_confidence',
             'prioritized_at',
+            'suggested_start_time',
             'status',
             'created_at',
             'updated_at',

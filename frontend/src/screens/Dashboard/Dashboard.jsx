@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 import './Dashboard.css';
@@ -31,12 +31,14 @@ export default function Dashboard() {
     'there';
 
   const getDeadlineSortKey = (task) => {
-    return task.deadline ? String(task.deadline) : '9999-12-31T23:59:59.999Z';
+    const d = task.suggested_start_time || task.deadline;
+    return d ? String(d) : '9999-12-31T23:59:59.999Z';
   };
 
   const getDeadlineDateTimeKey = (task) => {
-    if (!task.deadline) return null;
-    const normalized = String(task.deadline).replace('Z', '');
+    const d = task.suggested_start_time || task.deadline;
+    if (!d) return null;
+    const normalized = String(d).replace('Z', '');
     if (normalized.length >= 16) {
       return normalized.slice(0, 16).replace('T', ' ');
     }
@@ -80,9 +82,16 @@ export default function Dashboard() {
     return new Date().toISOString().slice(0, 10);
   }, []);
 
+  const getGroupKey = (task) => {
+    const timeKey = getDeadlineDateTimeKey(task);
+    if (!timeKey) return 'unscheduled';
+    if (task.suggested_start_time) return `sched|${timeKey}`;
+    return `dead|${timeKey}`;
+  };
+
   const groupByDeadline = (tasks) => {
     return tasks.reduce((acc, task) => {
-      const key = getDeadlineDateTimeKey(task) || 'No deadline';
+      const key = getGroupKey(task);
       acc[key] = acc[key] || [];
       acc[key].push(task);
       return acc;
@@ -107,46 +116,77 @@ export default function Dashboard() {
   const missedGrouped = groupByDeadline(missedTasks);
 
   const renderTaskItem = (task) => (
-    <li key={task.id}>
-      <strong>{task.title}</strong> — {task.status}
-      <p style={{ margin: '0.25rem 0' }}>
+    <li key={task.id} style={{ marginBottom: '1rem', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div>
+          <strong>{task.title}</strong>
+          <span className={`badge bg-${task.status === 'done' ? 'success' : 'secondary'} ms-2`}>{task.status}</span>
+        </div>
+        {task.status !== 'done' && (
+          <Button size="sm" variant="outline-success" onClick={() => dispatch(completeTask(task.id))}>Mark Done</Button>
+        )}
+      </div>
+      
+      <div style={{ fontSize: '0.9em', color: '#666', marginTop: '5px' }}>
+        {task.suggested_start_time ? (
+          <div className="text-success fw-bold">
+            📅 Suggested Start: {new Date(task.suggested_start_time).toLocaleString()}
+          </div>
+        ) : null}
+        {task.deadline ? (
+          <div className="text-danger">
+            ⏰ Deadline: {new Date(task.deadline).toLocaleString()}
+          </div>
+        ) : null}
+      </div>
+
+      <p style={{ margin: '0.5rem 0 0.25rem' }}>
         Priority: {Math.round(task.priority_score || 0)} ({getPriorityLabel(task.priority_score || 0)})
       </p>
-      {task.description ? (
-        <p style={{ margin: '0.25rem 0' }}>{task.description}</p>
-      ) : (
-        <p style={{ margin: '0.25rem 0', opacity: 0.6 }}>
-          No description yet.
+      
+      {task.description && <p style={{ margin: '0.25rem 0' }}>{task.description}</p>}
+      
+      {task.priority_reason && (
+        <p style={{ margin: '0.25rem 0', fontStyle: 'italic', fontSize: '0.85em', color: '#555' }}>
+          🤖 AI Reason: {task.priority_reason}
         </p>
       )}
-      {task.priority_reason ? (
-        <p style={{ margin: '0.25rem 0', opacity: 0.75 }}>
-          Why: {task.priority_reason}
-        </p>
-      ) : null}
-      {task.points_value ? (
-        <span>Points: {task.points_value}</span>
-      ) : null}
-      {task.status !== 'done' && (
-        <button onClick={() => dispatch(completeTask(task.id))}>Mark done</button>
+      
+      {task.points_value > 0 && (
+        <div style={{ marginTop: '5px', fontWeight: 'bold', color: '#d9534f' }}>
+           🔥 +{task.points_value} Points
+        </div>
       )}
     </li>
   );
 
   const renderGroupedTasks = (groups, emptyMessage) => {
-    const entries = Object.entries(groups);
+    const entries = Object.entries(groups).sort((a, b) => {
+        // Sort groups by time key (embedded in the string)
+        const timeA = a[0].split('|')[1] || '';
+        const timeB = b[0].split('|')[1] || '';
+        return timeA.localeCompare(timeB);
+    });
+
     if (entries.length === 0) {
       return <p>{emptyMessage}</p>;
     }
 
-    return entries.map(([deadline, items]) => (
-      <div key={deadline}>
-        <h4>{deadline}</h4>
-        <ul>
-          {items.map((task) => renderTaskItem(task))}
-        </ul>
-      </div>
-    ));
+    return entries.map(([key, items]) => {
+      let label = key;
+      if (key.startsWith('sched|')) label = `Scheduled Start: ${key.substring(6)}`;
+      else if (key.startsWith('dead|')) label = `Deadline: ${key.substring(5)}`;
+      else if (key === 'unscheduled') label = 'Unscheduled';
+
+      return (
+        <div key={key} className="mb-4">
+          <h4 className="text-primary border-bottom pb-2">{label}</h4>
+          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+            {items.map((task) => renderTaskItem(task))}
+          </ul>
+        </div>
+      );
+    });
   };
 
   return (
@@ -154,8 +194,16 @@ export default function Dashboard() {
       <Sidebar />
       <div className="welcome-div">
       <h2 className="welcome-user">Hello, {welcomeName}!</h2>
-      <p className="welcome-sub">BACON wishes you an amazing and productive day. TASK NUMBER tasks are waiting for you today.</p>
+      <p className="welcome-sub">BACON wishes you an amazing and productive day. {prioritizedTasks.filter(t => t.status === 'ongoing').length} tasks are waiting for you today.</p>
       </div>
+
+      {tasksState.error && (
+        <Alert variant="danger">
+          {typeof tasksState.error === 'string'
+            ? tasksState.error
+            : (tasksState.error.detail || 'Action failed. Please try again.')}
+        </Alert>
+      )}
 
       <MiniCalendar />
 

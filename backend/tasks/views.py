@@ -34,10 +34,15 @@ class TaskListCreateView(generics.ListCreateAPIView):
 
         # Refresh priority for newly created/updated tasks before listing.
         stale_tasks = Task.objects.filter(user=self.request.user).filter(
-            Q(prioritized_at__isnull=True) | Q(updated_at__gt=F('prioritized_at'))
+            Q(status=Task.STATUS_ONGOING) & (
+                Q(prioritized_at__isnull=True) | 
+                Q(updated_at__gt=F('prioritized_at')) |
+                Q(suggested_start_time__isnull=True) |
+                Q(suggested_start_time__lt=timezone.now())
+            )
         ).order_by('updated_at')[:10]
         for task in stale_tasks:
-            prioritize_and_save_task(task)
+            prioritize_and_save_task(task, self.request.user)
 
         return Task.objects.filter(user=self.request.user).order_by('-priority_score', '-priority_confidence', 'created_at')
 
@@ -69,7 +74,7 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         task = serializer.save()
-        prioritize_and_save_task(task)
+        prioritize_and_save_task(task, self.request.user)
 
 
 class TaskCompleteView(generics.UpdateAPIView):
@@ -83,6 +88,20 @@ class TaskCompleteView(generics.UpdateAPIView):
         task = self.get_object()
         if task.status == Task.STATUS_DONE:
             return Response({'detail': 'Already completed.'}, status=status.HTTP_200_OK)
+
+        # Enforce sequential completion: check if any higher priority ongoing tasks exist
+        higher_priority_exists = Task.objects.filter(
+            user=request.user,
+            status=Task.STATUS_ONGOING,
+            priority_score__gt=task.priority_score
+        ).exists()
+
+        if higher_priority_exists:
+            return Response(
+                {'detail': 'You must complete higher priority tasks first.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         with transaction.atomic():
             task.status = Task.STATUS_DONE
             # assign random points if none set
