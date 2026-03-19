@@ -16,6 +16,10 @@ function Sidebar() {
     navigate('/login');
   };
 
+  const handleBack = () => {
+    closeSidebar();
+  };
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -33,8 +37,10 @@ function Sidebar() {
       </button>
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
         <strong className="logo">BACON</strong>
+        <button className='sidebar-links back-button' onClick={handleBack}>← Back</button>
         <button className='sidebar-links' onClick={closeSidebar} disabled={!hasSchedule}><Link to="/dashboard" className={!hasSchedule ? 'disabled-link' : ''}>To-Do</Link></button>
         <button className='sidebar-links' onClick={closeSidebar} disabled={!hasSchedule}><Link to="/calendar" className={!hasSchedule ? 'disabled-link' : ''}>Calendar</Link></button>
+        <button className='sidebar-links' onClick={closeSidebar} disabled={!hasSchedule}><Link to="/schedule-overview" className={!hasSchedule ? 'disabled-link' : ''}>Schedule</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/shop">Shop</Link></button>
         <button className='sidebar-links' onClick={closeSidebar}><Link to="/scan">Semester Scan</Link></button>
         <button className='logout-button' onClick={handleLogout}>Logout</button>

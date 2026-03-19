@@ -42,8 +42,8 @@ useEffect(() => {
   };
 
   const handleConfirm = () => {
-    // Now that the user has seen it, we move to the dashboard
-    navigate('/dashboard');
+    // Now that the user has seen it, we move to the schedule overview
+    navigate('/schedule-overview');
   };
 
   return (

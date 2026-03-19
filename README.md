@@ -57,6 +57,7 @@ npm start (if it did not run using npm start use this -> npm install ajv@^8.0.0 
 - Tasks list/create: `/tasks/` (GET, POST)
 - Task complete: `/tasks/{id}/complete/` (PATCH)
 - Reprioritize tasks: `/tasks/reprioritize/` (POST)
+- Schedule blocks: `/api/tasks/schedule-blocks/` (GET) — Returns extracted class schedule data
 
 Access/refresh tokens are saved by the frontend in localStorage under `access_token` and `refresh_token`.
 
@@ -82,6 +83,30 @@ python manage.py runserver
 
 If `GEMINI_API_KEY` is not set (or Gemini fails), the backend automatically falls back to deterministic rule-based prioritization using deadline + difficulty + description quality.
 
+**Schedule Overview**
+
+The Schedule Overview feature allows users to upload and visualize their weekly class schedule in a clean, grid-based format.
+
+**Flow:**
+1. User navigates to Semester Scan
+2. Uploads/processes schedule (extracts class times and subjects)
+3. Redirected to Schedule Overview page to review extracted classes
+4. After confirmation, continues to Dashboard for task management
+
+**Features:**
+- **Weekly Grid Display**: 7-day week (Monday-Sunday) with 30-minute time slots (6 AM - 10 PM)
+- **Responsive Design**: Fits entire screen without scrolling, adapts to any device size
+- **Clean Visual Design**: Grid borders separate time slots and days; single accent color for consistency
+- **Time-Based Card Positioning**: Class cards extend from actual start to end time (not locked to 30-min boundaries)
+- **Data Integration**: Fetches schedule blocks from `/api/tasks/schedule-blocks/` endpoint
+
+**Technical Details:**
+- **Component**: [ScheduleOverview.jsx](frontend/src/screens/ScheduleOverview/ScheduleOverview.jsx)
+- **Styling**: [ScheduleOverview.css](frontend/src/screens/ScheduleOverview/ScheduleOverview.css)
+- **State**: Redux `schedule` reducer (`blocks` array + `loading` state)
+- **Authentication**: Protected route via `ScheduleGate` wrapper (requires `hasSchedule` flag)
+- **Colors**: Uses project primary red (#cf403f) for headers and class cards
+
 **Branching / pushing**
 
 To create and push a working branch for the to-do work:
@@ -98,3 +123,5 @@ git push -u origin "to-do list"
 - If the frontend redirects to `/preferences` after a refresh, ensure the frontend can fetch `/user/` (check network tab). If the request fails (401), refresh token flow may need inspection.
 - If migrations error due to history, remove `db.sqlite3` in development and re-run migrations (this is destructive — only for dev).
 - The backend uses simple random point assignment when completing a task; points are awarded server-side.
+- **Schedule Overview**: The schedule grid adapts to any viewport size using responsive `max()` CSS functions. If the grid appears cramped, check that no container has a fixed max-width constraint.
+- **Protected Routes**: The Schedule Overview is protected by `ScheduleGate` — ensure the Redux `schedule.hasSchedule` flag is set to `true` after uploading a schedule in Semester Scan.

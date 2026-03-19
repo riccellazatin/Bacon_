@@ -108,3 +108,10 @@ Orange: #fd5732
     font-family: Quicksand, sans-serif;
     font-size: 3.5vh;
 }
+
+.back-button {
+    border-top: 1px solid #e3d5c844 !important;
+    border-bottom: 1px solid #e3d5c844 !important;
+    color: #e3d5c8 !important;
+    font-weight: 500;
+}

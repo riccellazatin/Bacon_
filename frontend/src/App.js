@@ -21,6 +21,7 @@ import ScheduleGate from './components/ScheduleGate/ScheduleGate';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import SemesterScan from './components/SemesterScan/SemesterScan';
+import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,12 @@ export default function App() {
                 <Dashboard />
               </ScheduleGate>
             } />
+            
+            <Route path='/schedule-overview' element={
+              <ScheduleGate>
+                <ScheduleOverview />
+              </ScheduleGate>
+            } />}
             
             <Route path='/tasks/new' element={
               <ScheduleGate>
