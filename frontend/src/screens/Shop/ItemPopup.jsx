@@ -52,11 +52,11 @@ function ItemPopup(props) {
                                 <div className='text-bottom'>
                                     <p>{props.item.points}</p>
                                     {!isLoggedIn ? (
-                                    <button className='shop-button-login'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Log In to Purchase</a></button>
+                                    <button className='shop-button-login'><a href="/login">Log In to Purchase</a></button>
                                     ) : (
                                     <>
-                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Add to Cart</a></button>
-                                    <button className='shop-button'><a href="/login" style={{color: '#ce4636', textDecoration: 'none'}}>Buy Now</a></button>
+                                    <button className='shop-button'><a href="/login">Add to Cart</a></button>
+                                    <button className='shop-button'><a href="/login">Buy Now</a></button>
                                     </>
                                     )}
                                 </div>

@@ -61,7 +61,7 @@ export default function Shop() {
     } else {
     return (
         <div className="shop-background">
-                <h1 className='header'>Available Deals</h1>
+                <h1 className='header'>Available Vouchers</h1>
             <div className='shop-container'>
                 <Row>
                     {items.map(item => (
