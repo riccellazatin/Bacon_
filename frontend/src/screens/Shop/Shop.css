@@ -18,6 +18,34 @@ Orange: #fd5732
     background-color: #faf4e4;
 }
 
+.points-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.user-points-display {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    padding: 1vh 2vh;
+    background-color: #fd5732;
+    color: white;
+    border-radius: 1vh;
+    font-weight: bold;
+}
+
+.points-label {
+    font-size: 1.2vh;
+}
+
+.points-value {
+    font-size: 2vh;
+    font-weight: bold;
+}
+
 .header {
     font-family:  Libre Baskerville, serif;
     font-size: 8vh;
@@ -40,5 +68,15 @@ Orange: #fd5732
 @media screen and (max-width: 400px) {
     .header {
         font-size: 7vh;
+    }
+    
+    .points-header {
+        flex-direction: column;
+        gap: 1vh;
+    }
+    
+    .user-points-display {
+        width: 100%;
+        justify-content: center;
     }
 }

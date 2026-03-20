@@ -11,6 +11,7 @@ import {
   TASK_COMPLETE_FAIL,
 } from '../constants/taskConstants';
 import { fetchCurrentUser } from './authActions';
+import { updatePoints } from './pointsActions';
 import {
     TASK_SCAN_REQUEST, TASK_SCAN_SUCCESS, TASK_SCAN_FAIL,
     TASK_BULK_CREATE_REQUEST, TASK_BULK_CREATE_SUCCESS, TASK_BULK_CREATE_FAIL
@@ -43,10 +44,23 @@ export const completeTask = (taskId) => async (dispatch) => {
     dispatch({ type: TASK_COMPLETE_REQUEST });
     const res = await api.patch(`/tasks/${taskId}/complete/`);
     dispatch({ type: TASK_COMPLETE_SUCCESS, payload: res.data });
+    
+    // Update Redux points immediately from the response
+    if (res.data.total_points !== undefined) {
+      dispatch(updatePoints({
+        total_points: res.data.total_points,
+        points_earned_this_week: res.data.points_earned_this_week,
+        points_needed_for_limit: res.data.points_needed_for_limit,
+      }));
+    }
+    
     // Refresh user info to pick up new points
     dispatch(fetchCurrentUser());
+    // Return the response data so it can be used in .then()
+    return res.data;
   } catch (err) {
     dispatch({ type: TASK_COMPLETE_FAIL, payload: err.response?.data || err.message });
+    throw err;
   }
 };
 

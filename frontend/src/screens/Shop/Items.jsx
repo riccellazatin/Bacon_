@@ -7,7 +7,7 @@ function Items({item, onClick}) {
         <Card className='card-container' onClick={onClick}>
             <Card.Img variant="top" src={item.image}/>
             <Card.Title>{item.name}</Card.Title>
-            <Card.Text>{item.points}</Card.Text>
+            <Card.Text className='points-text'>{item.points} <span className='points-label'>points</span></Card.Text>
         </Card>
     )
 }

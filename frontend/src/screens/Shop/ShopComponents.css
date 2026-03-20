@@ -302,3 +302,52 @@ Orange: #fd5732
 .shop-button a:hover{
     text-decoration: none;
 }
+
+/* Points Display Styles */
+.points-text {
+    font-size: 1.5vh;
+    font-weight: bold;
+    color: #fd5732;
+}
+
+.points-label {
+    font-size: 1vh;
+    color: #a6a39d;
+    font-weight: normal;
+}
+
+.points-display {
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: #fd5732;
+    margin: 2vh 0;
+}
+
+.points-display span {
+    font-size: 1.5vh;
+    color: #a6a39d;
+    font-weight: normal;
+}
+
+.purchase-success {
+    color: #2d8659;
+    font-weight: bold;
+    margin: 1vh 0;
+}
+
+.purchase-error {
+    color: #c93f2f;
+    font-weight: bold;
+    margin: 1vh 0;
+}
+
+.insufficient-points {
+    color: #fd5732;
+    font-size: 1.2vh;
+    margin-top: 1vh;
+}
+
+.shop-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
