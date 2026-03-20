@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .views import items
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -6,7 +7,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = items
         fields = '__all__'
 
-class UserSerializers(serializer.ModelSerializer):
+class UserSerializers(serializers.ModelSerializer):
     class Meta:
         from django.contrib.auth.models import User
         model = User

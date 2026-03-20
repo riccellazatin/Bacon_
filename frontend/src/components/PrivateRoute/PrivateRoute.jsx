@@ -13,7 +13,7 @@ export default function PrivateRoute({ children }) {
   }
 
   // Allow access to the preferences screen even if not onboarded
-  const isPreferencesRoute = location.pathname === '/preferences';
+  const isPreferencesRoute = location.pathname === '/preferences'
   // If we have a token but the current user data isn't loaded yet, wait
   // - while loading: render nothing (avoid redirect flicker)
   // - if fetch errored: send to login

@@ -22,6 +22,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import SemesterScan from './components/SemesterScan/SemesterScan';
 import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
+import CourseFolderScreen from './screens/CourseFolder/CourseFolderScreen';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -104,6 +105,7 @@ export default function App() {
             {/* Keeping these for safety, though PrivateRoute handles them */}
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='/dashboard' element={<PrivateRoute><CourseFolderScreen /></PrivateRoute>} />
           </Routes>
         </main>
         <Footer />

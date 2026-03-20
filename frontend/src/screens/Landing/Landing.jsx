@@ -40,7 +40,7 @@ function Landing() {
       <div className="item-section">
         <div className="item-container">
           <h1 className="featured">You make the task. We'll make sure it gets done.</h1>
-          <p class="item-description">Improve task management speed and watch your productivity grow.</p>
+          <p className="item-description">Improve task management speed and watch your productivity grow.</p>
 
           <center>
           <div className="feature-preview">

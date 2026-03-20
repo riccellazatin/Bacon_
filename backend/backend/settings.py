@@ -62,11 +62,12 @@ INSTALLED_APPS = [
     'accounts',
     'tasks',
     'shop',
-    'corsheaders',
+    "corsheaders",
+    'courses',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -171,7 +172,7 @@ SIMPLE_JWT = {
 # CORS (development) - allow frontend local dev server to access API
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    'http://127.0.0.1:8000',
 ]
 
 # For convenience during development you can set this to True (less secure)
