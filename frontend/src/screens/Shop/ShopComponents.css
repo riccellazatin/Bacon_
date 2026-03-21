@@ -1,24 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 .card-container {
-    border: 2px solid #0e0f0d;
+    border: 2px dashed #121212;
+    border-radius: 30px;
     padding: 20px;
     margin: 15px;
     max-width: 300px;
     text-align: center;
     overflow: hidden;
     justify-self: center;
-    font-family: Libre Baskerville, serif;
-    color: #e3d5c8;
+    font-family: Quicksand, serif;
+    color: #121212;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card-container img {
+    border-radius: 20px;
 }
 
 .card-container:hover {
+    border: 2px solid #121212;
+    border-radius: 30px;
+    background-color: #fd5732;
+    padding: 20px;
+    margin: 15px;
+    max-width: 300px;
+    text-align: center;
+    overflow: hidden;
+    justify-self: center;
+    font-family: Quicksand, serif;
+    color: #121212;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     transform: scale(1.05);
+    transition: background-color 0.5s ease, transform 0.5s ease;   
 }
 
 .card-container img {
@@ -29,13 +54,13 @@ white: #f0f0ed */
 }
 
 .header {
-  font-family: Libre Baskerville, serif;
+  font-family: Quicksand, sans-serif;
   font-style: italic;
   font-weight: 700;
   font-size: 4vh;
   text-align: left;
   margin: 1vh 2vh;
-  color: #ce4634;
+  color: #faf4e4;
 }
 
 .header-container {
@@ -155,8 +180,8 @@ white: #f0f0ed */
 }
 
 .popup-inner {
-    color: #f8f0dd;
-    background-color: #ce4636;
+    color: #121212;
+    background-color: #faf4e4;
     padding: 20px;
     border-radius: 20px;
     width: 90%;
@@ -165,7 +190,7 @@ white: #f0f0ed */
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    font-family: Libre Baskerville, serif;
+    font-family: Quicksand, sans-serif;
     font-style: italic;
     display: flex;
     flex-direction: column;
@@ -181,9 +206,10 @@ white: #f0f0ed */
 }
 
 .popup-inner img {
-    max-width: 100%;
+    max-width: 85%;
     height: auto;
     object-fit: contain;
+    border-radius: 30px;
 }
 
 .popup-card {
@@ -203,7 +229,7 @@ white: #f0f0ed */
 }
 
 .close-button {
-    background-color: #ce4636;
+    background-color: #fd5732;
     color: #f8f0dd;
     border: none;
     padding: 10px 20px;
@@ -224,27 +250,104 @@ white: #f0f0ed */
 .shop-button-login {
     padding: 1.5vh 4vh;
     font-size: 2vh;
-    font-family: Libre Baskerville, serif;
-    font-weight: 300;
+    font-family: Quicksand, sans-serif;
+    font-weight: 700;
     font-style: italic;
-    color: #ce4636;
-    background-color: #f8f0dd;
     border: none;
     border-radius: 8vh;
+    background-color: #fd5732;
     cursor: pointer;
     margin: 2vh;
+}
+
+.shop-button-login a{
+    text-decoration: none;
+    color: #121212;
+}
+
+.shop-button-login:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: scale(1.05);
+    transition: background-color 0.5s ease, transform 0.5s ease;  
+}
+
+.shop-button-login a:hover{
+    text-decoration: none;
 }
 
 .shop-button {
     padding: 1.5vh 4vh;
     font-size: 2vh;
-    font-family: Libre Baskerville, serif;
-    font-weight: 300;
+    font-family: Quicksand, sans-serif;
+    font-weight: 700;
     font-style: italic;
-    color: #ce4636;
-    background-color: #f8f0dd;
     border: none;
     border-radius: 8vh;
+    background-color: #fd5732;
     cursor: pointer;
-    margin: 2vh;    
+    margin: 2vh;
+}
+
+.shop-button a{
+    text-decoration: none;
+    color: #121212;
+}
+
+.shop-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: scale(1.05);
+    transition: background-color 0.5s ease, transform 0.5s ease;  
+}
+
+.shop-button a:hover{
+    text-decoration: none;
+}
+
+/* Points Display Styles */
+.points-text {
+    font-size: 1.5vh;
+    font-weight: bold;
+    color: #fd5732;
+}
+
+.points-label {
+    font-size: 1vh;
+    color: #a6a39d;
+    font-weight: normal;
+}
+
+.points-display {
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: #fd5732;
+    margin: 2vh 0;
+}
+
+.points-display span {
+    font-size: 1.5vh;
+    color: #a6a39d;
+    font-weight: normal;
+}
+
+.purchase-success {
+    color: #2d8659;
+    font-weight: bold;
+    margin: 1vh 0;
+}
+
+.purchase-error {
+    color: #c93f2f;
+    font-weight: bold;
+    margin: 1vh 0;
+}
+
+.insufficient-points {
+    color: #fd5732;
+    font-size: 1.2vh;
+    margin-top: 1vh;
+}
+
+.shop-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

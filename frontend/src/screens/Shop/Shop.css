@@ -1,8 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
 .shop-background {
     display: flex;
     flex-direction: column;
     padding: 1vh;
-    background-color: #ce4636;
+    background-color: #faf4e4;
+}
+
+.points-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.user-points-display {
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    padding: 1vh 2vh;
+    background-color: #fd5732;
+    color: white;
+    border-radius: 1vh;
+    font-weight: bold;
+}
+
+.points-label {
+    font-size: 1.2vh;
+}
+
+.points-value {
+    font-size: 2vh;
+    font-weight: bold;
 }
 
 .header {
@@ -11,7 +52,7 @@
     font-weight: 1000;
     font-style: italic;
     text-align: center;
-    color: #f8f0dd;
+    color: #121212;
     margin: 2vh 0 2vh 0;
 }
 
@@ -20,12 +61,22 @@
     flex-direction: row;
     justify-content: center;
     gap: 2vh;
-    background-color: #ce4636;
+    background-color: #faf4e4;
     border-radius: 3vh;
 }
 
 @media screen and (max-width: 400px) {
     .header {
         font-size: 7vh;
+    }
+    
+    .points-header {
+        flex-direction: column;
+        gap: 1vh;
+    }
+    
+    .user-points-display {
+        width: 100%;
+        justify-content: center;
     }
 }
