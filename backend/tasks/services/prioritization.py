@@ -585,6 +585,77 @@ def prioritize_and_save_task(task: Task, user) -> PriorityResult:
     
     return result
 
+def determine_task_difficulty(task: Task, user) -> str:
+    """
+    Determine task difficulty based on AI analysis or rule-based heuristics.
+    Returns one of: 'easy', 'medium', 'hard'
+    
+    Priority:
+    1. Try Gemini AI first if available
+    2. Fall back to rule-based estimation
+    """
+    if task.status == Task.STATUS_DONE:
+        return Task.DIFFICULTY_MEDIUM  # Default for completed tasks
+    
+    api_key = settings.GEMINI_API_KEY
+    model = settings.GEMINI_MODEL
+    timeout_seconds = settings.GEMINI_TIMEOUT_SECONDS
+    
+    # First try AI-based determination
+    if api_key:
+        try:
+            now_local = timezone.localtime(timezone.now())
+            now_str = now_local.strftime("%Y-%m-%d %H:%M")
+            
+            prompt = (
+                'You are a task difficulty classifier. Analyze the following task and classify its difficulty. '
+                'Consider the task description, duration, and any implicit complexity signals. '
+                'Return ONLY a JSON object with this format: {"difficulty": "easy|medium|hard"}\n\n'
+                f'Current Time: {now_str}\n'
+                f'Task Title: {task.title}\n'
+                f'Task Description: {task.description}\n'
+                f'User-entered Duration (minutes, 0 means unknown): {task.duration_minutes}\n'
+            )
+            
+            endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}'
+            payload = {
+                'contents': [{'parts': [{'text': prompt}]}],
+                'generationConfig': {
+                    'temperature': 0.3,
+                    'response_mime_type': 'application/json',
+                },
+            }
+            
+            data = json.dumps(payload).encode('utf-8')
+            req = request.Request(
+                endpoint,
+                data=data,
+                headers={'Content-Type': 'application/json'},
+                method='POST',
+            )
+            
+            with request.urlopen(req, timeout=timeout_seconds) as resp:
+                raw_body = resp.read().decode('utf-8')
+            
+            parsed_response = json.loads(raw_body)
+            text = _extract_gemini_text(parsed_response)
+            json_text = _extract_json_block(text or '')
+            
+            if json_text:
+                parsed_output = json.loads(json_text)
+                ai_difficulty = str(parsed_output.get('difficulty', '')).strip().lower()
+                
+                if ai_difficulty in {'easy', 'medium', 'hard'}:
+                    return ai_difficulty
+        except Exception:
+            # Fall through to rule-based approach
+            pass
+    
+    # Rule-based difficulty determination (fallback)
+    difficulty_score = _difficulty_score(task)
+    return _difficulty_label(difficulty_score)
+
+
 def get_optimal_slot(user, task):
     # 1. Get all fixed classes for the user
     fixed_classes = ClassSchedule.objects.filter(user=user)

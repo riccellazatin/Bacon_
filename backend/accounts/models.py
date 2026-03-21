@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.utils import timezone
 
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    total_points = models.IntegerField(default=0)
+    total_points = models.FloatField(default=0.0)
+    points_earned_this_week = models.FloatField(default=0.0)
+    week_start_date = models.DateField(default=timezone.now)
     is_onboarded = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'

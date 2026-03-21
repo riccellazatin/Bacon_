@@ -16,6 +16,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'deadline',
             'scheduled_date',
             'duration_minutes',
+            'difficulty',
             'points_value',
             'priority_score',
             'priority_reason',
@@ -29,6 +30,8 @@ class TaskSerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             'user',
+            'difficulty',
+            'points_value',
             'priority_score',
             'priority_reason',
             'priority_source',

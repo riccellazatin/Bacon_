@@ -1,22 +1,41 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
+import { fetchPoints } from '../../redux/actions/pointsActions';
 import { Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 import './Dashboard.css';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import axios from 'axios';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   const tasksState = useSelector((state) => state.tasks);
   const auth = useSelector((state) => state.auth);
+  const points = useSelector((state) => state.points);
   
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
+
+  // Fetch user points on mount and whenever auth changes
+  useEffect(() => {
+    if (auth.token) {
+      dispatch(fetchPoints());
+    }
+  }, [auth.token, dispatch])
+
+  const handleCompleteTask = (taskId) => {
+    dispatch(completeTask(taskId)).then((response) => {
+      // Points are already updated in Redux by completeTask action
+      // No need to manually update here
+    }).catch((error) => {
+      console.error('Error completing task:', error)
+    })
+  }
 
   const getPriorityLabel = (score) => {
     if (score >= 80) return 'High';
@@ -98,8 +117,9 @@ export default function Dashboard() {
     }, {});
   };
 
-  const ongoingTasks = prioritizedTasks.filter((task) => task.status !== 'missing');
+  const ongoingTasks = prioritizedTasks.filter((task) => task.status !== 'missing' && task.status !== 'done');
   const missedTasks = prioritizedTasks.filter((task) => task.status === 'missing');
+  const completedTasks = prioritizedTasks.filter((task) => task.status === 'done');
 
   const currentOngoing = ongoingTasks.filter((task) => {
     const deadlineDateKey = getDeadlineDateKey(task);
@@ -123,7 +143,7 @@ export default function Dashboard() {
           <span className={`badge bg-${task.status === 'done' ? 'success' : 'secondary'} ms-2`}>{task.status}</span>
         </div>
         {task.status !== 'done' && (
-          <Button size="sm" variant="outline-success" onClick={() => dispatch(completeTask(task.id))}>Mark Done</Button>
+          <Button size="sm" variant="outline-success" onClick={() => handleCompleteTask(task.id)}>Mark Done</Button>
         )}
       </div>
       
@@ -154,7 +174,7 @@ export default function Dashboard() {
       
       {task.points_value > 0 && (
         <div style={{ marginTop: '5px', fontWeight: 'bold', color: '#d9534f' }}>
-           🔥 +{task.points_value} Points
+           🔥 +{task.points_value} Points ({task.difficulty || 'medium'})
         </div>
       )}
     </li>
@@ -194,7 +214,7 @@ export default function Dashboard() {
       <Sidebar />
       <div className="welcome-div">
       <h2 className="welcome-user">Hello, {welcomeName}!</h2>
-      <p className="welcome-sub">BACON wishes you an amazing and productive day. {prioritizedTasks.filter(t => t.status === 'ongoing').length} tasks are waiting for you today.</p>
+      <p className="welcome-sub">BACON wishes you an amazing and productive day. {ongoingTasks.filter(t => t.status === 'ongoing').length} tasks are waiting for you today.</p>
       </div>
 
       {tasksState.error && (
@@ -207,8 +227,30 @@ export default function Dashboard() {
 
       <MiniCalendar />
 
-      <div>
-        <strong>Your Points:</strong> {auth.userInfo?.total_points || 0}
+      <div className="points-section" style={{
+        backgroundColor: '#fd5732',
+        color: 'white',
+        padding: '15px',
+        borderRadius: '8px',
+        marginBottom: '20px',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <strong>Total Points</strong>
+          <p style={{ fontSize: '2em', margin: '5px 0' }}>{points?.total_points ?? auth.userInfo?.total_points ?? 0}</p>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <strong>This Week</strong>
+          <p style={{ fontSize: '1.5em', margin: '5px 0' }}>{points?.points_earned_this_week ?? 0}/15</p>
+          {points?.points_earned_this_week >= 15 && (
+            <p style={{ fontSize: '0.9em', marginTop: '5px', color: '#fff', fontWeight: 'bold' }}>
+              ⚠️ Weekly limit reached! Earn more next week.
+            </p>
+          )}
+        </div>
       </div>
 
       <div>
@@ -229,6 +271,15 @@ export default function Dashboard() {
 
           <h2>Missed</h2>
           {renderGroupedTasks(missedGrouped, 'No missed tasks.')}
+
+          <h2>Completed</h2>
+          {completedTasks.length === 0 ? (
+            <p>No completed tasks yet. Start completing tasks to see them here!</p>
+          ) : (
+            <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+              {completedTasks.map((task) => renderTaskItem(task))}
+            </ul>
+          )}
         </>
       ) : null}
     </div>

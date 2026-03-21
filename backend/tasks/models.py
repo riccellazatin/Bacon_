@@ -13,13 +13,24 @@ class Task(models.Model):
         (STATUS_DONE, 'Done'),
     ]
 
+    DIFFICULTY_EASY = 'easy'
+    DIFFICULTY_MEDIUM = 'medium'
+    DIFFICULTY_HARD = 'hard'
+
+    DIFFICULTY_CHOICES = [
+        (DIFFICULTY_EASY, 'Easy'),
+        (DIFFICULTY_MEDIUM, 'Medium'),
+        (DIFFICULTY_HARD, 'Hard'),
+    ]
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='tasks')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     deadline = models.DateTimeField(null=True, blank=True)
     scheduled_date = models.DateField(null=True, blank=True)
     duration_minutes = models.IntegerField(default=0)
-    points_value = models.IntegerField(default=0)
+    difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default=DIFFICULTY_MEDIUM)
+    points_value = models.FloatField(default=0.0)
     priority_score = models.FloatField(default=0.0, db_index=True)
     priority_reason = models.TextField(blank=True, default='')
     priority_source = models.CharField(max_length=64, blank=True, default='rules')

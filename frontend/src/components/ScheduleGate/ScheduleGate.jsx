@@ -6,6 +6,7 @@ import { Spinner, Container } from 'react-bootstrap';
 
 const ScheduleGate = ({ children }) => {
   const { hasSchedule, loading } = useSelector((state) => state.schedule);
+  const { isOnboarded } = useSelector((state) => state.auth);
 
   if (loading) {
     return (
@@ -15,7 +16,12 @@ const ScheduleGate = ({ children }) => {
     );
   }
 
-  // If no schedule is found, redirect them to the scan page
+  // If user is onboarded (existing user), allow access to dashboard
+  if (isOnboarded) {
+    return children;
+  }
+
+  // If no schedule is found and user is not onboarded, redirect them to the scan page
   if (!hasSchedule) {
     return <Navigate to="/scan" replace />;
   }

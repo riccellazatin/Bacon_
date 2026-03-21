@@ -60,6 +60,14 @@ body {
   font-size: 1rem;
 }
 
+.register-button a:hover {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-family: Quicksand, sans-serif;
+  font-size: 1rem;
+}
+
 .register-button {
   background-color: #fd5732;
   padding: 10px 20px;
@@ -68,6 +76,17 @@ body {
   display: flex;
   justify-self: right;
   border: 2px solid #121212;
+}
+
+.register-button:hover {
+  background-color: #121212;
+  padding: 10px 20px;
+  border-radius: 80px;
+  margin: 30px;
+  display: flex;
+  justify-self: right;
+  border: 2px solid #121212;
+  transition: background-color 0.5s ease, transform 0.5s ease;   
 }
 
 .item-section {
@@ -94,7 +113,7 @@ body {
 .shop {
   background-color: transparent;
   border: 2px solid #0e0f0d;
-  font-family: Cormorant Garamond, serif;
+  font-family: Quicksand, serif;
   font-size: 2vh;
   padding: 1vh 3vh;
   border-radius: 5vh;
@@ -136,6 +155,11 @@ body {
   color:#0e0f0d;
   font-size: 20px;
   font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: #fd5732;
+  text-underline-offset: 6px;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 3px;
 }
 
 @media screen and (max-width: 400px) {

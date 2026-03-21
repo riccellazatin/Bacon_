@@ -7,7 +7,7 @@ from django.db import transaction
 from django.db.models import F, Q
 from .models import ScheduleBlock, Task
 from .serializers import ScheduleBlockSerializer, ScheduleImageUploadSerializer, TaskSerializer
-from .services.prioritization import prioritize_and_save_task
+from .services.prioritization import prioritize_and_save_task, determine_task_difficulty
 import random
 from django.utils import timezone
 import os
@@ -16,7 +16,8 @@ from google import genai
 from google.genai import types
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone as tz
 
 
 class TaskListCreateView(generics.ListCreateAPIView):
@@ -48,6 +49,10 @@ class TaskListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         task = serializer.save(user=self.request.user)
+        # Determine difficulty using AI analysis
+        task.difficulty = determine_task_difficulty(task, self.request.user)
+        task.save(update_fields=['difficulty'])
+        # Then prioritize the task
         prioritize_and_save_task(task, self.request.user)
         return task
 
@@ -84,6 +89,25 @@ class TaskCompleteView(generics.UpdateAPIView):
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
 
+    def get_points_for_difficulty(self, difficulty):
+        """Return points based on task difficulty"""
+        points_map = {
+            Task.DIFFICULTY_EASY: 0.5,
+            Task.DIFFICULTY_MEDIUM: 1,
+            Task.DIFFICULTY_HARD: 2,
+        }
+        return points_map.get(difficulty, 1)
+
+    def check_and_reset_weekly_points(self, user):
+        """Check if a week has passed and reset if needed"""
+        today = tz.now().date()
+        week_ago = today - timedelta(days=7)
+        
+        if user.week_start_date < week_ago:
+            user.points_earned_this_week = 0
+            user.week_start_date = today
+            user.save()
+
     def patch(self, request, *args, **kwargs):
         task = self.get_object()
         if task.status == Task.STATUS_DONE:
@@ -104,17 +128,59 @@ class TaskCompleteView(generics.UpdateAPIView):
 
         with transaction.atomic():
             task.status = Task.STATUS_DONE
-            # assign random points if none set
-            if not task.points_value:
-                task.points_value = random.randint(5, 20)
+            user = request.user
+            
+            # Check if week has passed and reset if needed
+            self.check_and_reset_weekly_points(user)
+            
+            # Ensure difficulty is always set (fallback to medium if missing)
+            if not task.difficulty or task.difficulty not in [Task.DIFFICULTY_EASY, Task.DIFFICULTY_MEDIUM, Task.DIFFICULTY_HARD]:
+                task.difficulty = Task.DIFFICULTY_MEDIUM
+                task.save(update_fields=['difficulty'])
+            
+            # Calculate points based on difficulty
+            points_earned = self.get_points_for_difficulty(task.difficulty)
+            task.points_value = points_earned  # Keep as float, don't truncate with int()
+            
+            # Check if user has reached the 15 point limit this week
+            weekly_limit = 15
+            if user.points_earned_this_week >= weekly_limit:
+                # User has reached the limit, no more points this week
+                points_to_add = 0
+                limit_reached = True
+            elif user.points_earned_this_week + points_earned > weekly_limit:
+                # User will exceed the limit, cap at remaining points
+                points_to_add = weekly_limit - user.points_earned_this_week
+                limit_reached = False
+            else:
+                # User can earn the full points
+                points_to_add = points_earned
+                limit_reached = False
+            
             task.save()
             prioritize_and_save_task(task, request.user)
-            # add points to user
-            user = request.user
-            user.total_points = (user.total_points or 0) + (task.points_value or 0)
+            
+            # Add points to user
+            user.total_points = (user.total_points or 0) + points_to_add
+            user.points_earned_this_week = user.points_earned_this_week + points_to_add
             user.save()
+            
             serializer = self.get_serializer(task)
-            return Response({'task': serializer.data, 'total_points': user.total_points})
+            response_data = serializer.data
+            # Ensure points_value is in the response
+            response_data['points_value'] = float(task.points_value)
+            response_data['difficulty'] = task.difficulty
+            
+            return Response({
+                'task': response_data,
+                'total_points': float(user.total_points),
+                'points_earned_this_week': float(user.points_earned_this_week),
+                'weekly_limit': weekly_limit,
+                'points_awarded': float(points_to_add if points_to_add > 0 else 0),
+                'points_needed_for_limit': max(0, weekly_limit - user.points_earned_this_week),
+                'limit_reached': limit_reached,
+                'limit_message': 'Weekly limit reached! You cannot earn more points until next week.' if limit_reached and points_to_add == 0 else None
+            })
 
 
 class TaskReprioritizeView(generics.GenericAPIView):
@@ -145,17 +211,22 @@ class BulkCreateTasksView(APIView):
                     # Fallback if format is slightly different
                     deadline_val = None 
 
-            # Now task.deadline will be a proper datetime object
+            # Create task with placeholder difficulty - will be determined by AI
             task = Task.objects.create(
                 user=request.user,
                 title=item.get('title'),
                 deadline=deadline_val,
                 duration_minutes=item.get('duration_minutes', 0),
                 description=item.get('description', ''),
+                difficulty='medium',  # Placeholder - will be determined by AI
                 status='ongoing'
             )
             
-            # This will no longer crash!
+            # Determine difficulty using AI analysis
+            task.difficulty = determine_task_difficulty(task, request.user)
+            task.save(update_fields=['difficulty'])
+            
+            # Then prioritize the task
             prioritize_and_save_task(task, request.user)
             
         return Response({"status": "Tasks added and prioritized successfully"})
