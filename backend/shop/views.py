@@ -104,6 +104,32 @@ items = [
 		'points': 40,
 	},
 
+    # Exclusive Items
+    {
+        '_id': '13',
+        'name': 'SnR Voucher',
+        'image': './images/SnR_MEMBERSHIP.png',
+        'description': 'Premium dining experience delivered to you.',
+        'points': 15,
+        'is_exclusive': True
+    },
+    {
+        '_id': '14',
+        'name': 'Starbucks ₱500 Card',
+        'image': './images/STARSBUCK.jpg',
+        'description': 'Enjoy premium coffee and more.',
+        'points': 120,
+        'is_exclusive': True
+    },
+    {
+        '_id': '15',
+        'name': 'SM Gift Pass ₱1000',
+        'image': './images/SM_GIFTCARD.png',
+        'description': 'Shop till you drop at any SM store.',
+        'points': 200,
+        'is_exclusive': True
+    },
+
 ]
 
 @api_view(['GET'])
@@ -112,6 +138,7 @@ def getRoutes(request):
         'api/items/',
         'api/items/<id>/',
         'api/items/<id>/purchase/',
+        'api/shop/unlock_exclusive/',
     ]
     return Response(routes)
 
@@ -147,6 +174,13 @@ def purchaseItem(request, pk):
     user = request.user
     item_points = item.get('points', 0)
     
+    # Check if item is exclusive and user has access
+    if item.get('is_exclusive', False) and not user.has_exclusive_access:
+        return Response(
+            {'detail': 'This item requires exclusive access. Please unlock it first.'},
+            status=http_status.HTTP_403_FORBIDDEN
+        )
+    
     # Check if user has enough points
     if user.total_points < item_points:
         return Response(
@@ -181,3 +215,16 @@ def purchaseItem(request, pk):
         },
         status=http_status.HTTP_200_OK
     )
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def unlockExclusive(request):
+    """Unlock exclusive shop items for the user after payment"""
+    user = request.user
+    
+    # In a real app, verify payment details here using order ID from request.data
+    
+    user.has_exclusive_access = True
+    user.save()
+    
+    return Response({'detail': 'Exclusive items unlocked successfully!'}, status=http_status.HTTP_200_OK)

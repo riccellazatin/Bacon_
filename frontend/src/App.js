@@ -23,6 +23,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import SemesterScan from './components/SemesterScan/SemesterScan';
 import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
 import CourseFolderScreen from './screens/CourseFolder/CourseFolderScreen';
+import Payment from './screens/Payment/Payment';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -92,6 +93,7 @@ export default function App() {
             {/* 5. Accessible Routes: These stay outside the gate */}
             <Route path="/scan" element={<SemesterScan />} />
             <Route path='/shop' element={<Shop />} />
+            <Route path='/payment' element={<Payment />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
           </Routes>

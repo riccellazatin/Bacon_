@@ -4,7 +4,7 @@ from .views import items
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         from .models import Items
-        model = items
+        model = Items
         fields = '__all__'
 
 class UserSerializers(serializers.ModelSerializer):

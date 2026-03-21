@@ -10,6 +10,7 @@ class User(AbstractUser):
     points_earned_this_week = models.FloatField(default=0.0)
     week_start_date = models.DateField(default=timezone.now)
     is_onboarded = models.BooleanField(default=False)
+    has_exclusive_access = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

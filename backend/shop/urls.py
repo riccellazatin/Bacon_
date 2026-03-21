@@ -6,4 +6,5 @@ urlpatterns= [
         path('api/items/', views.getItems, name="items"),
         path('api/items/<str:pk>/', views.getItem, name="item"),
         path('api/items/<str:pk>/purchase/', views.purchaseItem, name="purchase"),
+        path('api/shop/unlock_exclusive/', views.unlockExclusive, name="unlock_exclusive"),
 ]

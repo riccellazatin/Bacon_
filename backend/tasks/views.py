@@ -92,7 +92,7 @@ class TaskCompleteView(generics.UpdateAPIView):
     def get_points_for_difficulty(self, difficulty):
         """Return points based on task difficulty"""
         points_map = {
-            Task.DIFFICULTY_EASY: 0.5,
+            Task.DIFFICULTY_EASY: 14,
             Task.DIFFICULTY_MEDIUM: 1,
             Task.DIFFICULTY_HARD: 2,
         }
