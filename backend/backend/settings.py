@@ -172,7 +172,7 @@ SIMPLE_JWT = {
 # CORS (development) - allow frontend local dev server to access API
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://127.0.0.1:8000',
+    'http://127.0.0.1:3000',
 ]
 
 # For convenience during development you can set this to True (less secure)

@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
 
-function CourseFolders() {
-    const [folders, setFolders] = useState([]);
+const CourseFolders = ({ folders, onCreate, onDelete, onSelect }) => {
+  const [newName, setNewName] = useState('');
 
-    useEffect(() => {
-        const fetchFolders = async () => {
-            try {
-                const { data } = await axios.get('/api/folders/');
-                setFolders(data);
-            } catch (error) {
-                console.error("API Error:", error.response);
-            }
-        };
-        fetchFolders();
-    }, []);
+  return (
+    <div>
+      <h3>My Courses</h3>
+      <div className="folder-input">
+        <input 
+          value={newName} 
+          onChange={(e) => setNewName(e.target.value)} 
+          placeholder="New Folder Name"
+        />
+        <button onClick={() => { onCreate(newName); setNewName(''); }}>Create</button>
+      </div>
+      <div className="folder-grid">
+        {folders.map(folder => (
+          <div key={folder.id} className="folder-card">
+            <span onClick={() => onSelect(folder)}>{folder.name}</span>
+            <button onClick={() => onDelete(folder.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-    if (folders.length === 0) return <div>No folders found or Loading...</div>;
-
-    return (
-        <div>
-            {folders.map(folder => (
-                <div key={folder.id}>{folder.name}</div>
-            ))}
-        </div>
-    );
-}
-
-export default CourseFolders
+export default CourseFolders;

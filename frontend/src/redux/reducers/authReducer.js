@@ -14,7 +14,7 @@ import {
 const tokenFromStorage = localStorage.getItem('access_token') || null;
 
 const initialState = {
-  userInfo: null,
+  userInfo: JSON.parse(localStorage.getItem('userInfo')),
   token: tokenFromStorage,
   isOnboarded: false,
   loading: false,

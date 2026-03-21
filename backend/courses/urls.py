@@ -1,9 +1,11 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FolderViewSet, CourseFileViewSet
+
+router = DefaultRouter()
+router.register(r'folders', FolderViewSet, basename='folder')
+router.register(r'files', CourseFileViewSet, basename='coursefile')
 
 urlpatterns = [
-    path('api/folders/', views.getFolders, name="folders"),
-    path('api/folders/delete/<str:pk>/', views.deleteFolder, name="delete-folder"),
-    path('api/folders/<str:folder_pk>/files/', views.getFiles, name="files"),
-    path('api/files/delete/<str:pk>/', views.deleteFile, name="delete-file"),
+    path('', include(router.urls)),
 ]

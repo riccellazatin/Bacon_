@@ -18,7 +18,7 @@ import SubmissionCalendar from './calendar/calendar';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 // 2. Import the Gate
 import ScheduleGate from './components/ScheduleGate/ScheduleGate';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
 import SemesterScan from './components/SemesterScan/SemesterScan';
 import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
@@ -27,6 +27,7 @@ import CourseFolderScreen from './screens/CourseFolder/CourseFolderScreen';
 export default function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const isAuthenticated = !!localStorage.getItem('token');
 
   useEffect(() => {
     if (auth.token && !auth.userInfo && !auth.loading && !auth.error) {
@@ -82,6 +83,12 @@ export default function App() {
               </ScheduleGate>
             } />
 
+            <Route path='/folders' element={
+              <ScheduleGate>
+                <CourseFolderScreen />
+              </ScheduleGate>
+            } />
+
             {/* 5. Accessible Routes: These stay outside the gate */}
             <Route path="/scan" element={<SemesterScan />} />
             <Route path='/shop' element={<Shop />} />
@@ -103,9 +110,9 @@ export default function App() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
             {/* Keeping these for safety, though PrivateRoute handles them */}
+            <Route path='/folders' element={isAuthenticated ? <CourseFolderScreen /> : <Navigate to='/login' />} />
             <Route path='/calendar' element={<PrivateRoute><SubmissionCalendar /></PrivateRoute>} />
             <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path='/dashboard' element={<PrivateRoute><CourseFolderScreen /></PrivateRoute>} />
           </Routes>
         </main>
         <Footer />

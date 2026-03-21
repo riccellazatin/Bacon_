@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import CourseFolder, CourseFile
+from .models import Folder, CourseFile
 
 class CourseFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseFile
-        fields = '__all__'
+        fields = ['id', 'folder', 'file', 'uploaded_at']
 
-class CourseFolderSerializer(serializers.ModelSerializer):
-    file_count = serializers.SerializerMethodField(read_only=True)
+class FolderSerializer(serializers.ModelSerializer):
+    files = CourseFileSerializer(many=True, read_only=True)
 
     class Meta:
-        model = CourseFolder
-        fields = ['id', 'user', 'name', 'created_at', 'file_count']
+        model = Folder
+        fields = ['id', 'name', 'created_at', 'files']

@@ -1,56 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import React from 'react';
 
-function CourseFiles() {
-    const { id } = useParams()
-    const [files, setFiles] = useState([])
-    const [uploading, setUploading] = useState(false)
-
-    useEffect(() => {
-        fetchFiles()
-    }, [id])
-
-    const fetchFiles = async () => {
-        const { data } = await axios.get(`/api/courses/folders/${id}/files/`)
-        setFiles(data)
+const CourseFiles = ({ folder, onBack, onUpload, onDeleteFile }) => {
+  
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      onUpload(folder.id, e.target.files[0]);
     }
+  };
 
-    const uploadFileHandler = async (e) => {
-        const file = e.target.files[0]
-        const formData = new FormData()
-        formData.append('file', file)
-        
-        setUploading(true)
-        try {
-            await axios.post(`/api/courses/folders/${id}/files/`, formData)
-            fetchFiles()
-            setUploading(false)
-        } catch (error) {
-            setUploading(false)
-        }
-    }
+  return (
+    <div className="file-container">
+      <button onClick={onBack} style={{ marginBottom: '20px' }}>← Back to Folders</button>
+      <h2>Files in: {folder.name}</h2>
 
-    const deleteHandler = async (fileId) => {
-        if (window.confirm('Are you sure you would like to delete this file?')) {
-            await axios.delete(`/api/courses/files/delete/${fileId}/`)
-            fetchFiles()
-        }
-    }
+      {/* Upload Section */}
+      <div className="upload-section" style={{ padding: '15px', border: '1px dashed #ccc' }}>
+        <p>Upload new file to this folder:</p>
+        <input type="file" onChange={handleFileChange} />
+      </div>
 
-    return (
-        <div>
-            <input type="file" onChange={uploadFileHandler} />
-            {uploading && <p>Uploading...</p>}
-            
-            {files.map(file => (
-                <div key={file.id}>
-                    <p>{file.file.split('/').pop()}</p>
-                    <button onClick={() => deleteHandler(file.id)}>Delete</button>
-                </div>
-            ))}
-        </div>
-    )
-}
+      <hr />
 
-export default CourseFiles
+      {/* Files List */}
+      <div className="file-list">
+        {folder.files && folder.files.length > 0 ? (
+          folder.files.map((file) => (
+            <div key={file.id} className="file-row" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
+              <a href={file.file} target="_blank" rel="noopener noreferrer">
+                📄 View Document
+              </a>
+              <button onClick={() => onDeleteFile(file.id)} style={{ color: 'red' }}>
+                Delete
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>This folder is empty.</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default CourseFiles;
