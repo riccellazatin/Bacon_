@@ -159,3 +159,9 @@ Purple: #e3b8f5
     padding: 15px;
     margin-bottom: 0.5rem;
 }
+
+@media screen and (max-width: 900px) {
+    .task-kanban {
+        grid-template-columns: 1fr;
+    }
+}

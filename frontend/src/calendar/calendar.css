@@ -41,3 +41,40 @@ Orange: #fd5732
     border-radius: 24px;
     border: 2px solid #121212;
 }
+
+@media (max-width: 600px) {
+    .calendar-container-screen{
+        margin: 0 -20px 0 -20px;
+    }
+    
+    .fc {
+        font-size: 12px;
+    }
+
+    .fc .fc-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .fc .fc-toolbar-title {
+        width: 100%;
+        text-align: center;
+        order: 1;
+    }
+
+    .fc .fc-toolbar-chunk:nth-child(1) {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fc .fc-toolbar-chunk:nth-child(3) {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

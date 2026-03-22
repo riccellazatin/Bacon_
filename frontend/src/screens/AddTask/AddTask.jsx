@@ -5,6 +5,7 @@ import api from '../../api/axios';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
+import './AddTask.css'
 
 export default function AddTask() {
   const dispatch = useDispatch();
