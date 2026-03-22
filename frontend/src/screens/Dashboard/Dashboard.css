@@ -9,10 +9,18 @@ Accent-Pink: #e09cc3
 Yellow: #ffda6f
 Accent-Yellow: #cca733
 Orange: #fd5732
+Purple: #e3b8f5
 */
 
 .main-dashboard {
     margin: 3rem;
+    font-family: Quicksand, sans-serif;
+}
+
+.top-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .welcome-div {
@@ -20,27 +28,134 @@ Orange: #fd5732
     flex-direction: column;
     justify-content: center;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
+    border: 2px solid #121212;
+    border-radius: 24px;
 }
 
 .welcome-user {
-    font-family: Quicksand, sans-serif;
     font-size: 3vw;
     margin: 0;
 }
 
 .welcome-sub {
-    font-family: Quicksand, sans-serif;
     color: #8b897f;
     margin: 10px 0;
 }
 
+.add-div {
+    display: block;
+    margin-left: auto;
+}
+
 .add-task-button {
     background: #121212;
-    color: white;
     font-family: Quicksand, sans-serif;
+    color: white;
     padding: 0.5rem 0.8rem;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.add-task-button:hover {
+    background: #fd5732;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 16px;
+    border: none;
     border-radius: 999px;
     cursor: pointer;
     transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.task-button-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-radius: 24px;
+}
+
+.task-button-desc {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: #fd5732;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+}
+
+.task-kanban {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.kanban-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-title {
+    color: #121212;
+}
+
+.progress-button {
+    background-color: transparent;
+    border: 2px solid #121212;
+    border-radius: 16px;
+    font-family: Quicksand, sans-serif;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.progress-button:hover {
+    color: white;
+    background-color: #fd5732;
+    border: 2px solid #fd5732;
+    border-radius: 16px;
+    font-family: Quicksand, sans-serif;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.mb-4 {
+    border: none;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.task-subtitle {
+    font-size: 15px;
+}
+
+.ongoing-tasks {
+    background-color: #f5b8da;
+    border-radius: 24px;
+    padding: 15px;
+}
+
+.missed-tasks {
+    background-color: #ffda6f;
+    border-radius: 24px;
+    padding: 15px;
+}
+
+.completed-tasks {
+    background-color: #e3b8f5;
+    border-radius: 24px;
+    padding: 15px;
+}
+
+.todo-border {
+    background-color: white;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 0.5rem;
 }

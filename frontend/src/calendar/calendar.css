@@ -12,8 +12,8 @@ Orange: #fd5732
 */
 
 .main-calendar-div {
-    height: 100%;
-    margin: 5rem 2rem;
+    height: 110%;
+    margin: 4rem 3rem;
 }
 
 .calendar-title {
@@ -24,9 +24,20 @@ Orange: #fd5732
     font-family: Quicksand, sans-serif;
 }
 
+.legend-div {
+    margin-bottom: 15px;
+}
+
 .legend {
     font-family: Quicksand, sans-serif;
     font-size: 12px;
     font-weight: 500;
     margin-right: 10px;
+}
+
+.calendar-container-screen {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 24px;
+    border: 2px solid #121212;
 }

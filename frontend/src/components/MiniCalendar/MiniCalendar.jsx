@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import "./MiniCalendar.css";
 
 const statusColors = {
-  ongoing: "#3788d8",
-  missing: "#dc3545",
-  done: "#28a745",
+  ongoing: "#f5b8da",
+  missing: "#ffda6f",
+  done: "#fd5732",
 };
 
 export default function MiniCalendar() {

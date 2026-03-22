@@ -6,11 +6,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { fetchTasks, completeTask } from "../redux/actions/taskActions";
 import './calendar.css'
+import Footer from '../components/Footer/Footer'
 
 const statusColors = {
-  ongoing: "#3788d8",
-  missing: "#dc3545",
-  done: "#28a745",
+  ongoing: "#f5b8da",
+  missing: "#ffda6f",
+  done: "#fd5732",
 };
 
 export default function SubmissionCalendar() {
@@ -69,7 +70,7 @@ export default function SubmissionCalendar() {
 
       {loading && <p className="loading">Loading tasks...</p>}
 
-      <div>
+      <div className="legend-div">
         <span className="legend">
           <span style={{ display: "inline-block", width: 10, height: 10, backgroundColor: statusColors.ongoing, marginRight: 5 }}></span>
           Ongoing
@@ -84,7 +85,7 @@ export default function SubmissionCalendar() {
         </span>
       </div>
 
-      <div style={{ marginTop: 20 }}>
+      <div className="calendar-container-screen">
         <FullCalendar
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -128,6 +129,8 @@ export default function SubmissionCalendar() {
           }}
         />
       </div>
+
+      <Footer />
     </div>
   );
 }

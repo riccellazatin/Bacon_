@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Card, Alert, Spinner } from 'react-bootstrap';
 import './ScheduleOverview.css';
+import Footer from '../../components/Footer/Footer'
 
 const ScheduleOverview = () => {
   const navigate = useNavigate();
@@ -95,7 +96,6 @@ const ScheduleOverview = () => {
       <div className="schedule-overview-card">
         <div className="schedule-overview-header">
           <h2 className="fw-bold">Your Weekly Schedule</h2>
-          <p className="text-muted">Overview of your classes for the week</p>
         </div>
 
         {blocks.length === 0 ? (
@@ -156,10 +156,10 @@ const ScheduleOverview = () => {
               )}
 
         <div style={{ flexShrink: 0, padding: '0.5rem', borderTop: '1px solid #e5e7eb', textAlign: 'center' }}>
-          <Button variant="primary" size="sm" onClick={handleContinue} className="mb-2">
+          <Button variant="primary" size="sm" onClick={handleContinue} className="dash-button">
             Continue to Dashboard
           </Button>
-          <p className="text-center text-muted small mb-0">
+          <p className="pref-note">
             You can always adjust your schedule in preferences later.
           </p>
         </div>

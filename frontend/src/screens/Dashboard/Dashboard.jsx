@@ -8,6 +8,7 @@ import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 import './Dashboard.css';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import axios from 'axios';
+import Footer from '../../components/Footer/Footer'
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -136,14 +137,14 @@ export default function Dashboard() {
   const missedGrouped = groupByDeadline(missedTasks);
 
   const renderTaskItem = (task) => (
-    <li key={task.id} style={{ marginBottom: '1rem', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}>
+    <li key={task.id} className="todo-border">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <strong>{task.title}</strong>
-          <span className={`badge bg-${task.status === 'done' ? 'success' : 'secondary'} ms-2`}>{task.status}</span>
+          <span className={`badge bg-${task.status === 'done' ? 'success' : 'secondary'} ms-2`}>   {task.status}</span>
         </div>
         {task.status !== 'done' && (
-          <Button size="sm" variant="outline-success" onClick={() => handleCompleteTask(task.id)}>Mark Done</Button>
+          <Button className="progress-button" size="sm" variant="outline-success" onClick={() => handleCompleteTask(task.id)}>Mark Done</Button>
         )}
       </div>
       
@@ -173,7 +174,7 @@ export default function Dashboard() {
       )}
       
       {task.points_value > 0 && (
-        <div style={{ marginTop: '5px', fontWeight: 'bold', color: '#d9534f' }}>
+        <div style={{ marginTop: '5px', fontWeight: 'bold', color: '#fd5732' }}>
            🔥 +{task.points_value} Points ({task.difficulty || 'medium'})
         </div>
       )}
@@ -201,7 +202,7 @@ export default function Dashboard() {
       return (
         <div key={key} className="mb-4">
           <h4 className="text-primary border-bottom pb-2">{label}</h4>
-          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+          <ul style={{ listStyle: 'none', paddingLeft: 0}}>
             {items.map((task) => renderTaskItem(task))}
           </ul>
         </div>
@@ -212,26 +213,17 @@ export default function Dashboard() {
   return (
     <div className="main-dashboard">
       <Sidebar />
-      <div className="welcome-div">
-      <h2 className="welcome-user">Hello, {welcomeName}!</h2>
-      <p className="welcome-sub">BACON wishes you an amazing and productive day. {ongoingTasks.filter(t => t.status === 'ongoing').length} tasks are waiting for you today.</p>
-      </div>
+      <div className="top-div">
+        <div className="welcome-div">
+          <h2 className="welcome-user">Hello, {welcomeName}!</h2>
+          <p className="welcome-sub">BACON wishes you an amazing and productive day. {ongoingTasks.filter(t => t.status === 'ongoing').length} tasks are waiting for you today.</p>
+        </div>
 
-      {tasksState.error && (
-        <Alert variant="danger">
-          {typeof tasksState.error === 'string'
-            ? tasksState.error
-            : (tasksState.error.detail || 'Action failed. Please try again.')}
-        </Alert>
-      )}
-
-      <MiniCalendar />
-
-      <div className="points-section" style={{
+        <div className="points-section" style={{
         backgroundColor: '#fd5732',
         color: 'white',
         padding: '15px',
-        borderRadius: '8px',
+        borderRadius: '24px',
         marginBottom: '20px',
         display: 'flex',
         justifyContent: 'space-around',
@@ -252,36 +244,67 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-
-      <div>
-        <Button className="add-task-button" onClick={() => navigate('/tasks/new')}>Add Task</Button>
       </div>
 
-      {prioritizedTasks.length === 0 ? <p>No tasks yet.</p> : null}
+      {tasksState.error && (
+        <Alert variant="danger">
+          {typeof tasksState.error === 'string'
+            ? tasksState.error
+            : (tasksState.error.detail || 'Action failed. Please try again.')}
+        </Alert>
+      )}
 
-      {prioritizedTasks.length > 0 ? (
-        <>
-          <h2>Ongoing</h2>
+      <MiniCalendar />
 
-          <h3>Current</h3>
-          {renderGroupedTasks(currentGrouped, 'No current tasks.')}
+      <div className="main-task-div">
+        <div className="task-button-div">
+          <p className="task-button-desc">
+            Fire up some tasks today!
+          </p>
 
-          <h3>Upcoming</h3>
-          {renderGroupedTasks(upcomingGrouped, 'No upcoming tasks.')}
+          <div className="add-div">
+            <Button className="add-task-button" onClick={() => navigate('/tasks/new')}>Add Task</Button>
+          </div>
+        </div>
 
-          <h2>Missed</h2>
-          {renderGroupedTasks(missedGrouped, 'No missed tasks.')}
+        <div className="task-kanban">
+          {prioritizedTasks.length === 0 ? <p>No tasks yet.</p> : null}
 
-          <h2>Completed</h2>
-          {completedTasks.length === 0 ? (
-            <p>No completed tasks yet. Start completing tasks to see them here!</p>
-          ) : (
-            <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-              {completedTasks.map((task) => renderTaskItem(task))}
-            </ul>
-          )}
-        </>
-      ) : null}
+          {prioritizedTasks.length > 0 ? (
+            <>
+              <div className="ongoing-tasks">
+                <h2 className="task-title">Ongoing</h2>
+
+                <h3 className="task-subtitle">Current</h3>
+                {renderGroupedTasks(currentGrouped, 'No current tasks.')}
+
+                <h3 className="task-subtitle">Upcoming</h3>
+                {renderGroupedTasks(upcomingGrouped, 'No upcoming tasks.')}
+              </div>
+
+              <div className="missed-tasks">
+                <h2 className="task-title">Missed</h2>
+                {renderGroupedTasks(missedGrouped, 'No missed tasks.')}
+              </div>
+
+              <div className="completed-tasks">
+                <h2 className="task-title">Completed</h2>
+                {completedTasks.length === 0 ? (
+                  <p>No completed tasks yet. Start completing tasks to see them here!</p>
+                
+                  ) : (
+                  <ul className="kanban-list">
+                    {completedTasks.map((task) => renderTaskItem(task))}
+                  </ul>
+                )}
+              </div>
+            </>
+          ) : null}
+        </div>
+        
+      </div>
+
+    <Footer />
     </div>
   );
 }

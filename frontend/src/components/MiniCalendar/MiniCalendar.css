@@ -31,7 +31,7 @@ Orange: #fd5732
   margin-bottom: 0.75rem;
 }
 
-.mini-calendar-header h4 {
+.mini-calendar-header h1 {
   margin: 0;
   font-size: 1.1rem;
 }
@@ -64,6 +64,7 @@ Orange: #fd5732
 
 .mini-calendar-container .fc {
   font-size: 0.75rem;
+  font-family: Quicksand, sans-serif;
 }
 
 .mini-calendar-container .fc-toolbar-title {
@@ -73,6 +74,7 @@ Orange: #fd5732
 .mini-calendar-container .fc-button {
   padding: 0.2rem 0.4rem !important;
   font-size: 0.75rem !important;
+  border-radius: 16px;
 }
 
 .mini-calendar-container .fc-daygrid-day-number {

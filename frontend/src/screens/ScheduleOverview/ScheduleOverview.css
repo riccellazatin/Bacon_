@@ -1,10 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+Purple: #e3b8f5
+*/
+
 .schedule-overview-container {
-  background: #f5f7fa;
+  background: transparent;
   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
+  margin: 3rem 2rem;
+  font-family: Quicksand, sans-serif;
 }
 
 .schedule-overview-card {
@@ -16,19 +32,21 @@
 
 .schedule-overview-header {
   flex-shrink: 0;
-  padding: 0.5rem;
   text-align: center;
   border-bottom: 1px solid #e5e7eb;
+  padding: 0;
 }
 
 .schedule-overview-header h2 {
   font-size: max(1rem, 2vw);
-  margin-bottom: 0.25rem;
+  padding: 0;
+  margin: 0 0 2rem 0;
 }
 
 .schedule-overview-header p {
   font-size: max(0.75rem, 1.2vw);
   margin-bottom: 0;
+  color: #a6a39d;
 }
 
 .schedule-grid-wrapper {
@@ -93,7 +111,7 @@
   background-repeat: no-repeat, repeat, no-repeat, no-repeat;
   padding: 0;
   min-width: 900px;
-  border: 1px solid #d1d5db;
+  border: none;
 }
 
 .schedule-header {
@@ -102,7 +120,7 @@
 
 .time-column-header {
   grid-column: 1 / 2;
-  background-color: #6b7280;
+  background-color: #ffda6f;
   color: white;
   display: flex;
   align-items: center;
@@ -112,7 +130,7 @@
 }
 
 .day-header {
-  background-color: #cf403f;
+  background-color: #fd5732;
   color: white;
   display: flex;
   align-items: center;
@@ -132,7 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f2f5;
+  background-color: #ffda6f;
   font-weight: 600;
   font-size: max(0.65rem, 0.8vw);
   color: #4b5563;
@@ -144,10 +162,10 @@
 .class-block {
   position: relative;
   z-index: 10;
-  background-color: #cf403f;
-  color: white;
+  background-color: #fbf7f6;
+  color: #121212;
   border-radius: 4px;
-  padding: 3px 2px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -163,8 +181,9 @@
 }
 
 .class-block:hover {
+  background-color: #fd5732;
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(207, 64, 63, 0.25);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .class-subject {
@@ -184,6 +203,29 @@
   font-weight: 600;
   opacity: 0.95;
   line-height: 1.2;
+}
+
+.dash-button {
+  border: 2px solid #121212;
+  border-radius: 24px;
+  background-color: transparent;
+  padding: 10px;
+  margin: 10px;
+  font-family: Quicksand, sans-serif;
+}
+
+.dash-button:hover {
+  border: 2px solid #fd5732;
+  border-radius: 24px;
+  background-color: #fd5732;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  font-family: Quicksand, sans-serif;
+}
+
+.pref-note {
+  color:#4b5563;
 }
 
 /* Responsive design */
