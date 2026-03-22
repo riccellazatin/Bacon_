@@ -24,6 +24,7 @@ import SemesterScan from './components/SemesterScan/SemesterScan';
 import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
 import CourseFolderScreen from './screens/CourseFolder/CourseFolderScreen';
 import Payment from './screens/Payment/Payment';
+import PublicRoute from './components/PublicRoute/PublicRoute';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ export default function App() {
         <Sidebar />
         <div className='main-content'>
           <Routes>
-            <Route path='/' element={<Landing />} exact />
+            <Route path='/' element={<PublicRoute><Landing /></PublicRoute>} exact />
             
             {/* 4. Wrapped Routes: Locked until Schedule is Scanned */}
             <Route path='/preferences' element={
@@ -106,7 +107,7 @@ export default function App() {
         <Header />
         <main className="py-3" style={{ minHeight: '70vh' }}>
           <Routes>
-            <Route path='/' element={<Landing />} exact />
+            <Route path='/' element={<PublicRoute><Landing /></PublicRoute>} exact />
             <Route path='/about' element={<About />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/login' element={<LoginPage />} />

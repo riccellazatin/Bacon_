@@ -13,7 +13,7 @@ const initialState = {
     blocks: [],
     loading: false,     // CRITICAL: Must be false by default
     success: false,     // CRITICAL: Must be false by default
-    hasSchedule: false,
+    hasSchedule: null,
     error: null
 };
 

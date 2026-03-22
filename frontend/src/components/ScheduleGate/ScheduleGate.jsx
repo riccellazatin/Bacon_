@@ -22,8 +22,8 @@ const ScheduleGate = ({ children }) => {
   }
 
   // If no schedule is found and user is not onboarded, redirect them to the scan page
-  if (!hasSchedule) {
-    return <Navigate to="/scan" replace />;
+  if (hasSchedule === false) {
+        return <Navigate to="/scan" replace />;
   }
 
   return children;

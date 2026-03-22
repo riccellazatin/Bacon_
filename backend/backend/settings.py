@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'shop',
     "corsheaders",
     'courses',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
