@@ -16,7 +16,7 @@ Accent-Orange: #F76E4F
     border: 2px solid #121212;
     border-radius: 25px;
     padding: 30px 30px;
-    margin: 2rem 4rem;
+    margin: 1rem 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 70vh;
@@ -107,4 +107,34 @@ Accent-Orange: #F76E4F
     text-decoration: none;
     color: #fd5732;
     font-weight: 700;
+}
+
+@media screen and (max-width: 1400px) {
+    .signup-right img {
+        object-fit: contain;
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .signup-body {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        box-sizing: border-box;
+        height: auto;
+    }
+    .signup-right {
+        order: -1;
+        border-left: none;
+    }
+
+    .already {
+        font-size: 2vw;
+    }
+
+    .log-button {
+        font-size: 2vw;
+    }    
 }

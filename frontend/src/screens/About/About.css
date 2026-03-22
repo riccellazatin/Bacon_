@@ -24,14 +24,42 @@ orange: #eb9656 */
 }
 
 .about-title {
-    color: #e3d5c8;
+    color: #fd5732;
     text-align: center;
-    font-size: 5rem;
+    font-size: 10vw;
     font-weight: 700;
+    font-family: Changa One, sans-serif;
+    font-style: italic;
+    justify-content: center;
 }
 
 .about-image {
     width: 100%;
     height: auto;
     object-fit: cover;
+}
+
+.about-text {
+    font-family: Quicksand, sans-serif;
+    color:#0e0f0d;
+    font-size: 2vw;
+    font-weight: 500;
+    margin: 1rem auto;
+    max-width: 90%;
+    line-height: 1.5;
+    text-align: center;    
+}
+
+@media screen and (max-width: 1400px) {
+    .about-container{
+        grid-template-columns: 1fr;
+    }
+
+    .about-title{
+        font-size: 10vh;
+    }
+
+    .about-text{
+        font-size: 2vh;
+    }
 }

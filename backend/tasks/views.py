@@ -18,6 +18,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from datetime import datetime, timedelta
 from django.utils import timezone as tz
+from accounts.models import GoogleCalendarCredentials
+from google.oauth2.credentials import Credentials as GoogleCredentials
+from googleapiclient.discovery import build
 
 
 class TaskListCreateView(generics.ListCreateAPIView):
@@ -54,6 +57,60 @@ class TaskListCreateView(generics.ListCreateAPIView):
         task.save(update_fields=['difficulty'])
         # Then prioritize the task
         prioritize_and_save_task(task, self.request.user)
+
+        # Google Calendar Integration
+        if self.request.data.get('add_to_google_calendar') and self.request.user.has_exclusive_access:
+            try:
+                creds_model = GoogleCalendarCredentials.objects.get(user=self.request.user)
+                # Reconstruct credentials
+                creds = GoogleCredentials(
+                    token=creds_model.token,
+                    refresh_token=creds_model.refresh_token,
+                    token_uri=creds_model.token_uri,
+                    client_id=creds_model.client_id,
+                    client_secret=creds_model.client_secret,
+                    scopes=creds_model.scopes
+                )
+                
+                service = build('calendar', 'v3', credentials=creds)
+                
+                # Determine start time
+                start_dt = None
+                if task.suggested_start_time:
+                    start_dt = task.suggested_start_time
+                elif task.scheduled_date:
+                     # Create datetime at 9am UTC if no time specified
+                     start_dt = datetime.combine(task.scheduled_date, datetime.time(9, 0))
+                     if tz.is_naive(start_dt):
+                        start_dt = tz.make_aware(start_dt)
+                
+                if start_dt:
+                    duration = task.duration_minutes if task.duration_minutes else 30
+                    end_dt = start_dt + timedelta(minutes=duration)
+                    
+                    event = {
+                        'summary': task.title,
+                        'description': task.description,
+                        'start': {
+                            'dateTime': start_dt.isoformat(),
+                            'timeZone': 'UTC',
+                        },
+                        'end': {
+                            'dateTime': end_dt.isoformat(),
+                            'timeZone': 'UTC',
+                        },
+                    }
+                    
+                    event_result = service.events().insert(calendarId='primary', body=event).execute()
+                    task.google_event_id = event_result.get('id')
+                    task.save(update_fields=['google_event_id'])
+            except GoogleCalendarCredentials.DoesNotExist:
+                 # User opted in but not connected
+                 pass
+            except Exception as e:
+                print(f"Failed to add to Google Calendar: {e}")
+                # Don't fail the task creation
+        
         return task
 
     def create(self, request, *args, **kwargs):
@@ -92,7 +149,7 @@ class TaskCompleteView(generics.UpdateAPIView):
     def get_points_for_difficulty(self, difficulty):
         """Return points based on task difficulty"""
         points_map = {
-            Task.DIFFICULTY_EASY: 14,
+            Task.DIFFICULTY_EASY: 15,
             Task.DIFFICULTY_MEDIUM: 1,
             Task.DIFFICULTY_HARD: 2,
         }

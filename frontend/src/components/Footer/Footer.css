@@ -22,7 +22,7 @@ Orange: #fd5732
 }
 
 .footer-container {
-    margin: 5vh;
+    margin: 3vh;
 }
 
 .footer-one {
@@ -45,18 +45,18 @@ Orange: #fd5732
     color: #121212;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
     .footer-container {
     margin: 5vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    margin-left: 2vw;
+    margin-right: 2vw;
     }
 
     .footer-email {
-        font-size: 2.5vh;
+        font-size: 3.5vw;
     }
 
     .footer-number {
-        font-size: 2.5vh;
+        font-size: 3.5vw;
     }
 }

@@ -25,6 +25,7 @@ Accent-Orange: #F76E4F
     display: flex;
     justify-content: center;
     align-content: center;
+    box-sizing: border-box;
 }
 
 .login-asset {
@@ -96,4 +97,17 @@ Accent-Orange: #F76E4F
     text-decoration: none;
     color: #fd5732;
     font-weight: 700;
+}
+
+@media screen and (max-width: 1080px) {
+    .login-form {
+        grid-template-columns: 1fr;
+    }
+
+    .login-left img {
+        display: block; 
+        object-fit: contain;
+        border-radius: 12px;
+        max-width: 100%;
+    }
 }

@@ -61,14 +61,13 @@ export default function Shop() {
   if (isLoggedIn){
     return (
         <div className="shop-background">
-                <div className="points-header">
-                    <h1 className='header'>Available Deals</h1>
+            <h1 className='header'>Available Deals</h1>
+                <div  className="points-header">
                     <div className="user-points-display">
                         <span className="points-label">Total Points:</span>
                         <span className="points-value">{points?.total_points ?? auth.userInfo?.total_points ?? 0}</span>
-
-                    </div>
                 </div>
+                    </div>
             <div className='shop-container'>
                 <Row>
                     {regularItems.map(item => (

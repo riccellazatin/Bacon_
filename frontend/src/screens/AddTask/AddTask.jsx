@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTask, fetchTasks } from '../../redux/actions/taskActions';
 import api from '../../api/axios';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function AddTask() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.userInfo);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -16,6 +18,38 @@ export default function AddTask() {
   const [scheduledDate, setScheduledDate] = useState(''); 
   const [duration, setDuration] = useState(0); // Default 0 means AI predicts it
   const [creating, setCreating] = useState(false);
+  const [addToCalendar, setAddToCalendar] = useState(false);
+  const [isGoogleConnected, setIsGoogleConnected] = useState(false);
+
+  useEffect(() => {
+    if (user?.has_exclusive_access) {
+      api.get('/google/status/')
+        .then(res => setIsGoogleConnected(res.data.is_connected))
+        .catch(err => console.error(err));
+    }
+  }, [user]);
+
+  const connectGoogle = useGoogleLogin({
+      onSuccess: async (tokenResponse) => {
+        try {
+          await api.post('/google/callback/', { 
+            code: tokenResponse.code,
+            redirect_uri: 'postmessage' // Explicitly set for popup flow
+          });
+          setIsGoogleConnected(true);
+        } catch (err) {
+            console.error("Failed to connect", err);
+            alert("Google connection failed.");
+        }
+      },
+      flow: 'auth-code',
+      scope: 'https://www.googleapis.com/auth/calendar.events',
+      onError: error => console.log('Login Failed:', error)
+  });
+
+  const handleConnectGoogle = () => {
+    connectGoogle();
+  };
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -37,6 +71,7 @@ export default function AddTask() {
       deadline: deadline, // Strictly required by your rules
       scheduled_date: scheduledDate || null,
       duration_minutes: Number(duration) || 0,
+      add_to_google_calendar: addToCalendar,
     };
 
     try {
@@ -97,12 +132,12 @@ export default function AddTask() {
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
-              <Form.Text className="text-muted">
-                Detailed instructions help the AI sort this task accurately against your class schedule.
+              <Form.Text className="text-muted mb-4" style={{ display: "block"}}>
+                Detailed instructions help the AI sort this task accurately against your class schedule. <br></br><br></br> <strong>Note:</strong> Most of the time, the AI will suggest you to start as soon as possible when the task does not clash with a current schedule. If the AI doesn't find a suitable start time, it will automatically set the deadline and not suggest a suggested start time.
               </Form.Text>
             </Form.Group>
 
-            <div className="row">
+            <div className="row mt-4">
               <div className="col-md-6">
                 <Form.Group className="mb-3">
                   <Form.Label className="fw-bold">Deadline</Form.Label>
@@ -128,6 +163,31 @@ export default function AddTask() {
                 </Form.Group>
               </div>
             </div>
+
+            {user?.has_exclusive_access && (
+              <div className="mb-3 p-3 border rounded bg-light">
+                <div className="d-flex align-items-center justify-content-between">
+                  <Form.Check 
+                    type="checkbox"
+                    id="google-calendar-check"
+                    label="Add to Google Calendar"
+                    checked={addToCalendar}
+                    disabled={!isGoogleConnected}
+                    onChange={(e) => setAddToCalendar(e.target.checked)}
+                  />
+                  {!isGoogleConnected && (
+                    <Button variant="outline-primary" size="sm" onClick={handleConnectGoogle} type="button">
+                      Connect Google Calendar
+                    </Button>
+                  )}
+                </div>
+                {!isGoogleConnected && (
+                  <Form.Text className="text-muted d-block mt-1">
+                    Connect your account to enable calendar syncing.
+                  </Form.Text>
+                )}
+              </div>
+            )}
 
             <div className="d-flex gap-2 justify-content-end mt-4">
               <Button variant="light" onClick={() => navigate('/dashboard')}>

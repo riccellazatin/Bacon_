@@ -1,0 +1,18 @@
+.payment-wrapper {
+    display: flex;
+    justify-content: center; /* Horizontal center */
+    align-items: center;     /* Vertical center */
+    min-height: 100vh;       /* Full height of the screen */
+    width: 100%;
+    background-color: #fdf5e6; /* Matching your background color from the screenshot */
+    margin: 0;
+    padding: 20px;
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 500px; /* Limits width on desktop so it doesn't look stretched */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Adds a nice soft shadow */
+    border-radius: 15px;
+    border: none;
+}
