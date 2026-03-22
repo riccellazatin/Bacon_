@@ -1,9 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Accent-Beige: #e8e2d3
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
 .mini-calendar-container {
   background: #fff;
-  border-radius: 8px;
+  border: 2px solid #121212;
+  border-radius: 24px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
+}
+
+.calendar-title {
+  font-family: Quicksand, sans-serif;
 }
 
 .mini-calendar-header {
@@ -19,18 +37,29 @@
 }
 
 .view-full-btn {
-  background: #3788d8;
-  color: white;
-  border: none;
+  background-color: transparent;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: #121212;
+  border: 2px solid #121212;
+  border-radius: 16px;
   padding: 0.4rem 0.8rem;
-  border-radius: 4px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .view-full-btn:hover {
-  background: #2a6cb8;
+  background-color: #fd5732;
+  font-family: Quicksand, sans-serif;
+  font-weight: 500;
+  color: white;
+  border: 2px solid #fd5732;
+  border-radius: 16px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .mini-calendar-container .fc {

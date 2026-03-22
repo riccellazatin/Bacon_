@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Accent-Beige: #e8e2d3
+Black: #121212
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
+
+.main-calendar-div {
+    height: 100%;
+    margin: 5rem 2rem;
+}
+
+.calendar-title {
+    font-family: Quicksand, sans-serif;
+}
+
+.loading {
+    font-family: Quicksand, sans-serif;
+}
+
+.legend {
+    font-family: Quicksand, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 10px;
+}

@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { fetchTasks, completeTask } from "../redux/actions/taskActions";
+import './calendar.css'
 
 const statusColors = {
   ongoing: "#3788d8",
@@ -63,22 +64,22 @@ export default function SubmissionCalendar() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Task Calendar</h2>
+    <div className="main-calendar-div">
+      <h1 className="calendar-title">Task Calendar Overview</h1>
 
-      {loading && <p>Loading tasks...</p>}
+      {loading && <p className="loading">Loading tasks...</p>}
 
-      <div style={{ marginBottom: 15 }}>
-        <span style={{ marginRight: 15 }}>
-          <span style={{ display: "inline-block", width: 12, height: 12, backgroundColor: statusColors.ongoing, marginRight: 5 }}></span>
+      <div>
+        <span className="legend">
+          <span style={{ display: "inline-block", width: 10, height: 10, backgroundColor: statusColors.ongoing, marginRight: 5 }}></span>
           Ongoing
         </span>
-        <span style={{ marginRight: 15 }}>
-          <span style={{ display: "inline-block", width: 12, height: 12, backgroundColor: statusColors.done, marginRight: 5 }}></span>
+        <span className="legend">
+          <span style={{ display: "inline-block", width: 10, height: 10, backgroundColor: statusColors.done, marginRight: 5 }}></span>
           Done
         </span>
-        <span>
-          <span style={{ display: "inline-block", width: 12, height: 12, backgroundColor: statusColors.missing, marginRight: 5 }}></span>
+        <span className="legend">
+          <span style={{ display: "inline-block", width: 10, height: 10, backgroundColor: statusColors.missing, marginRight: 5 }}></span>
           Missing
         </span>
       </div>

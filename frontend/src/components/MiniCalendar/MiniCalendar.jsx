@@ -40,7 +40,7 @@ export default function MiniCalendar() {
   return (
     <div className="mini-calendar-container">
       <div className="mini-calendar-header">
-        <h4>Calendar</h4>
+        <h4 className="calendar-title">Task Calendar Overview</h4>
         <button 
           className="view-full-btn"
           onClick={() => navigate('/calendar')}

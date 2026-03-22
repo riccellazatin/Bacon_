@@ -2,6 +2,7 @@
 
 /* 
 Beige: #faf4e4 
+Accent-Beige: #e8e2d3
 Black: #121212
 Pink: #f5b8da
 Accent-Pink: #e09cc3
@@ -26,13 +27,13 @@ Orange: #fd5732
 .hamburger-menu span {
     width: 25px;
     height: 3px;
-    background-color: #0e0f0d;
+    background-color: #121212;
     transition: all 0.3s ease;
 }
 
 .hamburger-menu.open span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
-    background-color: #f1fbf2;
+    background-color: #faf4e4;
 }
 
 
@@ -44,7 +45,7 @@ Orange: #fd5732
     font-weight: 500;
     color: #fd5732;
     text-decoration: none;
-    margin: 10%;
+    margin-top: 2rem;
     align-self: center;
     padding-bottom: 10px;
 }
@@ -57,7 +58,7 @@ Orange: #fd5732
     left: -100%;
     width: 25vh;
     height: 100%;
-    background-color: #121212;
+    background-color: #faf4e4;
     transition: left 0.3s ease;
     z-index: 1000;
     padding-top: 2vh;
@@ -78,30 +79,32 @@ Orange: #fd5732
     display: flex;
     flex-direction: column;
     font-family: Quicksand, sans-serif;
-    font-size: 3.5vh;
-    background-color: #0e0f0d2d;
+    font-size: 3vh;
+    width: 100%;
+    background-color: transparent;
     border: none;
     cursor: pointer;
+    text-align: left;
     padding: 5px;
-    text-align: start;
 }
 
 .sidebar-links a {
-    color: #e3d5c8;
+    color: #121212;
     text-decoration: none;
 }
 
 .sidebar-links a:hover {
-    color: #ce4636;
-    background-color: #0e0f0d2d;
+    color: #fd5732;
+    font-weight: 500;
+    transition: font-weight 0.5s ease, transform 0.5s ease;   
 }
 
 .logout-button {
     margin-top: auto;
-    margin-bottom: 2vh;
-    padding: 20px;
+    margin-bottom: 1vh;
+    padding: 10px;
     background-color: #0e0f0dbb;
-    color: #e3d5c8;
+    color: white;
     border: none;
     cursor: pointer;
     text-align: left;
@@ -110,8 +113,18 @@ Orange: #fd5732
 }
 
 .back-button {
-    border-top: 1px solid #e3d5c844 !important;
-    border-bottom: 1px solid #e3d5c844 !important;
-    color: #e3d5c8 !important;
+    border-top: 1px solid #121212 !important;
+    border-bottom: 1px solid #121212 !important;
+    color: #121212 !important;
     font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.back-button:hover {
+    border-top: 1px solid #121212 !important;
+    border-bottom: 1px solid #121212 !important;
+    color: #fd5732 !important;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    transition: color 0.5s ease, transform 0.5s ease;  
 }

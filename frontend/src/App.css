@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
 
-/* Colors
-beige: #e3d5c8
-black: #0e0f0d 
-white: #f0f0ed 
-red: #cf403f */
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+*/
 
 .App {
   text-align: center;
@@ -55,5 +60,19 @@ red: #cf403f */
   to {
     transform: rotate(360deg);
   }
+}
+
+:root {
+  --fc-page-bg-color: white;
+  --fc-border-color: #121212;
+
+  --fc-button-text-color: #121212;
+  --fc-button-bg-color: transparent;
+  --fc-button-border-color: #121212;
+  --fc-button-hover-bg-color: #fd5732;
+  --fc-button-hover-border-color: #fd5732;
+  --fc-button-active-bg-color: #fd5732;
+  --fc-button-active-border-color: #fd5732;
+
 }
 
