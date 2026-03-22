@@ -45,7 +45,7 @@ const Preferences = () => {
       <Row>
         <Col md={8} lg={6}>
           <Card className="availability-card">
-            <h2 className="availability-title">When are you cooking?</h2>
+            <h2 className="availability-title">When are your preferred rest days?</h2>
             
             <div className="days-grid">
               {daysOfWeek.map((day) => (

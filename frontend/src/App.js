@@ -25,6 +25,7 @@ import ScheduleOverview from './screens/ScheduleOverview/ScheduleOverview';
 import CourseFolderScreen from './screens/CourseFolder/CourseFolderScreen';
 import Payment from './screens/Payment/Payment';
 import PublicRoute from './components/PublicRoute/PublicRoute';
+import GoogleCallback from './screens/GoogleCallback/GoogleCallback';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ export default function App() {
             <Route path="/scan" element={<SemesterScan />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/payment' element={<Payment />} />
+            <Route path='/google/callback' element={<GoogleCallback />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<Signup />} />
           </Routes>

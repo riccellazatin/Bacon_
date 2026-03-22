@@ -7,6 +7,14 @@ import { Container, Card, Alert, Spinner } from 'react-bootstrap';
 // Assuming you have a way to update user state after unlock, 
 // e.g., refreshing user profile or manually updating redux state.
 import { fetchCurrentUser } from '../../redux/actions/authActions'; 
+import './Payment.css'; // Optional: for custom styling
+
+// Define options outside component to avoid re-renders
+const initialOptions = {
+    "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID || "test", // Fallback for development if needed, but better to fail explicitly or use env
+    currency: "PHP",
+    intent: "capture",
+};
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -23,11 +31,16 @@ const Payment = () => {
         }
     }, [user, navigate]);
 
-    const initialOptions = {
-        "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
-        currency: "PHP",
-        intent: "capture",
-    };
+    // Check if Client ID is missing
+    if (!initialOptions["client-id"] || initialOptions["client-id"] === "your_paypal_client_id_here") {
+        return (
+            <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', maxWidth: '100%' }}>
+                <Alert variant="danger">
+                    Error: PayPal Client ID is missing. Please checking your .env file or restart the server.
+                </Alert>
+            </Container>
+        );
+    }
 
     const handleApprove = async (data, actions) => {
         try {
@@ -58,13 +71,14 @@ const Payment = () => {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
-            <Card style={{ width: '400px', padding: '20px' }}>
+        <Container className="payment-wrapper">
+            <Card className="payment-card">
                 <Card.Body>
-                    <Card.Title className="text-center mb-4">Unlock Exclusive Shop</Card.Title>
+                    <Card.Title className="text-center mb-4"><h1>Benefits for only ₱500.00!</h1></Card.Title>
                     <Card.Text className="text-center mb-4">
-                        Get access to premium vouchers and deals for only ₱500.00!
+                        Unlock Google Calendar Sync
                     </Card.Text>
+                    <Card.Title className="text-center mb-4">Unlock Exclusive Shop</Card.Title>
                     
                     {message && <Alert variant="success">{message}</Alert>}
                     

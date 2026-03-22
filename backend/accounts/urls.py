@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import RegisterView, UserPreferencesView, CurrentUserView, getUserPoints
+from .views import RegisterView, UserPreferencesView, CurrentUserView, getUserPoints, google_auth_init, google_auth_callback, google_auth_status
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -8,4 +8,7 @@ urlpatterns = [
     path('user/', include([
         path('', CurrentUserView.as_view(), name='current-user'),
     ])),
+    path('google/init/', google_auth_init, name='google-auth-init'),
+    path('google/callback/', google_auth_callback, name='google-auth-callback'),
+    path('google/status/', google_auth_status, name='google-auth-status'),
 ]
