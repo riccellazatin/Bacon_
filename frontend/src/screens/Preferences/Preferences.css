@@ -3,11 +3,13 @@
 /* 
 Beige: #faf4e4 
 Black: #121212
+Gray: #a6a39d
 Pink: #f5b8da
 Accent-Pink: #e09cc3
 Yellow: #ffda6f
 Accent-Yellow: #cca733
 Orange: #fd5732
+Purple: #e3b8f5
 */
 
 .availability-container {
@@ -22,13 +24,13 @@ Orange: #fd5732
     font-family: Quicksand, sans-serif;
     padding: 1rem;
     background: #faf4e4;
-    border-radius: 12px;
+    border-radius: 24px;
     border: 2px solid #121212;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .availability-title {
-    color: #302f2b;
+    color: #121212;
     font-weight: 700;
     text-align: center;
 }
@@ -40,20 +42,22 @@ Orange: #fd5732
 }
 
 .day-pill {
-    border: 1px solid #121212;
-    background: #faf4e4;
+    border: 2px solid #121212;
+    background: transparent;
     padding: 0.5rem 0.8rem;
     border-radius: 999px;
     cursor: pointer;
+    color: black;
     transition: background-color 0.5s ease, transform 0.5s ease;
 }
 
 .day-pill:hover {
-    border: 1px solid #cca733;
-    background: #ffda6f;
+    border: 2px solid #fd5732;
+    background: #fd5732;
     padding: 0.5rem 0.8rem;
     border-radius: 999px;
     cursor: pointer;
+    color: white;
 }
 
 .day-pill.active {
@@ -92,26 +96,26 @@ Orange: #fd5732
 }
 
 .save-btn {
-    border: 1px solid #121212;
+    border: 2px solid #121212;
     background: #faf4e4;
-    padding: 0.1rem 0.8rem;
-    border-radius: 30px;
+    padding: 10px;
+    border-radius: 24px;
     cursor: pointer;
     transition: background-color 0.5s ease, transform 0.5s ease;
 }
 
 .save-btn:hover {
-    border: 1px solid #cca733;
-    background: #ffda6f;
-    padding: 0.5rem 0.8rem;
-    border-radius: 999px;
+    border: 2px solid #fd5732;
+    background: #fd5732;
+    padding: 10px;
+    border-radius: 24px;
     cursor: pointer;
 }
 
 .save-btn.active {
     border: 1px solid #fd5732;
     background: #fd5732;
-    padding: 0.5rem 0.8rem;
+    padding: 10px;
     border-radius: 999px;
     cursor: pointer;  
 }
