@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quicksand:wght@300..700&display=swap');
+
+/* 
+Beige: #faf4e4 
+Black: #121212
+Gray: #a6a39d
+Pink: #f5b8da
+Accent-Pink: #e09cc3
+Yellow: #ffda6f
+Accent-Yellow: #cca733
+Orange: #fd5732
+Purple: #e3b8f5
+*/
+
+.subject-folders-body {
+    margin: 4rem 3rem;
+    font-family: Quicksand, sans-serif;
+}
+
+.folder-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.create-folder-div {
+    display: block;
+    margin-left: auto;
+}
+
+.input-bar {
+    background-color: transparent;
+    border: 2px solid #121212;
+    padding: 6px;
+    border-radius: 16px;
+    margin-right: 10px;
+    font-family: Quicksand, sans-serif;
+}
+
+.create-button {
+    border: 2px solid #121212;
+    background-color: #121212;
+    color: white;
+    font-family: Quicksand, sans-serif;
+    padding: 5px;
+    border-radius: 16px;
+}
+
+.folder-grid {
+    border: 2px solid #121212;
+    border-radius: 24px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.folder-card {
+    border: 2px solid #121212;
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    background-color: white; 
+}
+
+.folder-name {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.folder-image {
+    width: 100%;
+}
+
+.delete-button {
+    color: #fd5732; 
+    border: 1px solid #fd5732;
+    background: none;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.file-container {
+    margin: 4rem 3rem;
+    font-family: Quicksand, sans-serif;
+}
+
+.upload-section {
+    padding: 15px;
+    border: 2px dashed #121212;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-row {
+    display: 'flex';
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+    border: 2px solid #121212;
+    margin: 10px 0;
+    border-radius: 16px;
+}
+
+.file-row:hover {
+    display: 'flex';
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+    border: 2px solid #ffda6f;
+    background-color: #ffda6f;
+    margin: 10px 0;
+    border-radius: 16px;
+    transition: background-color 0.5s;
+}
+
+.file-actual {
+    text-decoration: none;
+    color: #121212;
+    font-weight: 500;
+}
+
+.file-delete {
+    display: block;
+    margin-left: auto;
+    background-color: transparent;
+    border: 2px solid #121212;
+    border-radius: 16px;
+    padding: 6px;
+    font-family: Quicksand, sans-serif;
+    font-weight: 500;
+    color: #121212;
+}
+
+.file-delete:hover {
+    display: block;
+    margin-left: auto;
+    background-color: #fd5732;
+    border: 2px solid #fd5732;
+    border-radius: 16px;
+    padding: 6px;
+    font-family: Quicksand, sans-serif;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.5s;
+}
+
+.back-button-files {
+    background-color: transparent;
+    border: 2px solid #121212;
+    border-radius: 16px;
+    padding: 5px 10px;
+    font-family: Quicksand, sans-serif;
+    font-weight: 500;
+    color: #121212;
+}
+
+.back-button-files:hover {
+    background-color: #fd5732;
+    border: 2px solid #fd5732;
+    border-radius: 16px;
+    padding: 5px 10px;
+    font-family: Quicksand, sans-serif;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.5s;
+}
