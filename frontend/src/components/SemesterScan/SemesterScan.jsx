@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col, Card, Button, Form, Alert, Spinner, Table } from 'react-bootstrap';
 import { uploadSchedule } from '../../redux/actions/scheduleActions';
 import { useNavigate } from 'react-router-dom';
+import './SemesterScan.css'
+import Footer from '../../components/Footer/Footer'
 
 const SemesterScan = () => {
   const [file, setFile] = useState(null);
@@ -53,41 +55,41 @@ useEffect(() => {
   };
 
   return (
-    <Container className="py-5">
+    <Container className="sem-scan-body">
       <Row className="justify-content-center">
         <Col md={10} lg={8}>
           <Card className="shadow-sm border-0">
             <Card.Body className="p-4">
               {!showReview ? (
-                <div className="text-center">
-                  <h2 className="fw-bold mb-3">Semester Scan</h2>
-                  <p className="text-muted mb-4">Upload your schedule to begin.</p>
+                <div className="scan-div">
+                  <h2 className="semester-scan-title">Semester Scan</h2>
+                  <p className="semester-scan-ins">Upload your schedule to begin.</p>
                   
                   {error && <Alert variant="danger">{error}</Alert>}
 
                   <Form onSubmit={submitHandler}>
-                    <Form.Group controlId="formFile" className="mb-4">
-                      <Form.Label className="upload-label py-5 w-100 border border-dashed rounded cursor-pointer bg-light">
+                    <Form.Group controlId="formFile" className="sched-form">
+                      <Form.Label>
                         {preview ? (
-                          <img src={preview} alt="Preview" style={{ maxHeight: '200px' }} className="rounded" />
+                          <img src={preview} alt="Preview" style={{ maxHeight: '200px', borderRadius: '24px' }} className="rounded" />
                         ) : (
-                          <span>Click to upload photo</span>
+                          <span className="click-me">Click me to upload your schedule</span>
                         )}
                         <Form.Control type="file" onChange={handleFileChange} accept="image/*" hidden />
                       </Form.Label>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" size="lg" className="w-100" disabled={!file || loading}>
+                    <Button variant="primary" type="submit" size="lg" className="analyze-button" disabled={!file || loading}>
                       {loading ? <Spinner animation="border" size="sm" /> : 'Analyze Schedule'}
                     </Button>
                   </Form>
                 </div>
               ) : (
-                <div>
-                  <h3 className="fw-bold text-center mb-4">Verify Extracted Schedule</h3>
-                  <Alert variant="info">Please check if the AI read your classes correctly.</Alert>
+                <div className="verify-div">
+                  <h3>Verify Extracted Schedule</h3>
+                  <Alert variant="info" className="check-alert">Please check if the AI read your classes correctly.</Alert>
                   
-                  <Table responsive striped hover className="mt-3">
+                  <Table responsive striped hover className="sched-table">
                     <thead>
                       <tr>
                         <th>Subject</th>
@@ -98,7 +100,7 @@ useEffect(() => {
                     <tbody>
                       {blocks.map((block, index) => (
                         <tr key={index}>
-                          <td className="fw-bold">{block.subject}</td>
+                          <td className="subject-scan">{block.subject}</td>
                           <td>{block.day_of_week}</td>
                           <td>{block.start_time} - {block.end_time}</td>
                         </tr>
@@ -106,11 +108,11 @@ useEffect(() => {
                     </tbody>
                   </Table>
 
-                  <div className="d-flex gap-3 mt-4">
-                    <Button variant="outline-secondary" className="w-100" onClick={() => setShowReview(false)}>
+                  <div className="secondary-button-div">
+                    <Button variant="outline-secondary" className="secondary-button" onClick={() => setShowReview(false)}>
                       Re-upload / Fix
                     </Button>
-                    <Button variant="success" className="w-100" onClick={handleConfirm}>
+                    <Button variant="success" className="secondary-button" onClick={handleConfirm}>
                       Confirm & Continue
                     </Button>
                   </div>
@@ -120,6 +122,8 @@ useEffect(() => {
           </Card>
         </Col>
       </Row>
+
+      <Footer />
     </Container>
   );
 };
