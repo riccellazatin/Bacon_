@@ -108,3 +108,33 @@ Accent-Orange: #F76E4F
     color: #fd5732;
     font-weight: 700;
 }
+
+@media screen and (max-width: 1400px) {
+    .signup-right img {
+        object-fit: contain;
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .signup-body {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        box-sizing: border-box;
+        height: auto;
+    }
+    .signup-right {
+        order: -1;
+        border-left: none;
+    }
+
+    .already {
+        font-size: 2vw;
+    }
+
+    .log-button {
+        font-size: 2vw;
+    }    
+}

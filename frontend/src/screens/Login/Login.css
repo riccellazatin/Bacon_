@@ -97,3 +97,9 @@ Accent-Orange: #F76E4F
     color: #fd5732;
     font-weight: 700;
 }
+
+@media screen and (max-width: 1080px) {
+    .login-form {
+        grid-template-columns: 1fr;
+    }
+}

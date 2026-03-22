@@ -18,6 +18,8 @@ Purple: #e3b8f5
     align-items: center;
     justify-content: center;
     height: 100vh;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .availability-card {
@@ -143,4 +145,11 @@ Purple: #e3b8f5
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 650px) {
+    .days-grid{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 }

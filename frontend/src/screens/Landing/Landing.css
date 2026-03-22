@@ -32,6 +32,13 @@ body {
   margin: 0;
 }
 
+.header-right img {
+  object-fit: contain;
+  display: block;
+  width: 90%;
+  height: auto;
+}
+
 .bacon-logo {
   height: 65vh;
 }
@@ -165,5 +172,34 @@ body {
 @media screen and (max-width: 400px) {
   .slogan {
     font-size: 4rem;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .header-section {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+
+  .header-right {
+    order: -1;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 15vw;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
+  .register-button {
+    display: flex;
+    justify-self: center;
+  }
+
+  .register-button:hover {
+    justify-self: center;
   }
 }

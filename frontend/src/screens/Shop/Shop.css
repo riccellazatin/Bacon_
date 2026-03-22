@@ -21,9 +21,10 @@ Orange: #fd5732
 .points-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 2vh;
+    margin-right: 2vw;
 }
 
 .user-points-display {
