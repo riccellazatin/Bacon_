@@ -12,10 +12,20 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
+try:
+    import dj_database_url
+except ImportError:  # pragma: no cover
+    dj_database_url = None
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+def _env_bool(key: str, default: bool = False) -> bool:
+    raw_value = os.environ.get(key)
+    if raw_value is None:
+        return default
+    return raw_value.strip().lower() in {"1", "true", "t", "yes", "y", "on"}
 
 
 def _load_local_env():
@@ -44,9 +54,13 @@ _load_local_env()
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$=2kd%d*f%lwqu8exe)c+wgp3ubjla71r)5*ur73^h&)-px8l=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = _env_bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    if host.strip()
+]
 
 
 # Application definition
@@ -105,6 +119,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database configuration - use DATABASE_URL env var if available (Render, Heroku)
 # Otherwise, fall back to PostgreSQL connection details
 if os.environ.get('DATABASE_URL'):
+    if dj_database_url is None:
+        raise RuntimeError('dj-database-url is required when DATABASE_URL is set')
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
@@ -159,7 +175,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
@@ -191,6 +209,17 @@ CORS_ALLOWED_ORIGINS = [
     ).split(',')
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = _env_bool('SECURE_SSL_REDIRECT', default=not DEBUG)
+SESSION_COOKIE_SECURE = _env_bool('SESSION_COOKIE_SECURE', default=not DEBUG)
+CSRF_COOKIE_SECURE = _env_bool('CSRF_COOKIE_SECURE', default=not DEBUG)
+
 # Gemini task prioritization settings
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '').strip()
 GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash').strip()
@@ -198,6 +227,6 @@ GEMINI_TIMEOUT_SECONDS = int(os.environ.get('GEMINI_TIMEOUT_SECONDS', '10'))
 
 # PayPal settings (for shop functionality)
 PAYPAL_RECEIVER_EMAIL = os.environ.get('PAYPAL_RECEIVER_EMAIL', '')
-PAYPAL_SANDBOX = os.environ.get('DEBUG', 'True') == 'True'
-GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash').strip()
-GEMINI_TIMEOUT_SECONDS = int(os.environ.get('GEMINI_TIMEOUT_SECONDS', '10'))
+PAYPAL_SANDBOX = _env_bool('PAYPAL_SANDBOX', default=DEBUG)
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

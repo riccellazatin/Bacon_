@@ -4,6 +4,7 @@ services:
     env: python
     region: oregon
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --no-input
     startCommand: gunicorn backend.wsgi --log-file -
     envVars:
@@ -17,12 +18,18 @@ services:
         value: .onrender.com
       - key: CORS_ALLOWED_ORIGINS
         sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
       - key: GEMINI_API_KEY
         sync: false
       - key: GEMINI_MODEL
         value: gemini-2.5-flash
       - key: GEMINI_TIMEOUT_SECONDS
         value: '10'
+      - key: PAYPAL_RECEIVER_EMAIL
+        sync: false
+      - key: PAYPAL_SANDBOX
+        value: false
       - key: PAYPAL_CLIENT_ID
         sync: false
       - key: PAYPAL_SECRET_KEY
@@ -32,8 +39,7 @@ services:
       - key: GOOGLE_CLIENT_SECRET
         sync: false
       - key: GOOGLE_REDIRECT_URI
-        value: https://yourdomain.vercel.app/api/accounts/google/callback/
-        # Replace 'yourdomain' with your actual Vercel deployment URL
+        sync: false
 
 databases:
   - name: bacon-db
