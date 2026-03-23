@@ -3,20 +3,34 @@
   "outputDirectory": "build",
   "routes": [
     {
+      "src": "/manifest.json",
+      "dest": "/manifest.json",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt",
+      "methods": ["GET"]
+    },
+    {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/static/$1",
+      "methods": ["GET"]
     },
     {
       "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
-      "src": "/(manifest.json|favicon.ico|robots.txt)",
-      "dest": "/$1"
+      "dest": "/images/$1",
+      "methods": ["GET"]
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/index.html",
+      "methods": ["GET"]
     }
   ]
 }
