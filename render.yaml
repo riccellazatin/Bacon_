@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     rootDir: backend
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input
+    buildCommand: pip install -r backend/requirements.txt && python manage.py collectstatic --no-input
     startCommand: gunicorn backend.wsgi --log-file -
     envVars:
       - key: DEBUG
