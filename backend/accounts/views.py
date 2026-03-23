@@ -183,20 +183,6 @@ def google_auth_status(request):
     is_connected = GoogleCalendarCredentials.objects.filter(user=request.user).exists()
     return Response({"is_connected": is_connected})
 
-    
-    if user.week_start_date < week_ago:
-        user.points_earned_this_week = 0
-        user.week_start_date = today
-        user.save()
-    
-    weekly_limit = 15
-    return Response({
-        'total_points': user.total_points,
-        'points_earned_this_week': user.points_earned_this_week,
-        'weekly_limit': weekly_limit,
-        'points_available_this_week': max(0, weekly_limit - user.points_earned_this_week),
-        'week_start_date': user.week_start_date
-    })
 
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
