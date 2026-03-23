@@ -206,8 +206,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     origin.strip() for origin in os.environ.get(
         'CORS_ALLOWED_ORIGINS',
-        'http://localhost:3000',
-        'http://0.0.0.0:10000',
+        'http://localhost:3000,https://bacon-team.vercel.app'
     ).split(',')
 ]
 
