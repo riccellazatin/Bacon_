@@ -1,3 +1,40 @@
 .container {
     margin: 20px;
 }
+
+.main-task-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+}
+
+.form-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.addtask-button {
+    background: #121212;
+    font-family: Quicksand, sans-serif;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}
+
+.addtask-button:hover {
+    background: #fd5732;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 16px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+}

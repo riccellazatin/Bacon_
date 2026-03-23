@@ -103,7 +103,7 @@ export default function AddTask() {
   };
 
   return (
-    <div className="container py-4">
+    <div className="main-task-body">
       <Card className="shadow-sm border-0">
         <Card.Body className="p-4">
           <h2 className="mb-4">Create New Task</h2>
@@ -112,7 +112,8 @@ export default function AddTask() {
             calculate difficulty and find the best vacant slot in your schedule.
           </Alert>
 
-          <Form onSubmit={handleCreate} style={{ maxWidth: 700 }}>
+          <div className="form-body">
+            <Form onSubmit={handleCreate} style={{ maxWidth: 700 }}>
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Task Name</Form.Label>
               <Form.Control 
@@ -191,14 +192,16 @@ export default function AddTask() {
             )}
 
             <div className="d-flex gap-2 justify-content-end mt-4">
-              <Button variant="light" onClick={() => navigate('/dashboard')}>
+              <Button variant="light" onClick={() => navigate('/dashboard')} className="addtask-button">
                 Cancel
               </Button>
-              <Button type="submit" variant="primary" disabled={creating} className="px-4">
+              <Button type="submit" variant="primary" disabled={creating} className="addtask-button">
                 {creating ? 'AI is Prioritizing...' : 'Create Task'}
               </Button>
             </div>
           </Form>
+          </div>
+          
         </Card.Body>
       </Card>
     </div>

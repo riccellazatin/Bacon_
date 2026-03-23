@@ -78,7 +78,7 @@ export default function Shop() {
                 </Row>
 
                 {/* Exclusive Section */}
-                <h2 className='header' style={{marginTop: '40px', color: '#ffd700'}}>Exclusive Vouchers</h2>
+                <h2 className='header' style={{marginTop: '1rem', color: '#121212'}}>Exclusive Vouchers</h2>
                 <Row>
                     {exclusiveItems.map(item => (
                         <Col key={item._id} className='column' style={{ opacity: hasExclusiveAccess ? 1 : 0.8 }}>
@@ -87,7 +87,7 @@ export default function Shop() {
                                 {!hasExclusiveAccess && (
                                     <div style={{
                                         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, 
-                                        backgroundColor: 'rgba(0,0,0,0.05)', cursor: 'pointer',
+                                     cursor: 'pointer',
                                         display: 'flex', justifyContent: 'center', alignItems: 'center'
                                     }} onClick={() => navigate('/payment')} title="Unlock Exclusive Items">
                                         <div style={{ fontSize: '2rem' }}>🔒</div>
@@ -99,13 +99,14 @@ export default function Shop() {
                 </Row>
                 
                 {!hasExclusiveAccess && (
-                    <div className="text-center mt-5 mb-5 pb-5">
-                       <p style={{ color: '#fff', marginBottom: '15px' }}>Unlock premium rewards and exclusive deals now!</p>
+                    <div className="exclusive" style={{display: 'grid', justifySelf: 'center'}}>
+                       <p style={{ marginBottom: '15px' }}>Unlock premium rewards and exclusive deals now!</p>
                        <button 
                            className='btn'
                            style={{ 
-                               backgroundColor: '#ffd700', 
-                               color: '#000', 
+                                fontFamily: 'Quicksand',
+                               backgroundColor: '#fd5732', 
+                               color: 'white', 
                                fontWeight: 'bold', 
                                border: 'none', 
                                padding: '12px 30px',
