@@ -197,3 +197,17 @@ def google_auth_status(request):
         'points_available_this_week': max(0, weekly_limit - user.points_earned_this_week),
         'week_start_date': user.week_start_date
     })
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def run_migrations(request):
+    """
+    One-time endpoint to run migrations.
+    DELETE THIS ENDPOINT after migrations are applied.
+    """
+    try:
+        from django.core.management import call_command
+        call_command('migrate', verbosity=2)
+        return Response({"status": "✅ Migrations completed successfully"})
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

@@ -22,9 +22,6 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
-
-from backend.courses import views
-
 from django.http import JsonResponse
 
 def api_root(request):
@@ -47,7 +44,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('shop.urls')),
     path('api/courses/', include('courses.urls')),
-    path('migrate/', views.run_migrations, name='run_migrations'),
 ]
 
 if settings.DEBUG:
