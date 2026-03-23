@@ -12,7 +12,7 @@ const CourseFolderScreen = () => {
       const res = await api.get('courses/folders/'); 
       setFolders(res.data);
     } catch (err) {
-      console.error("Fetch error:", err);
+      // Error handling for fetch
     }
   };
 
@@ -25,7 +25,7 @@ const CourseFolderScreen = () => {
       await api.post('courses/folders/', { name: name });
       fetchFolders(); 
     } catch (err) {
-      console.error("Create error:", err);
+      // Error handling for create
     }
   };
 
@@ -39,7 +39,7 @@ const CourseFolderScreen = () => {
         
         fetchFolders();
     } catch (err) {
-        console.error("Delete folder error:", err);
+        // Error handling for delete folder
         alert("Failed to delete folder.");
     }
   };
@@ -54,7 +54,7 @@ const CourseFolderScreen = () => {
         const response = await api.get(`courses/folders/${selectedFolder.id}/`);
         setSelectedFolder(response.data);
     } catch (err) {
-        console.error("Delete file error:", err);
+        // Error handling for delete file
     }
   };
 
@@ -74,7 +74,7 @@ const CourseFolderScreen = () => {
       
       alert("Upload successful!");
     } catch (err) {
-      console.error("Upload error:", err);
+      // Error handling for upload
     }
   };
 

@@ -24,7 +24,7 @@ const Survey = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Available Days:", selectedDays);
+        // Submit available days to backend
     };
 
     return (

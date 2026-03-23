@@ -4,7 +4,7 @@ import ItemRecommendation from './ItemRecommendation'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCurrentUser } from '../../redux/actions/authActions'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../../api/axios'
 
 function ItemPopup(props) {
     const [item, setItems] = useState([])
@@ -28,7 +28,7 @@ function ItemPopup(props) {
 
      useEffect(() => {
         async function fetchItems() {
-            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            const {data} = await api.get('/items/')
             setItems(data)
         }
         fetchItems()
@@ -42,8 +42,8 @@ function ItemPopup(props) {
         setPurchaseError(null)
         
         try {
-            const response = await axios.post(
-                `http://127.0.0.1:8000/api/items/${props.item._id}/purchase/`,
+            const response = await api.post(
+                `/items/${props.item._id}/purchase/`,
                 {},
                 {
                     headers: {

@@ -7,7 +7,11 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "281019875970-is51q29cek4n3abu3iiumfncg9f5ng5o.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
+
+if (!GOOGLE_CLIENT_ID) {
+  console.warn("Warning: REACT_APP_GOOGLE_CLIENT_ID environment variable is not set. Google OAuth will not work.");
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

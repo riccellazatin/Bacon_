@@ -9,7 +9,7 @@ import Items from '../../screens/Shop/Items'
 import ItemPopup from './ItemPopup'
 import './Shop.css'
 import './ShopComponents.css'
-import axios from 'axios'
+import api from '../../api/axios'
 
 export default function Shop() {
     const navigate = useNavigate()
@@ -47,7 +47,7 @@ export default function Shop() {
      
      useEffect(() => {
         async function fetchItems() {
-            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            const {data} = await api.get('/items/')
             setItems(data)
         }
         fetchItems()

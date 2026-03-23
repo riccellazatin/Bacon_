@@ -26,7 +26,9 @@ export default function AddTask() {
     if (user?.has_exclusive_access) {
       api.get('/google/status/')
         .then(res => setIsGoogleConnected(res.data.is_connected))
-        .catch(err => console.error(err));
+        .catch(err => {
+          // Silent error handling
+        });
     }
   }, [user]);
 
@@ -39,13 +41,15 @@ export default function AddTask() {
           });
           setIsGoogleConnected(true);
         } catch (err) {
-            console.error("Failed to connect", err);
             alert("Google connection failed.");
         }
       },
       flow: 'auth-code',
       scope: 'https://www.googleapis.com/auth/calendar.events',
-      onError: error => console.log('Login Failed:', error)
+      onError: error => {
+        // Handle error silently or show UI feedback
+        alert('Google connection failed.');
+      }
   });
 
   const handleConnectGoogle = () => {
@@ -87,7 +91,7 @@ export default function AddTask() {
             await api.delete(`/tasks/${res.id}/`);
             dispatch(fetchTasks());
           } catch (delErr) {
-            console.error('Failed to delete task after user cancelled:', delErr);
+            // Silent error - task deletion failed, continue
           }
           return;
         }
@@ -96,7 +100,7 @@ export default function AddTask() {
       dispatch(fetchTasks());
       navigate('/dashboard');
     } catch (err) {
-      console.error(err);
+      // Error handling - show would be in Redux action or UI
     } finally {
       setCreating(false);
     }

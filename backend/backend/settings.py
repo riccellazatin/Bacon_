@@ -116,14 +116,13 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'Bacon',
-            'USER': 'BaconDjangoAdmin',
-            'PASSWORD': 'baconator',
-            'HOST': 'localhost',
-            'PORT': '5432',
+            'NAME': os.environ.get('DB_NAME', 'Bacon'),
+            'USER': os.environ.get('DB_USER', 'BaconDjangoAdmin'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'baconator'),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
         }
-        }
-}
+    }
 
 
 # Password validation
@@ -148,11 +147,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE /static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+LANGUAGE_CODE = 'en-us'
 
-MEDIA_URL = '/media/'
+TIME_ZONE = 'Asia/Manila'
+
 USE_I18N = True
 
 USE_TZ = True
@@ -172,11 +170,11 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Django REST Framework
 REST_FRAMEWORK = {
-    'DE- allow frontend to access API
-CORS_ALLOWED_ORIGINS = os.environ.get(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000'
-).split(',')
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
 # Simple JWT settings (defaults are fine; override if needed)
 from datetime import timedelta
 SIMPLE_JWT = {
@@ -184,16 +182,22 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
-# CORS (development) - allow frontend local dev server to access API
+# CORS - allow frontend to access API
+# Load from environment variable, split by comma, and strip whitespace from each origin
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    origin.strip() for origin in os.environ.get(
+        'CORS_ALLOWED_ORIGINS',
+        'http://localhost:3000,http://127.0.0.1:3000'
+    ).split(',')
 ]
-
-# For convenience during development you can set this to True (less secure)
-# CORS_ALLOW_ALL_ORIGINS = True
 
 # Gemini task prioritization settings
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '').strip()
+GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash').strip()
+GEMINI_TIMEOUT_SECONDS = int(os.environ.get('GEMINI_TIMEOUT_SECONDS', '10'))
+
+# PayPal settings (for shop functionality)
+PAYPAL_RECEIVER_EMAIL = os.environ.get('PAYPAL_RECEIVER_EMAIL', '')
+PAYPAL_SANDBOX = os.environ.get('DEBUG', 'True') == 'True'
 GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash').strip()
 GEMINI_TIMEOUT_SECONDS = int(os.environ.get('GEMINI_TIMEOUT_SECONDS', '10'))

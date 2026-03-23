@@ -16,7 +16,6 @@ const GoogleCallback = () => {
                     navigate('/dashboard', { state: { message: "Google Calendar connected!" } });
                 })
                 .catch((err) => {
-                    console.error("Google Auth Error:", err);
                     navigate('/dashboard', { state: { error: "Failed to connect Google Calendar." } });
                 });
         }

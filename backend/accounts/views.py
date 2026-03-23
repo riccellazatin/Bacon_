@@ -114,9 +114,9 @@ def google_auth_callback(request):
     """
     Exchange the authorization code for tokens.
     """
-    # Disable OAuthlib's HTTPS verification when running locally.
-    # DO NOT leave this enabled in production.
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    # Disable OAuthlib's HTTPS verification when running locally (development only).
+    if os.environ.get('DEBUG') == 'True':
+        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
     code = request.data.get('code')
     redirect_uri = request.data.get('redirect_uri')
@@ -128,7 +128,9 @@ def google_auth_callback(request):
     client_secret = os.environ.get('GOOGLE_CLIENT_SECRET')
 
     if not client_id or not client_secret:
-        print("Missing Google Client ID or Secret in environment variables.")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error("Missing Google Client ID or Secret in environment variables.")
         return Response({"detail": "Server configuration error."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
@@ -167,8 +169,9 @@ def google_auth_callback(request):
         
         return Response({"detail": "Google Calendar connected successfully."})
     except Exception as e:
-        import traceback
-        traceback.print_exc() # Print full error to server console
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.exception(f"Google Auth Error: {str(e)}")
         return Response({"detail": f"Google Auth Error: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])

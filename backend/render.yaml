@@ -33,6 +33,7 @@ services:
         sync: false
       - key: GOOGLE_REDIRECT_URI
         value: https://yourdomain.vercel.app/api/accounts/google/callback/
+        # Replace 'yourdomain' with your actual Vercel deployment URL
 
 databases:
   - name: bacon-db

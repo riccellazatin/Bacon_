@@ -2,7 +2,7 @@ import {Row, Col} from 'react-bootstrap'
 
 import Items from '../../screens/Shop/Items'
 import './ShopComponents.css'
-import axios from 'axios'
+import api from '../../api/axios'
 import { useState, useEffect } from 'react'
 
 function ItemRecommendation({excludeItemId, onRecommendationClick}) {
@@ -17,7 +17,7 @@ function ItemRecommendation({excludeItemId, onRecommendationClick}) {
 
         useEffect(() => {
         async function fetchItems() {
-            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            const {data} = await api.get('/items/')
             setItems(data)
         }
         fetchItems()

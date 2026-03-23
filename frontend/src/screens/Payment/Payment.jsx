@@ -60,7 +60,6 @@ const Payment = () => {
                 navigate('/shop');
             }, 2000);
         } catch (error) {
-            console.error("Payment Error:", error);
             const errorMsg = error.response && error.response.data 
                 ? (error.response.data.detail || JSON.stringify(error.response.data))
                 : error.message;
@@ -106,7 +105,6 @@ const Payment = () => {
                                 }}
                                 onApprove={handleApprove}
                                 onError={(err) => {
-                                    console.error(err);
                                     setMessage("Payment failed. Please try again.");
                                 }}
                             />

@@ -1,7 +1,7 @@
 import './Landing.css'
 import LandCard from '../../components/LandCard/LandCard'
 import {Row, Col} from 'react-bootstrap'
-import axios from 'axios'
+import api from '../../api/axios'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -16,7 +16,7 @@ function Landing() {
 
      useEffect(() => {
         async function fetchItems() {
-            const {data} = await axios.get('http://127.0.0.1:8000/api/items/')
+            const {data} = await api.get('/items/')
             setItems(data)
         }
         fetchItems()

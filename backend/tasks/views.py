@@ -1,5 +1,6 @@
 import re
 import json
+import logging
 from xmlrpc import client
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
@@ -8,6 +9,8 @@ from django.db.models import F, Q
 from .models import ScheduleBlock, Task
 from .serializers import ScheduleBlockSerializer, ScheduleImageUploadSerializer, TaskSerializer
 from .services.prioritization import prioritize_and_save_task, determine_task_difficulty
+
+logger = logging.getLogger(__name__)
 import random
 from django.utils import timezone
 import os
@@ -108,7 +111,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
                  # User opted in but not connected
                  pass
             except Exception as e:
-                print(f"Failed to add to Google Calendar: {e}")
+                logger.exception(f"Failed to add to Google Calendar: {e}")
                 # Don't fail the task creation
         
         return task
@@ -374,8 +377,7 @@ class ScheduleUploadView(APIView):
             }, status=status.HTTP_201_CREATED)
 
         except Exception as e:
-            # This will print the actual error to your Django terminal
-            print(f"Error in ScheduleUploadView: {str(e)}")
+            logger.exception(f"Error in ScheduleUploadView: {str(e)}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ScheduleBlockListView(generics.ListAPIView):

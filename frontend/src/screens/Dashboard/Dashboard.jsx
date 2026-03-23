@@ -34,7 +34,7 @@ export default function Dashboard() {
       // Points are already updated in Redux by completeTask action
       // No need to manually update here
     }).catch((error) => {
-      console.error('Error completing task:', error)
+      // Error handling - user will see task state update fail silently
     })
   }
 
