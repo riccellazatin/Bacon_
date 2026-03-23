@@ -2,12 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from dotenv import load_dotenv
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # Load environment variables from .env file
+except ImportError:
+    pass  # dotenv is optional; will use environment variables directly
 
 
 def main():
     """Run administrative tasks."""
-    load_dotenv()  # Load environment variables from .env file
     
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
     try:

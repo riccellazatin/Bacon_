@@ -1,5 +1,8 @@
 ﻿Django==5.2.7
 
+# Environment variables
+python-dotenv>=1.0
+
 # API
 djangorestframework>=3.14
 djangorestframework-simplejwt>=5.3
