@@ -214,7 +214,10 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
-    for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+    for origin in os.environ.get(
+        'CSRF_TRUSTED_ORIGINS', 
+        'https://bacon-team.vercel.app'
+    ).split(',')
     if origin.strip()
 ]
 

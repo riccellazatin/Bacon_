@@ -16,8 +16,8 @@ import {
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    // SimpleJWT expects the username field; send both to be compatible
-    const payload = { username: email, email, password };
+    // Custom User model uses email as USERNAME_FIELD, so only send email and password
+    const payload = { email, password };
     const res = await api.post('/token/', payload);
     const { access, refresh } = res.data;
     localStorage.setItem('access_token', access);
@@ -38,8 +38,8 @@ export const register = (username, email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
     // create user
     await api.post('/register/', { username, email, password });
-    // immediately login the new user
-    const payload = { username: email, email, password };
+    // immediately login the new user - use only email and password
+    const payload = { email, password };
     const res = await api.post('/token/', payload);
     const { access, refresh } = res.data;
     localStorage.setItem('access_token', access);
