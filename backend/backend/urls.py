@@ -25,7 +25,21 @@ from django.conf.urls.static import static
 
 from backend.courses import views
 
+from django.http import JsonResponse
+
+def api_root(request):
+    return JsonResponse({
+        "message": "🥓 Bacon API is running!",
+        "endpoints": {
+            "auth": "/api/accounts",
+            "tasks": "/api/tasks",
+            "token": "/api/token/",
+            "courses": "/api/courses",
+        }
+    })
+
 urlpatterns = [
+    path('api/', api_root, name='api_root'), 
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls')),
     path('api/tasks/', include('tasks.urls')),
