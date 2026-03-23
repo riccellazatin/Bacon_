@@ -9,7 +9,7 @@ function Landing() {
   const [items, setItems] = useState([])
 
   const navigate = useNavigate();
-
+// hello
   const handleCardClick = (item) => {
     navigate(`/shop`)
   }
