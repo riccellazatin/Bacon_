@@ -58,7 +58,7 @@ DEBUG = _env_bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1', 'https://bacon-team.vercel.app/', 'https://bacon-backend-nu68.onrender.com').split(',')
     if host.strip()
 ]
 
