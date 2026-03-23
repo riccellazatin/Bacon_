@@ -13,13 +13,23 @@ if (!GOOGLE_CLIENT_ID) {
   console.warn("Warning: REACT_APP_GOOGLE_CLIENT_ID environment variable is not set. Google OAuth will not work.");
 }
 
+const AppRoot = (
+  <App />
+);
+
+const AppWithProviders = GOOGLE_CLIENT_ID ? (
+  <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    {AppRoot}
+  </GoogleOAuthProvider>
+) : (
+  AppRoot
+);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-         <App />
-      </GoogleOAuthProvider>
+      {AppWithProviders}
     </Provider>
   </React.StrictMode>
 );
