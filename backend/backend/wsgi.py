@@ -8,9 +8,19 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 """
 
 import os
+import sys
+import logging
 
-from django.core.wsgi import get_wsgi_application
+# Setup logging
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
+logger = logging.getLogger(__name__)
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
-
-application = get_wsgi_application()
+try:
+    from django.core.wsgi import get_wsgi_application
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+    logger.info("🚀 Loading Django settings...")
+    application = get_wsgi_application()
+    logger.info("✅ Django WSGI application loaded successfully!")
+except Exception as e:
+    logger.error(f"❌ ERROR loading Django: {str(e)}", exc_info=True)
+    raise

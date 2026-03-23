@@ -6,7 +6,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pip install -r backend/requirements.txt && python manage.py collectstatic --no-input
-    startCommand: gunicorn backend.wsgi --bind 0.0.0.0:8000 --workers 1 --timeout 0 --access-logfile - --error-logfile -
+    startCommand: gunicorn backend.wsgi --workers 1 --timeout 120 --bind 0.0.0.0:$PORT
     envVars:
       - key: DEBUG
         value: false
