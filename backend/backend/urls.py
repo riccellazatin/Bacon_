@@ -16,13 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from accounts.serializers import CustomTokenObtainPairSerializer
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import JsonResponse
+
+class CustomTokenObtainPairView(APIView):
+    """Custom token view that uses email for authentication"""
+    def post(self, request):
+        serializer = CustomTokenObtainPairSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.validated_data)
+        return Response(serializer.errors, status=400)
 
 def api_root(request):
     return JsonResponse({
@@ -40,7 +48,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls')),
     path('api/tasks/', include('tasks.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('shop.urls')),
     path('api/courses/', include('courses.urls')),

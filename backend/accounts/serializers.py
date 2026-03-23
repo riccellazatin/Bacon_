@@ -1,5 +1,44 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import User, UserPreferences
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Custom token serializer that uses email for authentication
+    instead of username, since our User model uses email as USERNAME_FIELD
+    """
+    email = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)
+    username = None  # Hide username field from API
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Remove username field
+        self.fields.pop('username', None)
+
+    def validate(self, attrs):
+        """
+        Override validate to use email instead of username
+        """
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            try:
+                user = User.objects.get(email=email)
+                if not user.check_password(password):
+                    raise serializers.ValidationError('Invalid email or password.')
+            except User.DoesNotExist:
+                raise serializers.ValidationError('Invalid email or password.')
+
+            refresh = self.get_token(user)
+            return {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }
+        else:
+            raise serializers.ValidationError('Email and password are required.')
 
 
 class UserPreferencesSerializer(serializers.ModelSerializer):
