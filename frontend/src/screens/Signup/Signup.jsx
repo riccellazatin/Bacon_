@@ -117,7 +117,7 @@ function SignupPage() {
                 </div>
 
                 <div className="signup-right">
-                    <img src="./images/bacon_asset1.png" alt="Bacon signup asset" />
+                    <img src="/images/bacon_asset1.png" alt="Bacon signup asset" />
                 </div>
         </div>
         </>

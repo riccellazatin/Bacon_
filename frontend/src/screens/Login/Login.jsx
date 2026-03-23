@@ -30,7 +30,7 @@ function LoginPage() {
     return (
         <main className="login-form">
             <div className="login-left">
-                <img src="./images/bacon_asset2.png" className="login-asset" alt="Bacon login asset"/>
+                <img src="/images/bacon_asset2.png" className="login-asset" alt="Bacon login asset"/>
             </div>
                     <div className="login-right">
                         <h2 className="welcome">Welcome Back!</h2>

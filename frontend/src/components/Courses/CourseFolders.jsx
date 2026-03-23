@@ -25,7 +25,7 @@ const CourseFolders = ({ folders, onCreate, onDelete, onSelect }) => {
                 <div key={folder.id} className="folder-card">
                     <div onClick={() => onSelect(folder)} style={{ cursor: 'pointer', marginBottom: '10px' }}>
                         <img 
-                            src="./images/folder.png"
+                            src="/images/folder.png"
                             alt="folder icon" 
                             className="folder-image"
                         />
