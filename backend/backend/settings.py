@@ -58,7 +58,7 @@ DEBUG = _env_bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,.onrender.com').split(',')
+    for host in os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1', 'http://0.0.0.0:10000').split(',')
     if host.strip()
 ]
 
@@ -206,7 +206,8 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     origin.strip() for origin in os.environ.get(
         'CORS_ALLOWED_ORIGINS',
-        'http://localhost:3000,https://bacon-team.vercel.app'
+        'http://localhost:3000',
+        'http://0.0.0.0:10000',
     ).split(',')
 ]
 
