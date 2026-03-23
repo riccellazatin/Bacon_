@@ -1,12 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "build",
-  "env": {
-    "REACT_APP_API_BASE": "@react_app_api_base",
-    "REACT_APP_GOOGLE_CLIENT_ID": "@react_app_google_client_id",
-    "REACT_APP_GOOGLE_REDIRECT_URI": "@react_app_google_redirect_uri",
-    "REACT_APP_PAYPAL_CLIENT_ID": "@react_app_paypal_client_id"
-  },
   "routes": [
     {
       "src": "/static/(.*)",
