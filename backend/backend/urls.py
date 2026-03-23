@@ -23,6 +23,8 @@ from rest_framework_simplejwt.views import (
 from django.conf import settings
 from django.conf.urls.static import static
 
+from backend.courses import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls')),
@@ -31,6 +33,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('shop.urls')),
     path('api/courses/', include('courses.urls')),
+    path('migrate/', views.run_migrations, name='run_migrations'),
 ]
 
 if settings.DEBUG:
