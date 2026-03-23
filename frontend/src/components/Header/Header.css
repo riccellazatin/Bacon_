@@ -33,6 +33,7 @@ Orange: #fd5732
     text-decoration: none;
     margin: 0 2vh;
     align-self: center;
+    margin-left: 30vw;
 }
 
 .nav-link {
@@ -77,4 +78,10 @@ Orange: #fd5732
     padding: 8px 20px;
     border-radius: 80px;
     transition: background-color 0.5s ease, transform 0.5s ease;   
+}
+
+@media screen and (max-width: 800px) {
+    .logo-nav {
+        margin-left: 10px;
+    }
 }
