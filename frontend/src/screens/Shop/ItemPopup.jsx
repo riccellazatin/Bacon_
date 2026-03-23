@@ -25,14 +25,6 @@ function ItemPopup(props) {
         }   
      }, [auth.token, auth.userInfo, auth.loading, auth.error, dispatch]);
 
-     useEffect(() => {
-        async function fetchItems() {
-            const {data} = await api.get('/items/')
-            setItems(data)
-        }
-        fetchItems()
-     }, [])
-
     const handlePurchase = async () => {
         if (!props.item) return
         
