@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCurrentUser } from '../../redux/actions/authActions'
-import { fetchPoints, updatePoints } from '../../redux/actions/pointsActions'
+import { fetchPoints } from '../../redux/actions/pointsActions'
 import {Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 

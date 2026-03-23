@@ -33,7 +33,7 @@ function Landing() {
         </div>
 
         <div className="header-right">
-          <img src="./images/bacon_landing.png" className="bacon-logo"/>
+          <img src="./images/bacon_landing.png" className="bacon-logo" alt="Bacon mascot landing page logo"/>
         </div>
       </div>
 

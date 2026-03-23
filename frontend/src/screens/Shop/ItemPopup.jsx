@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react'
 import api from '../../api/axios'
 
 function ItemPopup(props) {
-    const [item, setItems] = useState([])
     const [purchaseLoading, setPurchaseLoading] = useState(false)
     const [purchaseMessage, setPurchaseMessage] = useState(null)
     const [purchaseError, setPurchaseError] = useState(null)

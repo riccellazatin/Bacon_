@@ -15,7 +15,7 @@ const SemesterScan = () => {
   const navigate = useNavigate();
 
   const { loading, error, success, blocks } = useSelector((state) => state.schedule);
-  const { userInfo, isOnboarded } = useSelector((state) => state.auth);
+  const { isOnboarded } = useSelector((state) => state.auth);
 
   useEffect(() => {
   if (success && blocks && blocks.length > 0) {

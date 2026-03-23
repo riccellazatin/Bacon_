@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, completeTask } from '../../redux/actions/taskActions';
 import { fetchPoints } from '../../redux/actions/pointsActions';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import MiniCalendar from '../../components/MiniCalendar/MiniCalendar';
 import './Dashboard.css';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import axios from 'axios';
 import Footer from '../../components/Footer/Footer'
 
 export default function Dashboard() {

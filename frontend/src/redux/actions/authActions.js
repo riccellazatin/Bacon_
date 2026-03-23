@@ -80,7 +80,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 export const updatePreferences = (prefs) => async (dispatch) => {
   try {
     dispatch({ type: USER_PREFERENCES_UPDATE_REQUEST });
-    const res = await api.patch('/user/preferences/', prefs);
+    await api.patch('/user/preferences/', prefs);
     // After updating preferences, backend marks is_onboarded = True
     // Refresh user info
     const userRes = await api.get('/user/');

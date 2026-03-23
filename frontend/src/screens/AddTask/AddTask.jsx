@@ -16,7 +16,7 @@ export default function AddTask() {
   const [description, setDescription] = useState('');
   const [deadline, setDeadline] = useState('');
   // User can still pick a date, but AI will suggest a 'suggested_start_time' based on gaps
-  const [scheduledDate, setScheduledDate] = useState(''); 
+  const [scheduledDate] = useState('');
   const [duration, setDuration] = useState(0); // Default 0 means AI predicts it
   const [creating, setCreating] = useState(false);
   const [addToCalendar, setAddToCalendar] = useState(false);

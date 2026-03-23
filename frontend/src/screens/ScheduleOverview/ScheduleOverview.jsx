@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Button, Card, Alert, Spinner } from 'react-bootstrap';
+import { Container, Alert, Spinner } from 'react-bootstrap';
 import './ScheduleOverview.css';
 import Footer from '../../components/Footer/Footer'
 
