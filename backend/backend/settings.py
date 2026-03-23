@@ -203,11 +203,13 @@ SIMPLE_JWT = {
 
 # CORS - allow frontend to access API
 # Load from environment variable, split by comma, and strip whitespace from each origin
+CORS_ALLOW_ALL_ORIGINS = _env_bool('CORS_ALLOW_ALL', default=True) # Allow all domains by default for smoother deployment
+
 CORS_ALLOWED_ORIGINS = [
     origin.strip() for origin in os.environ.get(
         'CORS_ALLOWED_ORIGINS',
-        'http://localhost:3000,https://bacon-team.vercel.app'
-    ).split(',')
+        'https://bacon-team.vercel.app'
+    ).split(',') if origin.strip()
 ]
 
 CSRF_TRUSTED_ORIGINS = [
