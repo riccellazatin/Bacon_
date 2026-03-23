@@ -103,8 +103,6 @@ function SignupPage() {
                             <button
                                 type="submit"
                                 className="signup-button"
-                                onMouseEnter={() => setIsHovering(true)}
-                                onMouseLeave={() => setIsHovering(false)}
                             >
                                 SIGN UP
                             </button>
@@ -119,7 +117,7 @@ function SignupPage() {
                 </div>
 
                 <div className="signup-right">
-                    <img src="./images/bacon_asset1.png" />
+                    <img src="./images/bacon_asset1.png" alt="Bacon signup asset" />
                 </div>
         </div>
         </>

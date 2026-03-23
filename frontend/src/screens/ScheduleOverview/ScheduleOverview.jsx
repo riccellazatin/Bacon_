@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Container, Alert, Spinner } from 'react-bootstrap';
+import { Container, Alert, Spinner, Button } from 'react-bootstrap';
 import './ScheduleOverview.css';
-import Footer from '../../components/Footer/Footer'
 
 const ScheduleOverview = () => {
   const navigate = useNavigate();
@@ -35,11 +34,6 @@ const ScheduleOverview = () => {
     return `${parts[0]}:${parts[1]}`;
   };
 
-  // Get classes for a specific day
-  const getClassesForDay = (day) => {
-    return blocks.filter((block) => block.day_of_week === day);
-  };
-
   // Find which time slot a class starts in
   const getTimeSlotIndex = (startTime) => {
     const startMinutes = timeToMinutes(startTime);
@@ -57,24 +51,6 @@ const ScheduleOverview = () => {
     
     // Calculate span based on duration, rounding up to include partial slots
     return Math.ceil(durationMinutes / slotMinutesDuration);
-  };
-
-  // Calculate grid row start and end for precise positioning
-  const getGridRowStyle = (startTime, endTime) => {
-    const startMinutes = timeToMinutes(startTime);
-    const endMinutes = timeToMinutes(endTime);
-    const firstSlotMinutes = 6 * 60; // 6 AM
-    const slotMinutesDuration = 30; // Each slot is 30 minutes
-    
-    const startSlotIndex = Math.floor((startMinutes - firstSlotMinutes) / slotMinutesDuration);
-    const endSlotIndex = Math.ceil((endMinutes - firstSlotMinutes) / slotMinutesDuration);
-    
-    // Grid rows: row 1 = header, rows 2+ = time slots
-    // Slot 0 is at row 2, slot X is at row (X + 2)
-    const startRow = startSlotIndex + 2;
-    const endRow = endSlotIndex + 2;
-    
-    return `${startRow} / ${endRow}`; // Grid row range
   };
 
   const handleContinue = () => {
